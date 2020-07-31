@@ -4,20 +4,14 @@ import java.util.List;
 
 public class ModulesListBean {
 
-    private List<ModuleBean> modules;
+    private List<ModulesBean> modules;
 
-    public List<ModuleBean> getModules() {
+    public List<ModulesBean> getModules() {
         return modules;
     }
 
-    public void setModules(List<ModuleBean> modules) {
+    public void setModules(List<ModulesBean> modules) {
         this.modules = modules;
     }
 
-    @Override
-    public String toString() {
-        return "HomeTopBean{" +
-                "modules=" + modules +
-                '}';
-    }
 }

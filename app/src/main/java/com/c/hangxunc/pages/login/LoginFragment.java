@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -58,6 +59,10 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
     BottomView bottomView;
     @BindView(R.id.loading)
     LoadingView loading;
+    @BindView(R.id.show_email)
+    RadioButton showEmail;
+    @BindView(R.id.show_phone)
+    RadioButton showPhone;
     private LoginPresenter mLoginPresenter;
 
 
@@ -196,8 +201,12 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
                     case R.id.show_email:
                         emailContainer.setVisibility(View.VISIBLE);
                         phoneContainer.setVisibility(View.GONE);
+                        showEmail.setBackgroundResource(R.drawable.login_radio_checked_bg);
+                        showPhone.setBackgroundResource(android.R.color.transparent);
                         break;
                     case R.id.show_phone:
+                        showEmail.setBackgroundResource(android.R.color.transparent);
+                        showPhone.setBackgroundResource(R.drawable.login_radio_checked_bg);
                         emailContainer.setVisibility(View.GONE);
                         phoneContainer.setVisibility(View.VISIBLE);
                         break;

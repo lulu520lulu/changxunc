@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.BreadCrumbsBean;
+import com.c.hangxunc.bean.home.ProductBean;
+import com.c.hangxunc.bean.home.SearchResultBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
@@ -194,13 +196,13 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
         return sortData;
     }
 
-    private void showSuccess(BreadCrumbsBean bean) {
+    private void showSuccess(SearchResultBean bean) {
         HangLog.d(TAG, "showSuccess ");
         if (bean == null || bean.getProducts() == null || bean.getProducts().size() == 0) {
             handleFail();
             return;
         }
-        List<BreadCrumbsBean.ProductsBean> products = bean.getProducts();
+        List<ProductBean> products = bean.getProducts();
         HangLog.d(TAG, "showSuccess " + products.size());
         mSearchAdapter.setData(products);
 
@@ -235,25 +237,25 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
 
     private void startSearch(String keyword, String sorts, String order) {
         showLoading();
-        HangXunBiz.getInstance().searchPro(keyword, sorts, order, new ResponseListener<BreadCrumbsBean>() {
+        HangXunBiz.getInstance().searchPro(keyword, sorts, order, new ResponseListener<SearchResultBean>() {
             @Override
             public void onFail(int code, String message) {
-                HangLog.d(TAG, "onFail getHomeTop code: " + code + ",message:" + message);
+                HangLog.d(TAG, "onFail startSearch code: " + code + ",message:" + message);
                 handleFail();
             }
 
             @Override
-            public void onSuccess(BreadCrumbsBean bean) {
+            public void onSuccess(SearchResultBean bean) {
                 if (bean == null) {
                     handleFail();
                     return;
                 }
-                List<BreadCrumbsBean.ProductsBean> products = bean.getProducts();
+                List<ProductBean> products = bean.getProducts();
                 if (products == null || products.size() == 0) {
                     handleFail();
                     return;
                 }
-                HangLog.d(TAG, "onSuccess searchPro bean: " + bean.toString());
+                HangLog.d(TAG, "onSuccess startSearch bean: " + bean.toString());
                 showSuccess(bean);
             }
         });

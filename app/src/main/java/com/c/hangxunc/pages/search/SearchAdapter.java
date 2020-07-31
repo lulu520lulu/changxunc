@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.BreadCrumbsBean;
+import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.utils.JumpUtils;
@@ -26,13 +27,13 @@ public class SearchAdapter extends RecyclerView.Adapter {
     private static final String TAG = SearchAdapter.class.getSimpleName();
 
     private Context mContext;
-    private List<BreadCrumbsBean.ProductsBean> mDatas = new ArrayList<>();
+    private List<ProductBean> mDatas = new ArrayList<>();
 
     public SearchAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setData(List<BreadCrumbsBean.ProductsBean> data) {
+    public void setData(List<ProductBean> data) {
         mDatas.clear();
         mDatas.addAll(data);
         notifyDataSetChanged();
@@ -54,7 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         SearchViewHolder viewHolder = (SearchViewHolder) holder;
 
-        BreadCrumbsBean.ProductsBean item = mDatas.get(position);
+        ProductBean item = mDatas.get(position);
         viewHolder.price_text.setText(item.getPrice());
         viewHolder.product_text.setText(item.getName());
         Glide.with(mContext)

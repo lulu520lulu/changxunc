@@ -2,6 +2,7 @@ package com.c.hangxunc.pages.shop;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,10 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import com.c.hangxunc.R;
+import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.utils.LanguageUtils;
 import com.c.hangxunc.utils.LoginUtils;
 import com.just.agentweb.AgentWeb;
 
@@ -45,14 +48,11 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
         if (webContainer == null) {
             return;
         }
-//        String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId()
-//                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
-//        if (TextUtils.isEmpty(url)) {
-//            return;
-//        }
-        String path = "https://lanhuapp.com/web/#/item/project/board/detail?pid=1d0e9d6b-f8c7-4c32-a633-5405f1de13a8&project_id=1d0e9d6b-f8c7-4c32-a633-5405f1de13a8&image_id=870f65b3-6d25-4904-b398-fea2d248515d";
-
-
+        String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId()
+                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
         mAgentWeb = AgentWeb.with(getActivity())
                 .setAgentWebParent(webContainer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT))
@@ -60,7 +60,7 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
                 .setWebViewClient(new com.just.agentweb.WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                        view.loadUrl(path);
+                        view.loadUrl(url);
                         return true;
                     }
 
@@ -73,7 +73,7 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
                 })
                 .createAgentWeb()
                 .ready()
-                .go(path);
+                .go(url);
 
     }
 

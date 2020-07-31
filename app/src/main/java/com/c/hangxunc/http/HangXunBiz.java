@@ -11,6 +11,7 @@ import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.bean.home.ModulesListBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
+import com.c.hangxunc.bean.home.SearchResultBean;
 import com.c.hangxunc.bean.home.SmsCodeBean;
 import com.c.hangxunc.bean.login.LoginInfo;
 import com.c.hangxunc.bean.login.RegistInfo;
@@ -130,7 +131,7 @@ public class HangXunBiz {
      */
     public void searchPro(String keyWord, String sorts, String order, ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<BreadCrumbsBean> call = service.searchPro(LoginUtils.getInstance().getCustomerId(), keyWord, sorts, order,LanguageUtils.getInstance().getCode());
+        Call<SearchResultBean> call = service.searchPro(LoginUtils.getInstance().getCustomerId(), keyWord, sorts, order,LanguageUtils.getInstance().getCode());
         call.enqueue(listener);
     }
 

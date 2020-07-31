@@ -34,7 +34,6 @@ public class ProductBean {
     private boolean special;
     private boolean flash;
     private boolean tax;
-    //            private SellerBean seller;
     private int minimum;
     private int rating;
     private int sales;
@@ -45,7 +44,6 @@ public class ProductBean {
     private String group_price;
     private int groupbuy_list_len;
     private List<?> groupbuy_list;
-
 
     public int getProduct_id() {
         return product_id;

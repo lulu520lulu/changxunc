@@ -2,18 +2,13 @@ package com.c.hangxunc.pages.home;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,11 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.BannersBean;
-import com.c.hangxunc.bean.home.ModuleBean;
-import com.c.hangxunc.bean.home.PostsBean;
+import com.c.hangxunc.bean.home.ItemsBean;
+import com.c.hangxunc.bean.home.ModulesBean;
 import com.c.hangxunc.bean.home.ProductBean;
-import com.c.hangxunc.bean.home.TabsBean;
-import com.c.hangxunc.utils.DimenUtils;
+import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.utils.JumpUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -42,15 +36,18 @@ import java.util.List;
 public class HomeListAdapter extends RecyclerView.Adapter {
 
     private Activity mContext;
-    private List<ModuleBean> mData = new ArrayList<>();
+    private List<ModulesBean> mData = new ArrayList<>();
 
     private static final int ITEM_TYPE_BANNER = 1;
-    private static final int ITEM_TYPE_PRODUCT = 2;
-    private static final int ITEM_TYPE_TAB = 3;
-    private static final int ITEM_TYPE_POST = 4;
+    private static final int ITEM_TYPE_ITEM = 2;
+    private static final int ITEM_TYPE_PRODUCT_KEJI = 3;
+    private static final int ITEM_TYPE_PRODUCT_XIANSHI = 4;
     private static final int ITEM_TYPE_BOTTOM_LIST = 5;
     private static final int ITEM_TYPE_BOTTOM = 6;
-    private static final int ITEM_TYPE_BANNER_TOP = 7;
+    private static final int ITEM_TYPE_PRODUCT_GONGCHANG = 7;
+
+    private static final int ITEM_TYPE_PRODUCT_ALL = 8;
+
 
     @Override
     public int getItemCount() {
@@ -62,20 +59,24 @@ public class HomeListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        ModuleBean bean = mData.get(position);
+        ModulesBean bean = mData.get(position);
         if (bean != null) {
             if (bean.getBanners() != null && bean.getBanners().size() > 0) {
-                if (position == 0) {
-                    return ITEM_TYPE_BANNER_TOP;
-                } else {
-                    return ITEM_TYPE_BANNER;
-                }
+                return ITEM_TYPE_BANNER;
+            } else if (bean.getItems() != null && bean.getItems().size() > 0) {
+                return ITEM_TYPE_ITEM;
             } else if (bean.getProducts() != null && bean.getProducts().size() > 0) {
-                return ITEM_TYPE_PRODUCT;
-            } else if (bean.getTabs() != null && bean.getTabs().size() > 0) {
-                return ITEM_TYPE_TAB;
-            } else if (bean.getPosts() != null && bean.getPosts().size() > 0) {
-                return ITEM_TYPE_POST;
+                if (TextUtils.equals(bean.getTitle(), "科技成果")) {
+                    return ITEM_TYPE_PRODUCT_KEJI;
+                } else if (TextUtils.equals(bean.getTitle(), "限时优惠")) {
+                    return ITEM_TYPE_PRODUCT_XIANSHI;
+                } else if (TextUtils.equals(bean.getTitle(), "工厂尾单")) {
+                    if (TextUtils.isEmpty(bean.getHref())) {
+                        return ITEM_TYPE_PRODUCT_GONGCHANG;
+                    } else {
+                        return ITEM_TYPE_PRODUCT_ALL;
+                    }
+                }
             } else if (TextUtils.equals(bean.getTitle(), "bottom")) {
                 return ITEM_TYPE_BOTTOM;
             } else if (TextUtils.equals(bean.getTitle(), "product")) {
@@ -90,38 +91,36 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         this.mContext = mContext;
     }
 
-    public void setTopData(List<ModuleBean> data) {
+    public void setTopData(List<ModulesBean> data) {
         mData.clear();
         mData.addAll(data);
-        ModuleBean bean = new ModuleBean();
+        ModulesBean bean = new ModulesBean();
         bean.setTitle("bottom");
         mData.add(bean);
         notifyDataSetChanged();
     }
 
-    public void setAllData(List<ModuleBean> topData, List<ProductBean> data) {
+    public void setAllData(List<ModulesBean> topData, List<ProductBean> data) {
         mData.clear();
         mData.addAll(topData);
 
-        ModuleBean product = new ModuleBean();
+        ModulesBean product = new ModulesBean();
         product.setTitle("product");
         product.setBottomProducts(data);
         mData.add(product);
 
-        ModuleBean bean = new ModuleBean();
+        ModulesBean bean = new ModulesBean();
         bean.setTitle("bottom");
         mData.add(bean);
         notifyDataSetChanged();
     }
 
     public void setMoreData(List<ProductBean> data) {
-
-        ModuleBean product = new ModuleBean();
+        ModulesBean product = new ModulesBean();
         product.setTitle("product");
         product.setSubtitle("more");
         product.setBottomProducts(data);
         mData.add(mData.size() - 1, product);
-
         notifyDataSetChanged();
     }
 
@@ -131,27 +130,31 @@ public class HomeListAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
         switch (viewType) {
-            case ITEM_TYPE_BANNER_TOP:
+            case ITEM_TYPE_BANNER:
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_list_banner_top, parent, false);
                 return new HomeListAdapter.BannerTopViewHolder(view);
-            case ITEM_TYPE_PRODUCT:
-                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product, parent, false);
-                return new HomeListAdapter.ProductViewHolder(view);
-            case ITEM_TYPE_TAB:
-                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_tab, parent, false);
-                return new HomeListAdapter.TabViewHolder(view);
-            case ITEM_TYPE_POST:
-                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_post, parent, false);
-                return new HomeListAdapter.PostViewHolder(view);
+            case ITEM_TYPE_ITEM:
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_item, parent, false);
+                return new HomeListAdapter.ItemViewHolder(view);
+            case ITEM_TYPE_PRODUCT_KEJI:
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product_keji, parent, false);
+                return new HomeListAdapter.ProductKeJiViewHolder(view);
+            case ITEM_TYPE_PRODUCT_XIANSHI:
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product_xianshi, parent, false);
+                return new HomeListAdapter.ProductXianViewHolder(view);
+            case ITEM_TYPE_PRODUCT_GONGCHANG:
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product_gongchang, parent, false);
+                return new HomeListAdapter.ProductGongViewHolder(view);
+            case ITEM_TYPE_PRODUCT_ALL:
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product_all, parent, false);
+                return new HomeListAdapter.ProductAllViewHolder(view);
             case ITEM_TYPE_BOTTOM_LIST:
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_list_bottom_list, parent, false);
                 return new HomeListAdapter.BottomListViewHolder(view);
             case ITEM_TYPE_BOTTOM:
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_list_bottom, parent, false);
                 return new HomeListAdapter.BottomViewHolder(view);
-            case ITEM_TYPE_BANNER:
-                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_banner, parent, false);
-                return new HomeListAdapter.BannerViewHolder(view);
+
         }
         return null;
 
@@ -159,133 +162,170 @@ public class HomeListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ModuleBean bean = mData.get(position);
+        ModulesBean bean = mData.get(position);
 
         int type = getItemViewType(position);
         switch (type) {
-            case ITEM_TYPE_BANNER_TOP:
+            case ITEM_TYPE_BANNER:
                 handleBannerTop(holder, bean);
                 break;
-            case ITEM_TYPE_PRODUCT:
-                handleProduct(holder, bean);
+            case ITEM_TYPE_ITEM:
+                handleItem(holder, bean);
                 break;
-            case ITEM_TYPE_TAB:
-                handleTab(holder, bean);
+            case ITEM_TYPE_PRODUCT_KEJI:
+                handleProductKeji(holder, bean);
                 break;
-            case ITEM_TYPE_POST:
-                handlePost(holder, bean);
+            case ITEM_TYPE_PRODUCT_XIANSHI:
+                handleProductXian(holder, bean);
+                break;
+            case ITEM_TYPE_PRODUCT_GONGCHANG:
+                handleProductGong(holder, bean);
+                break;
+            case ITEM_TYPE_PRODUCT_ALL:
+                handleProductAll(holder, bean);
                 break;
             case ITEM_TYPE_BOTTOM_LIST:
                 handleBottomList(holder, bean);
                 break;
             case ITEM_TYPE_BOTTOM:
                 break;
-            case ITEM_TYPE_BANNER:
-                handleBanner(holder, bean);
-                break;
+
 
         }
     }
 
-    private void handleBanner(RecyclerView.ViewHolder viewHolder, ModuleBean bean) {
-        List<BannersBean> list = bean.getBanners();
+    private void handleProductAll(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
+        List<ProductBean> list = bean.getBottomProducts();
         if (list == null || list.size() == 0) {
             return;
         }
-        if (viewHolder == null || !(viewHolder instanceof BannerViewHolder)) {
+        if (viewHolder == null || !(viewHolder instanceof ProductAllViewHolder)) {
             return;
         }
-        BannerViewHolder holder = (BannerViewHolder) viewHolder;
+        ProductAllViewHolder holder = (ProductAllViewHolder) viewHolder;
 
-        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
-        BannerAdapter adapter = new BannerAdapter(mContext, list);
+        if (TextUtils.isEmpty(bean.getSubtitle())) {
+            holder.products_container.setVisibility(View.VISIBLE);
+        } else {
+            holder.products_container.setVisibility(View.GONE);
+        }
+        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
+        ProductAllAdapter adapter = new ProductAllAdapter(mContext, list);
         holder.product_recycle.setAdapter(adapter);
     }
 
-    private class BottomViewHolder extends RecyclerView.ViewHolder {
+    private void handleProductGong(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
+        List<ProductBean> posts = bean.getProducts();
+        if (posts == null || posts.size() == 0) {
+            return;
+        }
+        if (viewHolder == null || !(viewHolder instanceof ProductGongViewHolder)) {
+            return;
+        }
+        ProductGongViewHolder holder = (ProductGongViewHolder) viewHolder;
+        if (TextUtils.isEmpty(bean.getHref())) {
+            holder.see_more.setVisibility(View.GONE);
+        } else {
+            holder.see_more.setVisibility(View.VISIBLE);
+            holder.see_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JumpUtils.goWeb(ApiConstants.BASE_URL + bean.getHref());
+                }
+            });
+        }
 
-        public BottomViewHolder(@NonNull View itemView) {
-            super(itemView);
+        holder.product_text.setText(bean.getTitle());
+        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext,
+                RecyclerView.VERTICAL, false));
+        ProductGongAdapter recycleAdapter = new ProductGongAdapter(mContext, posts);
+        holder.product_recycle.setAdapter(recycleAdapter);
+    }
+
+
+    private void handleProductXian(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
+        List<ProductBean> posts = bean.getProducts();
+        if (posts == null || posts.size() == 0) {
+            return;
+        }
+        if (viewHolder == null || !(viewHolder instanceof ProductXianViewHolder)) {
+            return;
+        }
+        ProductXianViewHolder holder = (ProductXianViewHolder) viewHolder;
+        holder.see_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpUtils.goWeb(ApiConstants.BASE_URL + bean.getHref());
+            }
+        });
+        holder.product_text.setText(bean.getTitle());
+        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext, 4));
+        ProductXianAdapter recycleAdapter = new ProductXianAdapter(mContext, posts);
+        holder.product_recycle.setAdapter(recycleAdapter);
+    }
+
+    private void handleProductKeji(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
+        List<ProductBean> posts = bean.getProducts();
+        if (posts == null || posts.size() == 0) {
+            return;
+        }
+        if (viewHolder == null || !(viewHolder instanceof ProductKeJiViewHolder)) {
+            return;
+        }
+        ProductKeJiViewHolder holder = (ProductKeJiViewHolder) viewHolder;
+        holder.see_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JumpUtils.goWeb(ApiConstants.BASE_URL + bean.getHref());
+            }
+        });
+        holder.product_text.setText(bean.getTitle());
+        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext,
+                RecyclerView.VERTICAL, false));
+        ProductKeAdapter recycleAdapter = new ProductKeAdapter(mContext, posts);
+        holder.product_recycle.setAdapter(recycleAdapter);
+    }
+
+    private void handleItem(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
+        List<ItemsBean> items = bean.getItems();
+        if (items == null || items.size() == 0) {
+            return;
+        }
+        if (viewHolder == null || !(viewHolder instanceof ItemViewHolder)) {
+            return;
+        }
+        ItemViewHolder holder = (ItemViewHolder) viewHolder;
+
+        holder.container.removeAllViews();
+        for (int i = 0; i < items.size(); i++) {
+            ItemsBean item = items.get(i);
+            if (item == null) {
+                continue;
+            }
+            View view = View.inflate(mContext, R.layout.home_item_item_layout, null);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+
+            ImageView image = view.findViewById(R.id.image);
+            TextView textView = view.findViewById(R.id.text);
+            textView.setText(item.getTitle());
+            Glide.with(mContext)
+                    .load(item.getImage())
+                    .into(image);
+
+            holder.container.addView(view, layoutParams);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JumpUtils.goWeb(ApiConstants.BASE_URL + "/" + item.getHref());
+                }
+            });
         }
     }
 
-    private class BottomListViewHolder extends RecyclerView.ViewHolder {
-        private TextView product_text;
-        private RecyclerView product_recycle;
-        private LinearLayout products_container;
-        private View space_view;
-        private View line;
 
-
-        public BottomListViewHolder(@NonNull View itemView) {
-            super(itemView);
-            product_text = itemView.findViewById(R.id.product_text);
-            product_recycle = itemView.findViewById(R.id.product_recycle);
-            products_container = itemView.findViewById(R.id.products_container);
-            space_view = itemView.findViewById(R.id.space_view);
-            line = itemView.findViewById(R.id.line);
-        }
-    }
-
-    private class PostViewHolder extends RecyclerView.ViewHolder {
-        private TextView see_more;
-        private TextView product_text;
-        private RecyclerView product_recycle;
-
-        public PostViewHolder(@NonNull View itemView) {
-            super(itemView);
-            see_more = itemView.findViewById(R.id.see_more);
-            product_text = itemView.findViewById(R.id.product_text);
-            product_recycle = itemView.findViewById(R.id.product_recycle);
-        }
-    }
-
-    private class TabViewHolder extends RecyclerView.ViewHolder {
-        private RadioGroup radio_group;
-        private RecyclerView tab_recycle;
-
-        public TabViewHolder(@NonNull View itemView) {
-            super(itemView);
-            radio_group = itemView.findViewById(R.id.radio_group);
-            tab_recycle = itemView.findViewById(R.id.tab_recycle);
-        }
-    }
-
-    private class ProductViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView product_text;
-        private RecyclerView product_recycle;
-
-        public ProductViewHolder(@NonNull View itemView) {
-            super(itemView);
-            product_recycle = itemView.findViewById(R.id.product_recycle);
-            product_text = itemView.findViewById(R.id.product_text);
-        }
-    }
-
-    private class BannerTopViewHolder extends RecyclerView.ViewHolder {
-
-        private Banner banner;
-
-        public BannerTopViewHolder(@NonNull View itemView) {
-            super(itemView);
-            banner = itemView.findViewById(R.id.banner);
-        }
-    }
-
-    private class BannerViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView product_text;
-        private RecyclerView product_recycle;
-
-        public BannerViewHolder(@NonNull View itemView) {
-            super(itemView);
-            product_text = itemView.findViewById(R.id.product_text);
-            product_recycle = itemView.findViewById(R.id.product_recycle);
-        }
-    }
-
-    private void handleBottomList(RecyclerView.ViewHolder viewHolder, ModuleBean bean) {
+    private void handleBottomList(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
         List<ProductBean> list = bean.getBottomProducts();
         if (list == null || list.size() == 0) {
             return;
@@ -295,15 +335,6 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         }
         BottomListViewHolder holder = (BottomListViewHolder) viewHolder;
 
-        if (TextUtils.isEmpty(bean.getSubtitle())) {
-            holder.products_container.setVisibility(View.VISIBLE);
-            holder.space_view.setVisibility(View.VISIBLE);
-            holder.line.setVisibility(View.VISIBLE);
-        } else {
-            holder.products_container.setVisibility(View.GONE);
-            holder.space_view.setVisibility(View.GONE);
-            holder.line.setVisibility(View.GONE);
-        }
         holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         BottomListAdapter adapter = new BottomListAdapter(mContext, list);
         holder.product_recycle.setAdapter(adapter);
@@ -343,121 +374,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
 
     }
 
-    private void handlePost(RecyclerView.ViewHolder viewHolder, ModuleBean bean) {
-        List<PostsBean> posts = bean.getPosts();
-        if (posts == null || posts.size() == 0) {
-            return;
-        }
-        if (viewHolder == null || !(viewHolder instanceof PostViewHolder)) {
-            return;
-        }
-        PostViewHolder holder = (PostViewHolder) viewHolder;
-        holder.see_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpUtils.goSeeMorePost(mContext, (ArrayList<PostsBean>) posts);
-            }
-        });
-        holder.product_text.setText(bean.getHeading_title());
-        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
-        PostRecycleAdapter recycleAdapter = new PostRecycleAdapter(mContext, posts);
-        holder.product_recycle.setAdapter(recycleAdapter);
-    }
-
-    private void handleTab(RecyclerView.ViewHolder viewHolder, ModuleBean bean) {
-        List<TabsBean> tabs = bean.getTabs();
-        if (tabs == null || tabs.size() == 0) {
-            return;
-        }
-        if (viewHolder == null || !(viewHolder instanceof TabViewHolder)) {
-            return;
-        }
-        TabViewHolder holder = (TabViewHolder) viewHolder;
-
-
-        holder.radio_group.removeAllViews();
-        for (int i = 0; i < tabs.size(); i++) {
-            TabsBean tabsBean = tabs.get(i);
-            if (tabsBean == null) {
-                continue;
-            }
-            RadioButton radioButton = new RadioButton(mContext);
-            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.MATCH_PARENT, 1);
-            radioButton.setButtonDrawable(null);
-            radioButton.setId(i + 10);
-            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.home_tab_hotal);
-            if (i == 1) {
-                drawable = mContext.getResources().getDrawable(R.mipmap.home_tab_food);
-            } else if (i == 2) {
-                drawable = mContext.getResources().getDrawable(R.mipmap.home_tab_info);
-            } else if (i == 3) {
-                drawable = mContext.getResources().getDrawable(R.mipmap.home_tab_product);
-            }
-            drawable.setBounds(0, 0, DimenUtils.dip2px(16), DimenUtils.dip2px(16));
-
-            radioButton.setCompoundDrawables(drawable, null, null, null);
-            radioButton.setCompoundDrawablePadding(DimenUtils.dip2px(4));
-            radioButton.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
-            radioButton.setText(tabsBean.getName());
-            radioButton.setPadding(DimenUtils.dip2px(16), 0, DimenUtils.dip2px(12), 0);
-            ColorStateList colorStateList = mContext.getResources().getColorStateList(R.color.home_center_tab_color);
-            radioButton.setTextColor(colorStateList);
-            radioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            if (i == 0) {
-                radioButton.setChecked(true);
-            } else {
-                radioButton.setChecked(false);
-            }
-            holder.radio_group.addView(radioButton, layoutParams);
-            if ((i + 1) < tabs.size()) {
-                TextView view = new TextView(mContext);
-                RadioGroup.LayoutParams lineLayoutParams = new RadioGroup.LayoutParams(DimenUtils.dip2px(0.5f),
-                        DimenUtils.dip2px(16));
-                view.setGravity(Gravity.CENTER_VERTICAL);
-
-                layoutParams.gravity = Gravity.CENTER_VERTICAL;
-                view.setBackgroundResource(R.color.line);
-                holder.radio_group.addView(view, lineLayoutParams);
-            }
-        }
-        TabRecycleAdapter tabRecycleAdapter = new TabRecycleAdapter(mContext);
-
-        holder.tab_recycle.setLayoutManager(new GridLayoutManager(mContext, 2));
-        holder.tab_recycle.setAdapter(tabRecycleAdapter);
-        TabsBean tabsBean = tabs.get(0);
-        List<TabsBean.ProductsBeanX> products = tabsBean.getProducts();
-        tabRecycleAdapter.setData(products);
-
-        holder.radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int position = checkedId - 10;
-                TabsBean tabsBean = tabs.get(position);
-                List<TabsBean.ProductsBeanX> products = tabsBean.getProducts();
-                tabRecycleAdapter.setData(products);
-            }
-        });
-
-
-    }
-
-    private void handleProduct(RecyclerView.ViewHolder viewHolder, ModuleBean bean) {
-        List<ProductBean> products = bean.getProducts();
-        if (products == null || products.size() == 0) {
-            return;
-        }
-        if (viewHolder == null || !(viewHolder instanceof ProductViewHolder)) {
-            return;
-        }
-        ProductViewHolder holder = (ProductViewHolder) viewHolder;
-        String title = bean.getTitle();
-        holder.product_text.setText(title);
-        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
-        ListProductAdapter listProductAdapter = new ListProductAdapter(mContext, products);
-        holder.product_recycle.setAdapter(listProductAdapter);
-    }
-
-    private void handleBannerTop(RecyclerView.ViewHolder viewHolder, ModuleBean bean) {
+    private void handleBannerTop(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
         List<BannersBean> banners = bean.getBanners();
         if (banners == null || banners.size() == 0) {
             return;
@@ -501,7 +418,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
                     return;
                 }
                 BannersBean bannersBean = banners.get(position);
-                JumpUtils.goWeb(bannersBean.getLink());
+                JumpUtils.goWeb(ApiConstants.BASE_URL + bannersBean.getLink());
             }
         });
 
@@ -515,6 +432,95 @@ public class HomeListAdapter extends RecyclerView.Adapter {
                     .placeholder(R.mipmap.new_banner)
                     .error(R.mipmap.new_banner)
                     .into(imageView);
+        }
+    }
+
+    private class ProductKeJiViewHolder extends RecyclerView.ViewHolder {
+        private TextView see_more;
+        private TextView product_text;
+        private RecyclerView product_recycle;
+
+        public ProductKeJiViewHolder(@NonNull View itemView) {
+            super(itemView);
+            see_more = itemView.findViewById(R.id.see_more);
+            product_text = itemView.findViewById(R.id.product_text);
+            product_recycle = itemView.findViewById(R.id.product_recycle);
+        }
+    }
+
+    private class ProductGongViewHolder extends RecyclerView.ViewHolder {
+        private TextView see_more;
+        private TextView product_text;
+        private RecyclerView product_recycle;
+
+        public ProductGongViewHolder(@NonNull View itemView) {
+            super(itemView);
+            see_more = itemView.findViewById(R.id.see_more);
+            product_text = itemView.findViewById(R.id.product_text);
+            product_recycle = itemView.findViewById(R.id.product_recycle);
+        }
+    }
+
+    private class ProductXianViewHolder extends RecyclerView.ViewHolder {
+        private TextView see_more;
+        private TextView product_text;
+        private RecyclerView product_recycle;
+
+        public ProductXianViewHolder(@NonNull View itemView) {
+            super(itemView);
+            see_more = itemView.findViewById(R.id.see_more);
+            product_text = itemView.findViewById(R.id.product_text);
+            product_recycle = itemView.findViewById(R.id.product_recycle);
+        }
+    }
+
+    private class ItemViewHolder extends RecyclerView.ViewHolder {
+        private LinearLayout container;
+
+        public ItemViewHolder(View view) {
+            super(view);
+            container = view.findViewById(R.id.container);
+        }
+    }
+
+    private class BottomViewHolder extends RecyclerView.ViewHolder {
+
+        public BottomViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
+    private class BottomListViewHolder extends RecyclerView.ViewHolder {
+        private RecyclerView product_recycle;
+
+
+        public BottomListViewHolder(@NonNull View itemView) {
+            super(itemView);
+            product_recycle = itemView.findViewById(R.id.product_recycle);
+        }
+    }
+
+    private class ProductAllViewHolder extends RecyclerView.ViewHolder {
+        private TextView product_text;
+        private RecyclerView product_recycle;
+        private RelativeLayout products_container;
+
+
+        public ProductAllViewHolder(@NonNull View itemView) {
+            super(itemView);
+            product_text = itemView.findViewById(R.id.product_text);
+            product_recycle = itemView.findViewById(R.id.product_recycle);
+            products_container = itemView.findViewById(R.id.products_container);
+        }
+    }
+
+    private class BannerTopViewHolder extends RecyclerView.ViewHolder {
+
+        private Banner banner;
+
+        public BannerTopViewHolder(@NonNull View itemView) {
+            super(itemView);
+            banner = itemView.findViewById(R.id.banner);
         }
     }
 

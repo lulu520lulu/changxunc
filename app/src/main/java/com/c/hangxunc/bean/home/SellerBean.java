@@ -49,6 +49,7 @@ public class SellerBean {
     private String sort_order;
     private String date_until;
 
+
     public String getSeller_id() {
         return seller_id;
     }

@@ -11,6 +11,7 @@ import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.bean.home.ModulesListBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
+import com.c.hangxunc.bean.home.SearchResultBean;
 import com.c.hangxunc.bean.home.SmsCodeBean;
 import com.c.hangxunc.bean.login.LoginInfo;
 import com.c.hangxunc.bean.login.RegistInfo;
@@ -78,8 +79,8 @@ public interface HangXunCService {
      * @return
      */
     @GET(ApiConstants.SEARCH_PRO_PATH)
-    Call<BreadCrumbsBean> searchPro(@Query("customer_id") String customer_id, @Query("search") String keyWord,
-                                    @Query("sort") String sort, @Query("order") String order, @Query("language") String language);
+    Call<SearchResultBean> searchPro(@Query("customer_id") String customer_id, @Query("search") String keyWord,
+                                     @Query("sort") String sort, @Query("order") String order, @Query("language") String language);
 
     /**
      * 搜索页数据

@@ -50,7 +50,7 @@
             android:id="@+id/start_search"
             android:layout_width="52dp"
             android:layout_height="match_parent"
-            android:background="@color/main_blue_text"
+            android:background="@color/main_orange_text"
             android:gravity="center"
             android:text="@string/tab_search"
             android:textColor="@color/white"

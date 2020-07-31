@@ -40,7 +40,6 @@ public class HybridActivity extends BaseActivity {
 
     private FrameLayout mWebContainer;
     private AgentWeb mAgentWeb;
-    String path = "https://www.baidu.com/";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,7 +107,7 @@ public class HybridActivity extends BaseActivity {
                     @Override
                     public void onReceivedTitle(WebView view, String title) {
                         super.onReceivedTitle(view, title);
-                        if (TextUtils.equals(ApiConstants.RULE_PATH, path)) {
+                        if (TextUtils.equals(ApiConstants.RULE_PATH, url)) {
                             titleText.setText(R.string.register_rule);
                             return;
                         }
@@ -119,7 +118,7 @@ public class HybridActivity extends BaseActivity {
                 }).setWebViewClient(new com.just.agentweb.WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                        view.loadUrl(path);
+                        view.loadUrl(url);
                         return true;
                     }
 
@@ -133,7 +132,7 @@ public class HybridActivity extends BaseActivity {
                 })
                 .createAgentWeb()
                 .ready()
-                .go(path);
+                .go(url);
 
     }
 

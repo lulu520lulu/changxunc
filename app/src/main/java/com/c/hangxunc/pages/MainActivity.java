@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity {
             img.setImageResource(footer[i]);
             text.setText(mAdapter.getPageTitle(i));
             if (i == 0) {
-                text.setTextColor(getResources().getColor(R.color.home_tab_text_selected));
+                text.setTextColor(getResources().getColor(R.color.main_red_text));
             }
             mSlidingTabs.addTab(mSlidingTabs.newTab().setCustomView(view));
         }

@@ -31,7 +31,7 @@ public class HomeTabListener extends TabLayout.ViewPagerOnTabSelectedListener {
             img.setEnabled(true);
         }
         if (text != null) {
-            text.setTextColor(view.getContext().getResources().getColor(R.color.home_tab_text_selected));
+            text.setTextColor(view.getContext().getResources().getColor(R.color.main_red_text));
         }
     }
 

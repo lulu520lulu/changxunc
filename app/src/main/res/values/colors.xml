@@ -6,22 +6,33 @@
     <color name="title_line_bg">#E3E3E3</color>
 
     <color name="main_blue_text">#0C83B8</color>
+    <color name="main_orange_text">#FF9238</color>
+    <color name="main_red_text">#E93D3D</color>
+    <color name="button_bg_color">#014788</color>
+    <color name="home_item_title_text">#DEB977</color>
+    <color name="home_item_title_line">#BFBFBF</color>
+    <color name="main_green_text">#74D262</color>
+
     <color name="main_blue_text_un_enable">#800C83B8</color>
 
 
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
     <color name="home_tab_text_selected">#0C83B8</color>
     <color name="home_tab_text_un_select">#999999</color>
 
     <color name="main_text">#333333</color>
     <color name="line">#999999</color>
+    <color name="black_line">#6D6D6D</color>
+
     <color name="gray_text">#999999</color>
     <color name="transparent">#00ffffff</color>
     <color name="content_text">#8E8E90</color>
 
-    <color name="loading_circle">#0C83B8</color>
-    <color name="loading_rect">#0C83B8</color>
-    <color name="loading_triangle">#0C83B8</color>
+    <color name="loading_circle">#E93D3D</color>
+    <color name="loading_rect">#E93D3D</color>
+    <color name="loading_triangle">#E93D3D</color>
 
     <color name="search_result_title_text">#76787A</color>
     <color name="product_price">#E04253</color>

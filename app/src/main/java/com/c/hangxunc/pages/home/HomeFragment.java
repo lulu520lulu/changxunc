@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.c.hangxunc.R;
 import com.c.hangxunc.HandXunApplication;
 import com.c.hangxunc.bean.home.CategoryBean;
-import com.c.hangxunc.bean.home.ModuleBean;
+import com.c.hangxunc.bean.home.ModulesBean;
 import com.c.hangxunc.bean.home.ModulesListBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
@@ -191,7 +191,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
                     showEmpty();
                     return;
                 }
-                List<ModuleBean> modules = bean.getModules();
+                List<ModulesBean> modules = bean.getModules();
                 if (modules == null || modules.size() == 0) {
                     showEmpty();
                     return;
@@ -204,7 +204,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
 
     private int mProductCount = 0;
 
-    private void getBottomData(List<ModuleBean> modules) {
+    private void getBottomData(List<ModulesBean> modules) {
         HangXunBiz.getInstance().getAllProduct(mProductCount, new ResponseListener<ProductListBean>() {
             @Override
             public void onFail(int code, String message) {
@@ -256,12 +256,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         });
     }
 
-    private void setData(List<ModuleBean> modules) {
+    private void setData(List<ModulesBean> modules) {
         hideLoading();
         mListAdapter.setTopData(modules);
     }
 
-    private void setData(List<ModuleBean> modules, List<ProductBean> list) {
+    private void setData(List<ModulesBean> modules, List<ProductBean> list) {
         hideLoading();
         mListAdapter.setAllData(modules, list);
     }

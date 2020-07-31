@@ -12,8 +12,8 @@ public interface ApiConstants {
 
     String IS_CUSTOMER_LOGIN = "/index.php?route=api/ioslink/isCustomerLogin";
 
-    String BASE_URL = "http://b.hangxunc.com";
-    String IMAGE_BASE_URL = "http://b.hangxunc.com/image";
+    String BASE_URL = "http://c.hangxunc.com";
+    String IMAGE_BASE_URL = "http://c.hangxunc.com/image";
 
     // 首页模块以及信息：分两部分
     String GET_HOME_TOP_PATH = "/index.php?route=api/ioslink/getHomeTop";
@@ -34,7 +34,7 @@ public interface ApiConstants {
     String GET_PRODUCT_PATH = "/index.php?route=api/ioslink/getProduct";
 
     //搜索页数据接口：（参数不要加引号等内容，搜索出来的结果在products字段中）
-    String SEARCH_PRO_PATH = "/index.php?route=api/ioslink/searchPro";
+    String SEARCH_PRO_PATH = "/index.php?route=api/ioslink/getSearchInfo";
 
     //分类页-分类数据接口：
     String GET_CATEGORY_PAGE_PATH = "/index.php?route=api/ioslink/getCategoryPage";

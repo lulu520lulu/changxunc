@@ -1,6 +1,7 @@
 package com.c.hangxunc.pages.person;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.c.hangxunc.R;
+import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.login.ForgetPassFragmentWeb;
 import com.c.hangxunc.pages.login.LoginFragment;
 import com.c.hangxunc.pages.login.RegisterFragment;
+import com.c.hangxunc.utils.LanguageUtils;
 import com.c.hangxunc.utils.LoginUtils;
 import com.just.agentweb.AgentWeb;
 
@@ -131,13 +134,11 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mWebContainer.getVisibility() == View.GONE) {
             mWebContainer.setVisibility(View.VISIBLE);
         }
-//        String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId +
-//                ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
-//        if (TextUtils.isEmpty(url)) {
-//            return;
-//        }
-
-        String path = "https://www.jianshu.com/p/8ef6340dc166";
+        String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId +
+                ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
 
         mAgentWeb = AgentWeb.with(getActivity())//传入Activity
                 .setAgentWebParent(mWebContainer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -146,7 +147,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
                 .setWebViewClient(new com.just.agentweb.WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                        view.loadUrl(path);
+                        view.loadUrl(url);
                         return true;
                     }
 
@@ -159,7 +160,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
                 })
                 .createAgentWeb()
                 .ready()
-                .go(path);
+                .go(url);
 
     }
 
