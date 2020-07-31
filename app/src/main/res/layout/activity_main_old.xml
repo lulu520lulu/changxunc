@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pages.MainActivity">
+
+    <Button
+        android:id="@+id/getHomeTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getHomeTop"
+        android:text="top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/getHomeBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getHomeBottom"
+        android:text="bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getHomeTop" />
+
+
+    <Button
+        android:id="@+id/getAllProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getAllProduct"
+        android:text="all_product"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getHomeBottom" />
+
+    <Button
+        android:id="@+id/getCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getCategory"
+        android:text="category"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getAllProduct" />
+
+    <Button
+        android:id="@+id/getProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getProduct"
+        android:text="product"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getCategory" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

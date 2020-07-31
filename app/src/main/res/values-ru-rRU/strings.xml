@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">scostreet</string>
+
+    <string-array name="search_sort">
+        <item>默认</item>
+        <item>名称</item>
+        <item>价格</item>
+        <item>评级</item>
+        <item>销量</item>
+    </string-array>
+
+    <string-array name="main_tab">
+        <item>默认</item>
+        <item>搜索</item>
+        <item>分类</item>
+        <item>购物车</item>
+        <item>会员中心</item>
+    </string-array>
+
+    <string name="tryagainBack">再按一次退出程序</string>
+
+
+    <string name="tab_home">首页</string>
+    <string name="tab_search">搜索</string>
+    <string name="tab_type">分类</string>
+    <string name="tab_shop">购物车</string>
+    <string name="tab_person">会员中心</string>
+
+    <string name="currency">货币</string>
+    <string name="language">语言</string>
+    <string name="tab_type_brand">品牌</string>
+    <string name="login_title">会员登录</string>
+    <string name="login_email_type">邮箱登录</string>
+    <string name="login_phone_type">手机登录</string>
+    <string name="login_email">邮箱</string>
+    <string name="login_password">密码</string>
+    <string name="login_phone">手机号码</string>
+    <string name="login_phone_china">中国</string>
+    <string name="login">登录</string>
+    <string name="user_register">用户注册</string>
+    <string name="forget_password">忘记密码？</string>
+    <string name="register_title">用户注册</string>
+    <string name="register_email_type">邮箱注册</string>
+    <string name="register_phone_type">手机注册</string>
+    <string name="register_email">电子邮箱*</string>
+    <string name="register_password">输入密码*</string>
+    <string name="register_re_password">确认密码*</string>
+    <string name="book_email">订阅邮件</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="readed">我已阅读并同意</string>
+    <string name="register_rule">隐私政策</string>
+    <string name="next">继续</string>
+    <string name="forget_phone_type">手机找回密码</string>
+    <string name="forget_email_type">邮箱找回密码</string>
+    <string name="submit">提交</string>
+    <string name="forget_password_adress">邮箱地址</string>
+    <string name="forget_password_edit_address">邮箱地址*</string>
+    <string name="forget_password_phone_address">手机地址</string>
+    <string name="forget_phone_edit_address">手机地址*</string>
+    <string name="blog">博客</string>
+    <string name="sns_code">验证码*</string>
+    <string name="sns_code_get">获取验证码</string>
+    <string name="detail">详情</string>
+    <string name="read_all">查看全部</string>
+    <string name="shop_cart_add_success">添加成功</string>
+    <string name="shop_cart_add_fail">添加失败</string>
+    <string name="emil_edit_is_empty">邮箱是空</string>
+    <string name="emil_phone_is_empty">手机号是空</string>
+    <string name="emil_password_is_empty">密码是空</string>
+    <string name="login_fail">登录失败</string>
+    <string name="login_success">登录成功</string>
+    <string name="check_agree_rule">请先勾选法律条款</string>
+    <string name="registe_emil_is_empty">邮箱是空</string>
+    <string name="registe_phone_is_empty">手机号是空</string>
+    <string name="registe_sms_is_empty">验证码是空</string>
+    <string name="register_password_is_empty">密码是空</string>
+    <string name="register_re_password_is_empty">确认密码是空</string>
+    <string name="register_password_no_equal">密码不一致</string>
+    <string name="register_fail">注册失败</string>
+    <string name="register_success">注册成功</string>
+    <string name="please_edit_content">请输入内容</string>
+    <string name="get_sms_code_fail">获取验证码失败</string>
+    <string name="get_sms_code_success">获取验证码成功</string>
+    <string name="select_cell_code">电话区号</string>
+    <string name="type_empty_text">没有符合条件的商品</string>
+    <string name="brand_empty_text">暂无品牌</string>
+
+</resources>

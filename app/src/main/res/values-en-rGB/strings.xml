@@ -1,0 +1,90 @@
+<resources>
+
+    <string name="app_name">scostreet</string>
+
+    <string-array name="search_sort">
+        <item>Default</item>
+        <item>name</item>
+        <item>price</item>
+        <item>rating</item>
+        <item>sales volume</item>
+    </string-array>
+
+    <string-array name="main_tab">
+        <item>Home Page</item>
+        <item>search</item>
+        <item>classification</item>
+        <item>shopping cart</item>
+        <item>member center</item>
+    </string-array>
+
+    <string name="tryagainBack">press again to exit the program</string>
+
+    <string name="tab_home">Home Page</string>
+    <string name="tab_search">search</string>
+    <string name="tab_type">classification</string>
+    <string name="tab_shop">shopping cart</string>
+    <string name="tab_person">member center</string>
+
+    <string name="currency">currency</string>
+    <string name="language">language</string>
+    <string name="tab_type_brand">brand</string>
+    <string name="login_title">member login</string>
+    <string name="login_email_type">email login</string>
+    <string name="login_phone_type">mobile login</string>
+    <string name="login_email">email</string>
+    <string name="login_password">password</string>
+    <string name="login_phone">mobile number</string>
+    <string name="login_phone_china">China</string>
+    <string name="login">login</string>
+    <string name="user_register">user registration</string>
+    <string name="forget_password">forget your password?</string>
+    <string name="register_title">user registration</string>
+    <string name="register_email_type">email registration</string>
+    <string name="register_phone_type">mobile registration</string>
+    <string name="register_email">email*</string>
+    <string name="register_password">enter the password*</string>
+    <string name="register_re_password">confirm password*</string>
+    <string name="book_email">subscribe to email</string>
+    <string name="yes">Yes</string>
+    <string name="no">no</string>
+    <string name="readed">I have read and agree"</string>
+    <string name="register_rule">Privacy Policy</string>
+    <string name="next">continue</string>
+    <string name="forget_phone_type">mobile phone password recovery</string>
+    <string name="forget_email_type">email password recovery</string>
+    <string name="submit">submit</string>
+    <string name="forget_password_adress">email address</string>
+    <string name="forget_password_edit_address">email address *</string>
+    <string name="forget_password_phone_address">mobile address</string>
+    <string name="forget_phone_edit_address">mobile address *</string>
+    <string name="blog">blog</string>
+    <string name="sns_code">verification code *</string>
+    <string name="sns_code_get">get verification code</string>
+    <string name="detail">details</string>
+    <string name="read_all">view all</string>
+    <string name="shop_cart_add_success">added successfully</string>
+    <string name="shop_cart_add_fail">Add failed</string>
+    <string name="emil_edit_is_empty">email is empty</string>
+    <string name="emil_phone_is_empty">mobile phone number is empty</string>
+    <string name="emil_password_is_empty">password is empty</string>
+    <string name="login_fail">login failure</string>
+    <string name="login_success">login success</string>
+    <string name="check_agree_rule">please check the legal terms first</string>
+    <string name="registe_emil_is_empty">email is empty</string>
+    <string name="registe_phone_is_empty">mobile phone number is empty</string>
+    <string name="registe_sms_is_empty">the verification code is empty</string>
+    <string name="register_password_is_empty">password is empty</string>
+    <string name="register_re_password_is_empty">confirm password is empty</string>
+    <string name="register_password_no_equal">password inconsistency</string>
+    <string name="register_fail">registration failed</string>
+    <string name="register_success">registration successful</string>
+    <string name="please_edit_content">please enter the content</string>
+    <string name="get_sms_code_fail">获取验证码失败</string>
+    <string name="get_sms_code_success">获取验证码成功</string>
+    <string name="select_cell_code">电话区号</string>
+    <string name="type_empty_text">没有符合条件的商品</string>
+    <string name="brand_empty_text">暂无品牌</string>
+
+
+</resources>
