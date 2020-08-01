@@ -100,12 +100,12 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-
-    <FrameLayout
+    <com.c.hangxunc.web.HangXunWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"

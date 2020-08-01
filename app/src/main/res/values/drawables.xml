@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--webView 进度条-->
+    <drawable name="progress_bar_bg">#80FFFFFF</drawable>
+
+</resources>

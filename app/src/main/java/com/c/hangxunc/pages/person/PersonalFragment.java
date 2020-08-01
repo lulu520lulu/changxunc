@@ -20,16 +20,15 @@ import com.c.hangxunc.pages.login.LoginFragment;
 import com.c.hangxunc.pages.login.RegisterFragment;
 import com.c.hangxunc.utils.LanguageUtils;
 import com.c.hangxunc.utils.LoginUtils;
-import com.just.agentweb.AgentWeb;
+import com.c.hangxunc.web.HangXunWebView;
 
 public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
     private PersonalPresenter mPersonalPresenter;
-    private FrameLayout mWebContainer;
+    private HangXunWebView mHangXunWebView;
     private FrameLayout mFragmentContainer;
     private LoginFragment mLoginFragment;
     private RegisterFragment mRegisterFragment;
-    private AgentWeb mAgentWeb;
 
     @Override
     protected PersonalPresenter onCreateTopPresenter() {
@@ -46,7 +45,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
 
     private void initView(View view) {
-        mWebContainer = view.findViewById(R.id.web_container);
+        mHangXunWebView = view.findViewById(R.id.web_container);
         mFragmentContainer = view.findViewById(R.id.fragment_container);
 
         initFragment();
@@ -93,8 +92,8 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
-        if (mWebContainer.getVisibility() == View.VISIBLE) {
-            mWebContainer.setVisibility(View.GONE);
+        if (mHangXunWebView.getVisibility() == View.VISIBLE) {
+            mHangXunWebView.setVisibility(View.GONE);
         }
         transaction.replace(R.id.fragment_container, mLoginFragment);
         transaction.commit();
@@ -106,8 +105,8 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
-        if (mWebContainer.getVisibility() == View.VISIBLE) {
-            mWebContainer.setVisibility(View.GONE);
+        if (mHangXunWebView.getVisibility() == View.VISIBLE) {
+            mHangXunWebView.setVisibility(View.GONE);
         }
         transaction.replace(R.id.fragment_container, mRegisterFragment);
         transaction.commit();
@@ -119,8 +118,8 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
-        if (mWebContainer.getVisibility() == View.VISIBLE) {
-            mWebContainer.setVisibility(View.GONE);
+        if (mHangXunWebView.getVisibility() == View.VISIBLE) {
+            mHangXunWebView.setVisibility(View.GONE);
         }
         ForgetPassFragmentWeb fragment = new ForgetPassFragmentWeb();
         transaction.replace(R.id.fragment_container, fragment);
@@ -131,39 +130,16 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mFragmentContainer.getVisibility() == View.VISIBLE) {
             mFragmentContainer.setVisibility(View.GONE);
         }
-        if (mWebContainer.getVisibility() == View.GONE) {
-            mWebContainer.setVisibility(View.VISIBLE);
+        if (mHangXunWebView.getVisibility() == View.GONE) {
+            mHangXunWebView.setVisibility(View.VISIBLE);
         }
-        String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId;
-//                ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
+        String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId +
+                ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
         if (TextUtils.isEmpty(url)) {
             return;
         }
-
-        mAgentWeb = AgentWeb.with(getActivity())//传入Activity
-                .setAgentWebParent(mWebContainer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT))
-                .useDefaultIndicator()// 使用默认进度条
-                .setWebViewClient(new com.just.agentweb.WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                        view.loadUrl(url);
-                        return true;
-                    }
-
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        super.onPageFinished(view, url);
-                        view.loadUrl("javascript:pageBackHid()");
-                        view.loadUrl("javascript:bottomTabMenu()");
-                    }
-                })
-                .createAgentWeb()
-                .ready()
-                .go(url);
-
+        mHangXunWebView.loadUrl(url);
     }
-
 
     @Override
     protected void onResumeImpl() {

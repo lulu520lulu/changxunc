@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,6 @@ import com.c.hangxunc.HandXunApplication;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.utils.Constants;
 import com.c.hangxunc.utils.DimenUtils;
-import com.just.agentweb.AgentWeb;
-import com.just.agentweb.WebChromeClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +35,7 @@ public class HybridActivity extends BaseActivity {
     @BindView(R.id.title_text)
     TextView titleText;
     @BindView(R.id.container)
-    FrameLayout mWebContainer;
-
-    private AgentWeb mAgentWeb;
+    HangXunWebView mWebContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +55,6 @@ public class HybridActivity extends BaseActivity {
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         HandXunApplication.getInstance().startActivity(intent);
     }
-
 
     private void initView() {
         expandTouchArea(back, DimenUtils.dip2px(20));
@@ -88,48 +84,34 @@ public class HybridActivity extends BaseActivity {
         });
     }
 
-
     private void initData() {
         Intent intent = getIntent();
         String url = intent.getStringExtra(Constants.WEB_URL_KEY);
         if (TextUtils.isEmpty(url)) {
             return;
         }
-        mAgentWeb = AgentWeb.with(this)//传入Activity
-                .setAgentWebParent(mWebContainer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-                .useDefaultIndicator()// 使用默认进度条
-                .setWebChromeClient(new WebChromeClient() {
-                    @Override
-                    public void onReceivedTitle(WebView view, String title) {
-                        super.onReceivedTitle(view, title);
-                        if (TextUtils.equals(ApiConstants.RULE_PATH, url)) {
-                            titleText.setText(R.string.register_rule);
-                            return;
-                        }
-                        if (!TextUtils.isEmpty(title)) {
-                            titleText.setText(title);
-                        }
-                    }
-                }).setWebViewClient(new com.just.agentweb.WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                        view.loadUrl(url);
-                        return true;
-                    }
-
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        super.onPageFinished(view, url);
-                        view.loadUrl("javascript:pageBackHid()");
-                        view.loadUrl("javascript:bottomTabMenu()");
-                    }
-
-                })
-                .createAgentWeb()
-                .ready()
-                .go(url);
-
+        mWebContainer.setHangWebCallBack(new HangXunWebView.HangWebCallBack() {
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                if (TextUtils.equals(ApiConstants.RULE_PATH, url)) {
+                    titleText.setText(R.string.register_rule);
+                    return;
+                }
+                if (!TextUtils.isEmpty(title)) {
+                    titleText.setText(title);
+                }
+            }
+        });
+        mWebContainer.loadUrl(url);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && mWebContainer.canGoBack()) {
+            mWebContainer.goBack();
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 
 }

@@ -36,8 +36,8 @@ public class JumpUtils {
         if (url.indexOf("amp;") > -1) {
             url = url.replace("amp;", "");
         }
-        HybridActivity.openWeb(url + ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId());
-//                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode());
+        HybridActivity.openWeb(url + ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId()
+                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode());
     }
 
     public static void goSeeMorePost(Context context, ArrayList<PostsBean> posts) {

@@ -6,11 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c.hangxunc.R;
-import com.c.hangxunc.HandXunApplication;
 import com.c.hangxunc.bean.home.CategoryBean;
 import com.c.hangxunc.bean.home.ModulesBean;
 import com.c.hangxunc.bean.home.ModulesListBean;
@@ -37,6 +31,7 @@ import com.c.hangxunc.pages.widget.BottomView;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.HangLog;
 import com.c.hangxunc.utils.LoginUtils;
+import com.c.hangxunc.web.HangXunWebView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -68,12 +63,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
     @BindView(R.id.tv_search)
     TextView tv_search;
     @BindView(R.id.webview)
-    FrameLayout webContainer;
+    HangXunWebView webContainer;
 
     private HomePresenter mHomePresenter;
     private HomeListAdapter mListAdapter;
     private HomeCategoryAdapter mTypeAdapter;
-    private WebView mWebView;
 
     @Override
     protected HomePresenter onCreateTopPresenter() {
@@ -90,35 +84,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         return view;
     }
 
-
-    private void initWebView() {
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT);
-        mWebView = new WebView(HandXunApplication.getInstance());
-        mWebView.setLayoutParams(params);
-        webContainer.addView(mWebView);
-        //声明WebSettings子类
-        WebSettings webSettings = mWebView.getSettings();
-        //如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
-        webSettings.setJavaScriptEnabled(true);
-        //设置自适应屏幕，两者合用
-        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        //缩放操作
-        webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
-        webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
-        webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
-        //其他细节操作
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存
-        webSettings.setAllowFileAccess(true); //设置可以访问文件
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
-        webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
-        webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
-    }
-
     private void init(View view) {
-        initWebView();
         Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.tabbar_search_un_select);
         drawable.setBounds(0, 0, DimenUtils.dip2px(20), DimenUtils.dip2px(20));
         tv_search.setCompoundDrawables(drawable, null, null, null);
@@ -348,33 +314,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         }
         webContainer.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.GONE);
-        mWebView.loadUrl(url);
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                view.loadUrl(url);
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                mWebView.loadUrl("javascript:pageBackHid()");
-                view.loadUrl("javascript:bottomTabMenu()");
-            }
-        });
-        mWebView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-                super.onReceivedTitle(view, title);
-
-            }
-
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-            }
-        });
+        webContainer.loadUrl(url);
     }
 
     private void startShowHome() {

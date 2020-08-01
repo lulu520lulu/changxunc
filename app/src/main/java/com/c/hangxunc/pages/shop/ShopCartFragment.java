@@ -6,9 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.widget.FrameLayout;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.http.ApiConstants;
@@ -16,14 +13,13 @@ import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
 import com.c.hangxunc.utils.LanguageUtils;
 import com.c.hangxunc.utils.LoginUtils;
-import com.just.agentweb.AgentWeb;
+import com.c.hangxunc.web.HangXunWebView;
 
 public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
+    private CountDownTimer mTimer;
 
     private ShopCarPresenter mShopCarPresenter;
-    private FrameLayout mWebContainer;
-    private AgentWeb mAgentWeb;
-
+    private HangXunWebView mWebContainer;
 
     @Override
     protected ShopCarPresenter onCreateTopPresenter() {
@@ -39,42 +35,19 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     }
 
     private void initView(View view) {
-        mWebContainer = view.findViewById(R.id.container);
-        showWeb(mWebContainer);
+        mWebContainer = view.findViewById(R.id.web_container);
+        showWeb();
     }
 
 
-    private void showWeb(FrameLayout webContainer) {
-        if (webContainer == null) {
-            return;
-        }
-        String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId();
-//                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
+    private void showWeb() {
+        String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId()
+                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
         if (TextUtils.isEmpty(url)) {
             return;
         }
-        mAgentWeb = AgentWeb.with(getActivity())
-                .setAgentWebParent(webContainer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT))
-                .useDefaultIndicator()// 使用默认进度条
-                .setWebViewClient(new com.just.agentweb.WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                        view.loadUrl(url);
-                        return true;
-                    }
 
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        super.onPageFinished(view, url);
-                        view.loadUrl("javascript:pageBackHid()");
-                        view.loadUrl("javascript:bottomTabMenu()");
-                    }
-                })
-                .createAgentWeb()
-                .ready()
-                .go(url);
-
+        mWebContainer.loadUrl(url);
     }
 
 
@@ -83,7 +56,6 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
         super.onDestroyViewImpl();
     }
 
-    private CountDownTimer mTimer;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -104,7 +76,7 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
                 };
                 mTimer.start();
             } else {
-                showWeb(mWebContainer);
+                showWeb();
                 if (mTimer != null) {
                     mTimer.cancel();
                     mTimer = null;
