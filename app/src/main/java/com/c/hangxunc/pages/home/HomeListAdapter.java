@@ -23,6 +23,7 @@ import com.c.hangxunc.bean.home.ItemsBean;
 import com.c.hangxunc.bean.home.ModulesBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.http.ApiConstants;
+import com.c.hangxunc.pages.MainActivity;
 import com.c.hangxunc.utils.JumpUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -203,7 +204,6 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             return;
         }
         ProductAllViewHolder holder = (ProductAllViewHolder) viewHolder;
-
         if (TextUtils.isEmpty(bean.getSubtitle())) {
             holder.products_container.setVisibility(View.VISIBLE);
         } else {
@@ -504,13 +504,20 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         private TextView product_text;
         private RecyclerView product_recycle;
         private RelativeLayout products_container;
-
+        private TextView see_more;
 
         public ProductAllViewHolder(@NonNull View itemView) {
             super(itemView);
             product_text = itemView.findViewById(R.id.product_text);
             product_recycle = itemView.findViewById(R.id.product_recycle);
             products_container = itemView.findViewById(R.id.products_container);
+            see_more = itemView.findViewById(R.id.see_more_product_all);
+            see_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) mContext).setSelect(2);
+                }
+            });
         }
     }
 

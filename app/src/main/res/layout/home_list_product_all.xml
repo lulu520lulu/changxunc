@@ -47,7 +47,7 @@
             android:src="@mipmap/home_all_product" />
 
         <TextView
-            android:id="@+id/see_more"
+            android:id="@+id/see_more_product_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -55,7 +55,7 @@
             android:drawableRight="@mipmap/general_icon_tiao"
             android:drawablePadding="2dp"
             android:text="@string/go_see_more"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/loading_rect"
             android:textSize="15sp" />
     </RelativeLayout>
 
