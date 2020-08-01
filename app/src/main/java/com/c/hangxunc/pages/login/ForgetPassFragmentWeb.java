@@ -60,4 +60,13 @@ public class ForgetPassFragmentWeb extends BaseFragment<ForgetPassPresenterWeb> 
         super.onDestroyViewImpl();
     }
 
+    @Override
+    public boolean onBackPressed() {
+        if (webContainer != null && webContainer.canGoBack()) {
+            webContainer.goBack();
+            return true;
+        }
+        return false;
+    }
+
 }

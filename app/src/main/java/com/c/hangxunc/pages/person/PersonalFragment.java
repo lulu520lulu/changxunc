@@ -5,8 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import androidx.fragment.app.FragmentManager;
@@ -25,7 +23,7 @@ import com.c.hangxunc.web.HangXunWebView;
 public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
     private PersonalPresenter mPersonalPresenter;
-    private HangXunWebView mHangXunWebView;
+    private HangXunWebView mWebContainer;
     private FrameLayout mFragmentContainer;
     private LoginFragment mLoginFragment;
     private RegisterFragment mRegisterFragment;
@@ -45,7 +43,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
 
     private void initView(View view) {
-        mHangXunWebView = view.findViewById(R.id.web_container);
+        mWebContainer = view.findViewById(R.id.web_container);
         mFragmentContainer = view.findViewById(R.id.fragment_container);
 
         initFragment();
@@ -92,8 +90,8 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
-        if (mHangXunWebView.getVisibility() == View.VISIBLE) {
-            mHangXunWebView.setVisibility(View.GONE);
+        if (mWebContainer.getVisibility() == View.VISIBLE) {
+            mWebContainer.setVisibility(View.GONE);
         }
         transaction.replace(R.id.fragment_container, mLoginFragment);
         transaction.commit();
@@ -105,8 +103,8 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
-        if (mHangXunWebView.getVisibility() == View.VISIBLE) {
-            mHangXunWebView.setVisibility(View.GONE);
+        if (mWebContainer.getVisibility() == View.VISIBLE) {
+            mWebContainer.setVisibility(View.GONE);
         }
         transaction.replace(R.id.fragment_container, mRegisterFragment);
         transaction.commit();
@@ -118,8 +116,8 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
-        if (mHangXunWebView.getVisibility() == View.VISIBLE) {
-            mHangXunWebView.setVisibility(View.GONE);
+        if (mWebContainer.getVisibility() == View.VISIBLE) {
+            mWebContainer.setVisibility(View.GONE);
         }
         ForgetPassFragmentWeb fragment = new ForgetPassFragmentWeb();
         transaction.replace(R.id.fragment_container, fragment);
@@ -130,15 +128,15 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mFragmentContainer.getVisibility() == View.VISIBLE) {
             mFragmentContainer.setVisibility(View.GONE);
         }
-        if (mHangXunWebView.getVisibility() == View.GONE) {
-            mHangXunWebView.setVisibility(View.VISIBLE);
+        if (mWebContainer.getVisibility() == View.GONE) {
+            mWebContainer.setVisibility(View.VISIBLE);
         }
         String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId +
                 ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
         if (TextUtils.isEmpty(url)) {
             return;
         }
-        mHangXunWebView.loadUrl(url);
+        mWebContainer.loadUrl(url);
     }
 
     @Override
@@ -179,4 +177,12 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         }
     }
 
+    @Override
+    public boolean onBackPressed() {
+        if (mWebContainer != null && mWebContainer.canGoBack()) {
+            mWebContainer.goBack();
+            return true;
+        }
+        return false;
+    }
 }

@@ -76,6 +76,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        setSelectedMe();
+    }
+
+    @Override
     protected View onCreateViewImpl(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
         ButterKnife.bind(this, view);
@@ -351,5 +357,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         if (TextUtils.equals(message.message, "show home")) {
             startShowHome();
         }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (webContainer != null && webContainer.canGoBack()) {
+            webContainer.goBack();
+            return true;
+        }
+        return false;
     }
 }

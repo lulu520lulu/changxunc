@@ -84,4 +84,13 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
             }
         }
     }
+
+    @Override
+    public boolean onBackPressed() {
+        if (mWebContainer != null && mWebContainer.canGoBack()) {
+            mWebContainer.goBack();
+            return true;
+        }
+        return false;
+    }
 }

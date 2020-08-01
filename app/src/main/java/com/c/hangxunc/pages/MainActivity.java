@@ -1,6 +1,7 @@
 package com.c.hangxunc.pages;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -13,13 +14,14 @@ import com.c.hangxunc.BaseActivity;
 import com.c.hangxunc.bean.home.IsLoginBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
+import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.utils.LoginUtils;
 import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements BackHandledInterface {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.viewpager)
@@ -27,7 +29,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.sliding_tabs)
     TabLayout mSlidingTabs;
 
-    private long exitTime = 0;
     private HomePagerAdapter mAdapter;
 
     @Override
@@ -96,4 +97,23 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private BaseFragment mBackHandedFragment;
+
+    @Override
+    public void setSelectedFragment(BaseFragment selectedFragment) {
+        this.mBackHandedFragment = selectedFragment;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mBackHandedFragment != null) {
+                if (mBackHandedFragment.onBackPressed()) {
+                    return true;
+                }
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 }
