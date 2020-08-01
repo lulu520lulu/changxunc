@@ -1,4 +1,10 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
 
 android {
     compileSdkVersion 29
@@ -13,18 +19,47 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        debug {
 
-    buildTypes {
+        }
         release {
-            //bhangxun 12345678
-            minifyEnabled false
+            storeFile file("./keystore")
+            storePassword "12345678"
+            keyAlias "changxun"
+            keyPassword "12345678"
+            v1SigningEnabled true
+            v2SigningEnabled true
+
+        }
+    }
+    buildTypes {
+        debug {
+
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes.all { type ->
+        type.matchingFallbacks = ['release']
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def timeFormat = new SimpleDateFormat("yyyyMMdd'-'HHmm");
+            timeFormat.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"))
+            outputFileName = "2cApp-${variant.buildType.name}-v${variant.versionName}-${timeFormat.format(new Date())}.apk"
+        }
     }
 }
 
