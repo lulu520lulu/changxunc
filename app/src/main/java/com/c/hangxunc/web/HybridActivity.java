@@ -36,9 +36,8 @@ public class HybridActivity extends BaseActivity {
     @BindView(R.id.title_text)
     TextView titleText;
     @BindView(R.id.container)
-    FrameLayout container;
+    FrameLayout mWebContainer;
 
-    private FrameLayout mWebContainer;
     private AgentWeb mAgentWeb;
 
     @Override
@@ -62,10 +61,6 @@ public class HybridActivity extends BaseActivity {
 
 
     private void initView() {
-        mWebContainer = findViewById(R.id.container);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT);
         expandTouchArea(back, DimenUtils.dip2px(20));
         back.setOnClickListener(new View.OnClickListener() {
             @Override

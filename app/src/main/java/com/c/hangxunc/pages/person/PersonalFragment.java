@@ -134,8 +134,8 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mWebContainer.getVisibility() == View.GONE) {
             mWebContainer.setVisibility(View.VISIBLE);
         }
-        String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId +
-                ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
+        String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId;
+//                ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
         if (TextUtils.isEmpty(url)) {
             return;
         }

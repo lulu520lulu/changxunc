@@ -48,8 +48,8 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
         if (webContainer == null) {
             return;
         }
-        String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId()
-                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
+        String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId();
+//                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
         if (TextUtils.isEmpty(url)) {
             return;
         }

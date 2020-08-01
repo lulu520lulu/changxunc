@@ -114,7 +114,7 @@ public interface ApiConstants {
     //商品详情页：（参数不要加引号等内容）
     String PRODUCT_PAGE_PATH = "/index.php?route=product/product&product_id=";
     String CUSTOMER_ID_PATH = "&customer_id=";
-    String LANGUAGE_PATH = "&language=";
+//    String LANGUAGE_PATH = "&language=";
 
     //会员中心的页面跳转
 
