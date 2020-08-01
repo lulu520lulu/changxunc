@@ -20,10 +20,13 @@ import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
 import com.c.hangxunc.mvp.BaseFragment;
+import com.c.hangxunc.pages.home.ui.MessageHome;
 import com.c.hangxunc.pages.widget.BottomView;
 import com.c.hangxunc.utils.HangLog;
 import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -142,6 +145,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
                             handleFail();
                             return;
                         }
+                        EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_IN));
                         ToastUtils.showToast(getActivity(), getActivity().getString(R.string.login_success));
                         LoginUtils.getInstance().setLoginInfo(info.getSession_id(), info.getCustomer_id());
                         if (mLoginChangeListener != null) {

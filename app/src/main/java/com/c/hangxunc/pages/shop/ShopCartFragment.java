@@ -11,9 +11,15 @@ import com.c.hangxunc.R;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.pages.home.ui.MessageHome;
+import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.utils.LanguageUtils;
 import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.web.HangXunWebView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     private CountDownTimer mTimer;
@@ -30,6 +36,7 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     @Override
     protected View onCreateViewImpl(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop, null);
+        EventBus.getDefault().register(this);
         initView(view);
         return view;
     }
@@ -54,6 +61,7 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     @Override
     protected void onDestroyViewImpl() {
         super.onDestroyViewImpl();
+        EventBus.getDefault().unregister(this);
     }
 
 
@@ -62,7 +70,6 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
             if (!LoginUtils.getInstance().isLogin()) {
-
                 mTimer = new CountDownTimer(300, 100) {
 
                     @Override
@@ -75,15 +82,15 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
                     }
                 };
                 mTimer.start();
-            } else {
-                showWeb();
-                if (mTimer != null) {
-                    mTimer.cancel();
-                    mTimer = null;
-                }
+            }
+        } else {
+            if (mTimer != null) {
+                mTimer.cancel();
+                mTimer = null;
             }
         }
     }
+
 
     @Override
     public boolean onBackPressed() {
@@ -92,5 +99,14 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
             return true;
         }
         return false;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLogin(MessageLogin message) {
+        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+            showWeb();
+        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            showWeb();
+        }
     }
 }

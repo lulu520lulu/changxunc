@@ -15,10 +15,15 @@ import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.login.ForgetPassFragmentWeb;
 import com.c.hangxunc.pages.login.LoginFragment;
+import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.pages.login.RegisterFragment;
 import com.c.hangxunc.utils.LanguageUtils;
 import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.web.HangXunWebView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
@@ -37,6 +42,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
     @Override
     protected View onCreateViewImpl(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_person, null);
+        EventBus.getDefault().register(this);
         initView(view);
         return view;
     }
@@ -71,6 +77,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
             @Override
             public void showPersion(String customId) {
+//                startSendLoginMessage();
                 initWebData(customId);
             }
         });
@@ -153,17 +160,16 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
     @Override
     protected void onDestroyViewImpl() {
         super.onDestroyViewImpl();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
-            if (!LoginUtils.getInstance().isLogin()) {
-                showLoginFragment();
-            } else {
-                initWebData(LoginUtils.getInstance().getCustomerId());
+            if (LoginUtils.getInstance().isLogin()) {
             }
+        } else {
         }
     }
 
@@ -185,4 +191,17 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         }
         return false;
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLogin(MessageLogin message) {
+       if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+           if (mWebContainer.getVisibility() == View.VISIBLE) {
+               mWebContainer.setVisibility(View.GONE);
+               mWebContainer.clearHistory();
+           }
+           showLoginFragment();
+        }
+    }
+
 }

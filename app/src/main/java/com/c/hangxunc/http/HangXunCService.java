@@ -186,7 +186,7 @@ public interface HangXunCService {
     Call<SmsCodeBean> smsCode(@Field("calling_code") String calling_code, @Field("telephone") String telephone);
 
     /**
-     * 注册支持国家
+     * 检查登录状态
      */
     @GET(ApiConstants.IS_CUSTOMER_LOGIN)
     Call<IsLoginBean> isCustomerLogin(@Query("customer_id") String customer_id, @Query("session_id") String session_id);

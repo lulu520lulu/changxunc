@@ -7,10 +7,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.TouchDelegate;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -107,11 +104,22 @@ public class HybridActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && mWebContainer.canGoBack()) {
-            mWebContainer.goBack();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mWebContainer.canGoBack()) {
+                mWebContainer.goBack();
+            } else {
+                finish();
+            }
             return true;
         }
         return super.onKeyUp(keyCode, event);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mWebContainer != null) {
+            mWebContainer.destroyView();
+        }
+    }
 }

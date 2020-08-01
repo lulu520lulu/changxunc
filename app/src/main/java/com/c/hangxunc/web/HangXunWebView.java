@@ -2,12 +2,14 @@ package com.c.hangxunc.web;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,6 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.c.hangxunc.R;
+import com.c.hangxunc.pages.login.MessageLogin;
+import com.c.hangxunc.pages.login.WebLoginInterface;
+import com.c.hangxunc.utils.LoginUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 public class HangXunWebView extends LinearLayout {
@@ -91,6 +98,15 @@ public class HangXunWebView extends LinearLayout {
 
         mWebView.setWebViewClient(new WebViewClient() {
 
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=account/logout")) {
+                    LoginUtils.getInstance().loginOut();
+                    EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_OUT));
+                }
+                return false;
+            }
+
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 view.loadUrl("javascript:pageBackHid()");
@@ -105,6 +121,23 @@ public class HangXunWebView extends LinearLayout {
     public void setHangWebCallBack(HangWebCallBack mHangWebCallBack) {
         this.mHangWebCallBack = mHangWebCallBack;
     }
+
+    public void clearHistory() {
+        if (null != mWebView) {
+            mWebView.clearHistory();
+            mWebView.clearCache(true);
+            mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+            mWebView.loadUrl("about:blank");
+            mWebView.freeMemory();
+            mWebView.pauseTimers();
+        }
+    }
+
+    public void destroyView() {
+        clearHistory();
+        mWebView = null;
+    }
+
 
     public interface HangWebCallBack {
         void onReceivedTitle(WebView view, String title);
@@ -137,6 +170,12 @@ public class HangXunWebView extends LinearLayout {
 
     public WebView getWebView() {
         return mWebView != null ? mWebView : null;
+    }
+
+    public void addJavascriptInterface() {
+        if (null != mWebView) {
+            mWebView.addJavascriptInterface(new WebLoginInterface(getContext()), "changxun");
+        }
     }
 
 }
