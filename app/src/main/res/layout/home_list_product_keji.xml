@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:text="贸易展览会"
             android:textColor="@color/home_item_title_text"
             android:textSize="16sp" />
 

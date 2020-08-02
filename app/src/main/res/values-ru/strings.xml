@@ -89,7 +89,15 @@
     <string name="go_see_more">подробнее</string>
     <string name="home_top_search_hint">введите поисковый запрос по ключевым словам</string>
     <string name="update_fail">Замена не удалась</string>
-    <string name="rmb">rmb</string>
+    <string name="rmb">RMB</string>
     <string name="loading">загрузка...</string>
+    <string name="support">Техническая поддержка SCOMALL ©2020</string>
+    <string name="miao">второй</string>
+    <string name="empty_brand">Нет подходящих продуктов</string>
+    <string name="see_detail">смотрите подробности</string>
+    <string name="publish_date">Дата выхода：</string>
+    <string name="see_more">узнать больше</string>
+    <string name="search_empty_text">Подходящих товаров не найдено</string>
+    <string name="all_product">все продукты</string>
 
 </resources>

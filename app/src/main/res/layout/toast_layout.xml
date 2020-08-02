@@ -17,7 +17,6 @@
         android:layout_marginRight="18dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:text="自定义位置文本"
         android:textColor="@color/white"
         android:textSize="16sp" />
 

@@ -91,5 +91,13 @@
     <string name="update_fail">更换失败</string>
     <string name="rmb">人民币</string>
     <string name="loading">玩命加载中...</string>
+    <string name="support">技术支持SCOMALL ©2020</string>
+    <string name="miao">秒</string>
+    <string name="empty_brand">没有符合条件的商品</string>
+    <string name="see_detail">查看详情</string>
+    <string name="publish_date">发布日期：</string>
+    <string name="see_more">查看更多</string>
+    <string name="search_empty_text">没有搜索到符合条件的商品</string>
+    <string name="all_product">全部商品</string>
 
 </resources>

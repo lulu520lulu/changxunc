@@ -28,7 +28,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
-            android:text="精选供应商"
             android:textColor="@color/main_text"
             android:textSize="@dimen/main_tab_text_size" />
 

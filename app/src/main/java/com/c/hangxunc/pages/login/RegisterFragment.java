@@ -253,7 +253,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                smsGet.setText(millisUntilFinished / 1000 + "秒");
+                smsGet.setText(millisUntilFinished / 1000 + getActivity().getResources().getString(R.string.miao));
             }
 
             @Override
