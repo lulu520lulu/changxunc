@@ -37,7 +37,8 @@ public class JumpUtils {
             url = url.replace("amp;", "");
         }
         HybridActivity.openWeb(url + ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId()
-                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode());
+                + ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
+                + ApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode());
     }
 
     public static void goSeeMorePost(Context context, ArrayList<PostsBean> posts) {

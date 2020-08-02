@@ -1,6 +1,7 @@
 package com.c.hangxunc.pages;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,12 +12,19 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.BaseActivity;
+import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.IsLoginBean;
+import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.mvp.BaseFragment;
+import com.c.hangxunc.utils.CurrencySp;
+import com.c.hangxunc.utils.HangLog;
+import com.c.hangxunc.utils.LanguageSp;
 import com.c.hangxunc.utils.LoginUtils;
 import com.google.android.material.tabs.TabLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +50,49 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
     }
 
     private void initData() {
+        getLoginState();
+        getDataLC();
+    }
+
+    private void getDataLC() {
+        HangXunBiz.getInstance().getLanguage(new ResponseListener<LanguageListBean>() {
+            @Override
+            public void onFail(int code, String message) {
+                HangLog.d(TAG, "onFail getLanguage code: " + code + ",message:" + message);
+
+            }
+
+            @Override
+            public void onSuccess(LanguageListBean bean) {
+                HangLog.d(TAG, "onSuccess getLanguage bean: " + bean.toString());
+                LanguageSp.getInstance().saveLanguageList(bean);
+
+                if (!TextUtils.equals(bean.getCode(), LanguageSp.getInstance().getCode())) {
+                    EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CHANGE));
+                }
+            }
+        });
+
+        HangXunBiz.getInstance().getCurrency(new ResponseListener<CurrencyListBean>() {
+            @Override
+            public void onFail(int code, String message) {
+                HangLog.d(TAG, "onFail getCurrency code: " + code + ",message:" + message);
+
+            }
+
+            @Override
+            public void onSuccess(CurrencyListBean bean) {
+                HangLog.d(TAG, "onSuccess getCurrency bean: " + bean.toString());
+                CurrencySp.getInstance().saveCurrencyList(bean);
+                if (!TextUtils.equals(bean.getCode(), CurrencySp.getInstance().getCode())) {
+                    EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CHANGE));
+                }
+            }
+
+        });
+    }
+
+    private void getLoginState() {
         HangXunBiz.getInstance().isCustomerLogin(new ResponseListener<IsLoginBean>() {
             @Override
             public void onFail(int code, String message) {

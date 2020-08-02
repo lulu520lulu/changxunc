@@ -8,11 +8,10 @@ def releaseTime() {
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.c.hangxunc"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -72,8 +71,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //okhttp
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.8.0'
     implementation 'com.squareup.okio:okio:1.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
 

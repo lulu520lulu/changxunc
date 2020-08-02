@@ -11,9 +11,10 @@ import com.c.hangxunc.R;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
-import com.c.hangxunc.pages.home.ui.MessageHome;
+import com.c.hangxunc.pages.MessageLocal;
 import com.c.hangxunc.pages.login.MessageLogin;
-import com.c.hangxunc.utils.LanguageUtils;
+import com.c.hangxunc.utils.CurrencySp;
+import com.c.hangxunc.utils.LanguageSp;
 import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.web.HangXunWebView;
 
@@ -49,7 +50,8 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
 
     private void showWeb() {
         String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId()
-                + ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
+                + ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
+                + ApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode();
         if (TextUtils.isEmpty(url)) {
             return;
         }
@@ -106,6 +108,13 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
         if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
             showWeb();
         } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            showWeb();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeCurrency(MessageLocal message) {
+        if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
             showWeb();
         }
     }

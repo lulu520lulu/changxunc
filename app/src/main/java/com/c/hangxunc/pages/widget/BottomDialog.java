@@ -18,20 +18,26 @@ import com.c.hangxunc.bean.home.CurrencyBean;
 import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.LanguageBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
+import com.c.hangxunc.http.HangXunBiz;
+import com.c.hangxunc.http.ResponseListener;
+import com.c.hangxunc.pages.MessageLocal;
+import com.c.hangxunc.utils.CurrencySp;
+import com.c.hangxunc.utils.CurrencyType;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.HangLog;
-import com.c.hangxunc.utils.LanguageUtils;
+import com.c.hangxunc.utils.LanguageSp;
+import com.c.hangxunc.utils.LanguageType;
+import com.c.hangxunc.utils.LanguageUtil;
+import com.c.hangxunc.utils.ToastUtils;
 
-import java.io.IOException;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class BottomDialog extends Dialog {
+
+    private static final String TAG = BottomDialog.class.getSimpleName();
 
     public BottomDialog(@NonNull Context context) {
         super(context);
@@ -113,12 +119,8 @@ public class BottomDialog extends Dialog {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startReport(bean.getHref());
-                    LanguageUtils.getInstance().updateLocale(bean.getCode());
+                    startLanguageReport(bean);
                     dismiss();
-                    if (mItemClickListener != null) {
-                        mItemClickListener.languageItemClick(bean.getCode(), bean.getName());
-                    }
                 }
             });
             if ((i + 1) < languages.size()) {
@@ -130,40 +132,95 @@ public class BottomDialog extends Dialog {
         }
     }
 
+    private void startLanguageReport(LanguageBean oldBean) {
+        HangXunBiz.getInstance().setLanguage(oldBean.getCode(), new ResponseListener<LanguageListBean>() {
+            @Override
+            public void onFail(int code, String message) {
+                HangLog.d(TAG, "onFailure");
+                onLanguageFail();
+            }
+
+            @Override
+            public void onSuccess(LanguageListBean bean) {
+                HangLog.d(TAG, "response success:" + bean.getCode());
+                if (!TextUtils.equals(bean.getCode(), oldBean.getCode())) {
+
+                    LanguageSp.getInstance().saveLanguage(oldBean);
+                    LanguageUtil.changeLanguageAndKill(getContext(), oldBean.getCode());
+                }
+                if (mItemClickListener != null) {
+                    mItemClickListener.languageItemClick(bean.getCode(), getLanguageName(bean.getCode()));
+                }
+            }
+        });
+    }
+
+    private String getLanguageName(String code) {
+        if (TextUtils.equals(code, LanguageType.ENGLISH.getLanguage())) {
+            return "English";
+        } else if (TextUtils.equals(code, LanguageType.RU.getLanguage())) {
+            return "Russian";
+        }
+        return "简体中文";
+    }
+
+
     private ItemClickListener mItemClickListener;
 
     public interface ItemClickListener {
         void languageItemClick(String code, String name);
 
-        void currencyItemClick(String currency, String currencyValue);
-
+        void currencyItemClick(String symbol, String title);
     }
 
     public void setItemClickListener(ItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 
-    private void startReport(String href) {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request
-                .Builder()
-                .url(href)
-                .method("GET", null)
-                .build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
+    private void startCurrencyReport(String code) {
+        HangXunBiz.getInstance().setCurrency(code, new ResponseListener<CurrencyListBean>() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFail(int code, String message) {
+                HangLog.d(TAG, "onFailure");
+                onCurrencyFail();
             }
 
-            //请求成功执行的方法
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String data = response.body().string();
-                HangLog.d("response", data);
+            public void onSuccess(CurrencyListBean bean) {
+                HangLog.d(TAG, "response success:" + bean);
+
+                if (!TextUtils.equals(bean.getCode(), CurrencySp.getInstance().getCode())) {
+                    CurrencySp.getInstance().saveCurrencyList(bean);
+                    EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CHANGE));
+                }
+
+                if (mItemClickListener != null) {
+                    mItemClickListener.currencyItemClick(getCurrencySymbol(bean.getCode()), getCurrencyTitle(bean.getCode()));
+                }
             }
         });
+    }
 
+    private String getCurrencyTitle(String code) {
+        if (TextUtils.equals(code, CurrencyType.ENGLISH.getCurrency())) {
+            return "US Dollar";
+        }
+        return getContext().getResources().getString(R.string.rmb);
+    }
+
+    private String getCurrencySymbol(String code) {
+        if (TextUtils.equals(code, CurrencyType.ENGLISH.getCurrency())) {
+            return "$";
+        }
+        return "￥";
+    }
+
+    private void onLanguageFail() {
+        ToastUtils.showToast(getContext(), getContext().getString(R.string.update_fail));
+    }
+
+    private void onCurrencyFail() {
+        ToastUtils.showToast(getContext(), getContext().getString(R.string.update_fail));
     }
 
     public void updateCurrency(CurrencyListBean list) {
@@ -193,11 +250,8 @@ public class BottomDialog extends Dialog {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startReport(bean.getHref());
+                    startCurrencyReport(bean.getCode());
                     dismiss();
-                    if (mItemClickListener != null) {
-                        mItemClickListener.currencyItemClick(bean.getSymbol_left(), bean.getTitle());
-                    }
                 }
             });
             if ((i + 1) < currencies.size()) {

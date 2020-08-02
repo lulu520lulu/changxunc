@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">scomall</string>
+
+    <string-array name="search_sort">
+        <item>нарушение договора</item>
+        <item>имя</item>
+        <item>цена</item>
+        <item>рейтинг</item>
+        <item>объем продаж</item>
+    </string-array>
+
+    <string-array name="main_tab">
+        <item>Первая страница</item>
+        <item>Поиск</item>
+        <item>категория</item>
+        <item>корзина покупок</item>
+        <item>Членский центр</item>
+    </string-array>
+
+    <string name="tryagainBack">Нажмите еще раз для выхода из программы</string>
+
+
+    <string name="tab_home">Первая страница</string>
+    <string name="tab_search">Поиск</string>
+    <string name="tab_type">Категория</string>
+    <string name="tab_shop">корзина покупок</string>
+    <string name="tab_person">Членский центр</string>
+
+    <string name="currency">валюта</string>
+    <string name="language">язык</string>
+    <string name="tab_type_brand">марка</string>
+    <string name="login_title">логин члена</string>
+    <string name="login_email_type">логин почтового ящика</string>
+    <string name="login_phone_type">логин мобильного телефона</string>
+    <string name="login_email">почтовый ящик</string>
+    <string name="login_password">пароль</string>
+    <string name="login_phone">номер мобильного телефона</string>
+    <string name="login_phone_china">материковый Китай</string>
+    <string name="login">логин</string>
+    <string name="user_register">регистрация пользователя</string>
+    <string name="forget_password">Забыли пароль?</string>
+    <string name="register_title">pегистрация пользователя</string>
+    <string name="register_email_type">регистрация почтового ящика</string>
+    <string name="register_phone_type">регистрация мобильного телефона</string>
+    <string name="register_email">адрес электронной почты *</string>
+    <string name="register_password">введите пароль *</string>
+    <string name="register_re_password">подтвердите пароль *</string>
+    <string name="book_email">подписаться на почту</string>
+    <string name="yes">да</string>
+    <string name="no">Нет</string>
+    <string name="readed">"Я прочитал и согласен"</string>
+    <string name="register_rule">политика конфиденциальности</string>
+    <string name="next">продолжать</string>
+    <string name="forget_phone_type">Восстановить пароль с мобильного телефона</string>
+    <string name="forget_email_type">Восстановить пароль по электронной почте</string>
+    <string name="submit">представление</string>
+    <string name="forget_password_adress">адрес электронной почты</string>
+    <string name="forget_password_edit_address">адрес электронной почты *</string>
+    <string name="forget_password_phone_address">адрес мобильного телефона</string>
+    <string name="forget_phone_edit_address">Телефонный адрес *</string>
+    <string name="blog">блог</string>
+    <string name="sns_code">проверочный код *</string>
+    <string name="sns_code_get">получить проверочный код</string>
+    <string name="detail">подробности</string>
+    <string name="read_all">просмотреть все</string>
+    <string name="shop_cart_add_success">успешно добавлено в корзину</string>
+    <string name="shop_cart_add_fail">не удалось добавить в корзину</string>
+    <string name="emil_edit_is_empty">почтовый ящик пуст</string>
+    <string name="emil_phone_is_empty">номер мобильного телефона пуст</string>
+    <string name="emil_password_is_empty">Пароль пуст</string>
+    <string name="login_fail">Ошибка входа</string>
+    <string name="login_success">успешный вход</string>
+    <string name="check_agree_rule">пожалуйста, сначала проверьте юридические условия</string>
+    <string name="registe_emil_is_empty">почтовый ящик пуст</string>
+    <string name="registe_phone_is_empty">номер мобильного телефона пуст</string>
+    <string name="registe_sms_is_empty">код подтверждения пуст</string>
+    <string name="register_password_is_empty">пароль пуст</string>
+    <string name="register_re_password_is_empty">Подтвердите, что пароль пуст</string>
+    <string name="register_password_no_equal">противоречивые пароли</string>
+    <string name="register_fail">регистрация не удалась</string>
+    <string name="register_success">Успешная регистрация</string>
+    <string name="please_edit_content">Пожалуйста, введите содержание</string>
+    <string name="get_sms_code_fail">не удалось получить код подтверждения</string>
+    <string name="get_sms_code_success">успешное получение кода проверки</string>
+    <string name="select_cell_code">код телефонной зоны</string>
+    <string name="type_empty_text">нет подходящих продуктов</string>
+    <string name="brand_empty_text">в настоящий момент нет бренда</string>
+    <string name="go_see_more">подробнее</string>
+    <string name="home_top_search_hint">введите поисковый запрос по ключевым словам</string>
+    <string name="update_fail">Замена не удалась</string>
+    <string name="rmb">rmb</string>
+    <string name="loading">загрузка...</string>
+
+</resources>

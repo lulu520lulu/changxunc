@@ -17,7 +17,8 @@ import com.c.hangxunc.pages.login.ForgetPassFragmentWeb;
 import com.c.hangxunc.pages.login.LoginFragment;
 import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.pages.login.RegisterFragment;
-import com.c.hangxunc.utils.LanguageUtils;
+import com.c.hangxunc.utils.CurrencySp;
+import com.c.hangxunc.utils.LanguageSp;
 import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.web.HangXunWebView;
 
@@ -139,7 +140,8 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
             mWebContainer.setVisibility(View.VISIBLE);
         }
         String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId +
-                ApiConstants.LANGUAGE_PATH + LanguageUtils.getInstance().getCode();
+                ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
+                + ApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode();
         if (TextUtils.isEmpty(url)) {
             return;
         }
@@ -195,12 +197,12 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleLogin(MessageLogin message) {
-       if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
-           if (mWebContainer.getVisibility() == View.VISIBLE) {
-               mWebContainer.setVisibility(View.GONE);
-               mWebContainer.clearHistory();
-           }
-           showLoginFragment();
+        if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            if (mWebContainer.getVisibility() == View.VISIBLE) {
+                mWebContainer.setVisibility(View.GONE);
+                mWebContainer.clearHistory();
+            }
+            showLoginFragment();
         }
     }
 

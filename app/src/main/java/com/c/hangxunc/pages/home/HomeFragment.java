@@ -26,6 +26,7 @@ import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.pages.MessageLocal;
 import com.c.hangxunc.pages.home.ui.MessageHome;
 import com.c.hangxunc.pages.widget.BottomView;
 import com.c.hangxunc.utils.DimenUtils;
@@ -356,6 +357,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
     public void onGetMessage(MessageHome message) {
         if (TextUtils.equals(message.message, "show home")) {
             startShowHome();
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeCurrency(MessageLocal message) {
+        if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
+            getData();
         }
     }
 

@@ -115,6 +115,7 @@ public interface ApiConstants {
     String PRODUCT_PAGE_PATH = "/index.php?route=product/product&product_id=";
     String CUSTOMER_ID_PATH = "&customer_id=";
     String LANGUAGE_PATH = "&language=";
+    String CURRENCY_PATH = "&currency=";
 
     //会员中心的页面跳转
 

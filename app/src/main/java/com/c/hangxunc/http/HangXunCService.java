@@ -29,10 +29,10 @@ public interface HangXunCService {
 
 
     @GET(ApiConstants.GET_HOME_TOP_PATH)
-    Call<ModulesListBean> getHomeTop(@Query("customer_id") String custom_id, @Query("language") String language);
+    Call<ModulesListBean> getHomeTop(@Query("customer_id") String custom_id, @Query("language") String language, @Query("currency") String currency);
 
     @GET(ApiConstants.GET_HOME_BOTTOM_PATH)
-    Call<ProductListBean> getHomeBottom(@Query("customer_id") String custom_id, @Query("language") String language);
+    Call<ProductListBean> getHomeBottom(@Query("customer_id") String custom_id, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 全部商品模块
@@ -44,7 +44,7 @@ public interface HangXunCService {
     @POST(ApiConstants.GET_ALL_PRODUCT_MOBILE_PATH)
     @FormUrlEncoded
     Call<ProductListBean> getAllProduct(@Field("customer_id") String custom_id, @Field("count") int count,
-                                        @Field("limit") int limit, @Field("language") String language);
+                                        @Field("limit") int limit, @Field("language") String language, @Field("currency") String currency);
 
     /**
      * 首页添加购物车
@@ -62,7 +62,7 @@ public interface HangXunCService {
      * @return
      */
     @GET(ApiConstants.GET_CATEGORY_PATH)
-    Call<List<CategoryBean>> getCategory(@Query("customer_id") String customer_id, @Query("language") String language);
+    Call<List<CategoryBean>> getCategory(@Query("customer_id") String customer_id, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 根据id获得产品
@@ -70,7 +70,7 @@ public interface HangXunCService {
      * @return
      */
     @GET(ApiConstants.GET_PRODUCT_PATH)
-    Call<ProductBean> getProduct(@Query("customer_id") String customer_id, @Query("id") int id, @Query("language") String language);
+    Call<ProductBean> getProduct(@Query("customer_id") String customer_id, @Query("id") int id, @Query("language") String language, @Query("currency") String currency);
 
 
     /**
@@ -80,7 +80,7 @@ public interface HangXunCService {
      */
     @GET(ApiConstants.SEARCH_PRO_PATH)
     Call<SearchResultBean> searchPro(@Query("customer_id") String customer_id, @Query("search") String keyWord,
-                                     @Query("sort") String sort, @Query("order") String order, @Query("language") String language);
+                                     @Query("sort") String sort, @Query("order") String order, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 搜索页数据
@@ -88,7 +88,7 @@ public interface HangXunCService {
      * @return
      */
     @GET(ApiConstants.SEARCH_PRO_PATH)
-    Call<BreadCrumbsBean> searchPro(@Query("customer_id") String customer_id, @Query("search") String keyWord, @Query("language") String language);
+    Call<BreadCrumbsBean> searchPro(@Query("customer_id") String customer_id, @Query("search") String keyWord, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 分类页--分类数据
@@ -96,7 +96,7 @@ public interface HangXunCService {
      * @return
      */
     @GET(ApiConstants.GET_CATEGORY_PAGE_PATH)
-    Call<CategoryListBean> getCategoryPage(@Query("customer_id") String customer_id, @Query("language") String language);
+    Call<CategoryListBean> getCategoryPage(@Query("customer_id") String customer_id, @Query("language") String language, @Query("currency") String currency);
 
 
     /**
@@ -105,12 +105,23 @@ public interface HangXunCService {
      * @return
      */
     @GET(ApiConstants.GET_MANUFACTURER_PAGE_PATH)
-    Call<CategoryListBean> getManufacturer(@Query("customer_id") String customer_id, @Query("language") String language);
+    Call<CategoryListBean> getManufacturer(@Query("customer_id") String customer_id, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 语言切换
-     *
-     * @return
+     */
+    @GET(ApiConstants.GET_LANGUAGE_PATH)
+    Call<LanguageListBean> getLanguage(@Query("customer_id") String customer_id);
+
+    /**
+     * 货币切换
+     */
+    @GET(ApiConstants.GET_CURRENCY_PATH)
+    Call<CurrencyListBean> getCurrency(@Query("customer_id") String customer_id);
+
+
+    /**
+     * 语言切换
      */
     @GET(ApiConstants.GET_LANGUAGE_PATH)
     Call<LanguageListBean> getLanguage(@Query("customer_id") String customer_id, @Query("language") String language);
@@ -119,7 +130,7 @@ public interface HangXunCService {
      * 货币切换
      */
     @GET(ApiConstants.GET_CURRENCY_PATH)
-    Call<CurrencyListBean> getCurrency(@Query("customer_id") String customer_id, @Query("language") String language);
+    Call<CurrencyListBean> getCurrency(@Query("customer_id") String customer_id, @Query("currency") String currency);
 
 //    /**
 //     * 获取版权信息
@@ -131,7 +142,7 @@ public interface HangXunCService {
      * 注册支持国家
      */
     @GET(ApiConstants.GET_COUNTRY_PATH)
-    Call<List<CountryBean>> getCountry(@Query("customer_id") String customer_id, @Query("language") String language);
+    Call<List<CountryBean>> getCountry(@Query("customer_id") String customer_id, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 登录

@@ -21,16 +21,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c.hangxunc.R;
-import com.c.hangxunc.bean.home.BreadCrumbsBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.SearchResultBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
 import com.c.hangxunc.mvp.BaseFragment;
+import com.c.hangxunc.pages.MessageLocal;
 import com.c.hangxunc.pages.widget.BottomView;
 import com.c.hangxunc.utils.HangLog;
 import com.c.hangxunc.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +72,8 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
     @Override
     public View onCreateViewImpl(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, null);
+        EventBus.getDefault().register(this);
+
         init(view);
         return view;
     }
@@ -281,6 +287,18 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
     @Override
     protected void onDestroyViewImpl() {
         super.onDestroyViewImpl();
+        EventBus.getDefault().unregister(this);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeCurrency(MessageLocal message) {
+        if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
+            String keyword = search.getText().toString();
+            if (!TextUtils.isEmpty(keyword)) {
+                startSearch(keyword, "", "");
+            }
+        }
     }
 
 }
