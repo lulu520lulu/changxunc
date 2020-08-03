@@ -51,6 +51,7 @@ public class HangXunBiz {
 //                .followRedirects(false)
 //                .readTimeout(21, TimeUnit.DAYS)
 //                .addInterceptor(loggingInterceptor)
+                .cookieJar(new LocalCookieJar())
                 .build();
 
         Retrofit retrofit = new Retrofit

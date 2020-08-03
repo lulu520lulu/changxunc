@@ -13,8 +13,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.c.hangxunc.HandXunApplication;
-
 import java.util.Locale;
 
 public class LanguageUtil {

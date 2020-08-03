@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 
-import com.c.hangxunc.HandXunApplication;
+import com.c.hangxunc.HangXunApplication;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -16,7 +16,7 @@ public class LoginUtils {
 
     private LoginUtils() {
         if (mSharedPreferencesContext == null) {
-            mSharedPreferencesContext = HandXunApplication.getInstance()
+            mSharedPreferencesContext = HangXunApplication.getInstance()
                     .getSharedPreferences("Login", MODE_PRIVATE);
         }
     }

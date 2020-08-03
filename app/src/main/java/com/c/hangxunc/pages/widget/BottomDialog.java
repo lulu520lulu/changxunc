@@ -119,7 +119,7 @@ public class BottomDialog extends Dialog {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startLanguageReport(bean);
+                    startLanguageReport(bean.getCode(), list.getCode());
                     dismiss();
                 }
             });
@@ -132,8 +132,8 @@ public class BottomDialog extends Dialog {
         }
     }
 
-    private void startLanguageReport(LanguageBean oldBean) {
-        HangXunBiz.getInstance().setLanguage(oldBean.getCode(), new ResponseListener<LanguageListBean>() {
+    private void startLanguageReport(String newCode, String oldCode) {
+        HangXunBiz.getInstance().setLanguage(newCode, new ResponseListener<LanguageListBean>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFailure");
@@ -143,10 +143,10 @@ public class BottomDialog extends Dialog {
             @Override
             public void onSuccess(LanguageListBean bean) {
                 HangLog.d(TAG, "response success:" + bean.getCode());
-                if (!TextUtils.equals(bean.getCode(), oldBean.getCode())) {
+                if (!TextUtils.equals(bean.getCode(), oldCode)) {
 
-                    LanguageSp.getInstance().saveLanguage(oldBean);
-                    LanguageUtil.changeLanguageAndKill(getContext(), oldBean.getCode());
+                    LanguageSp.getInstance().saveLanguageList(bean);
+                    LanguageUtil.changeLanguageAndKill(getContext(), bean.getCode());
                 }
                 if (mItemClickListener != null) {
                     mItemClickListener.languageItemClick(bean.getCode(), getLanguageName(bean.getCode()));
@@ -177,8 +177,8 @@ public class BottomDialog extends Dialog {
         this.mItemClickListener = mItemClickListener;
     }
 
-    private void startCurrencyReport(String code) {
-        HangXunBiz.getInstance().setCurrency(code, new ResponseListener<CurrencyListBean>() {
+    private void startCurrencyReport(String newCode, String oldCode) {
+        HangXunBiz.getInstance().setCurrency(newCode, new ResponseListener<CurrencyListBean>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFailure");
@@ -189,7 +189,7 @@ public class BottomDialog extends Dialog {
             public void onSuccess(CurrencyListBean bean) {
                 HangLog.d(TAG, "response success:" + bean);
 
-                if (!TextUtils.equals(bean.getCode(), CurrencySp.getInstance().getCode())) {
+                if (!TextUtils.equals(bean.getCode(), oldCode)) {
                     CurrencySp.getInstance().saveCurrencyList(bean);
                     EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CHANGE));
                 }
@@ -250,7 +250,7 @@ public class BottomDialog extends Dialog {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startCurrencyReport(bean.getCode());
+                    startCurrencyReport(bean.getCode(), list.getCode());
                     dismiss();
                 }
             });

@@ -1,6 +1,6 @@
 package com.c.hangxunc.utils;
 
-import com.c.hangxunc.HandXunApplication;
+import com.c.hangxunc.HangXunApplication;
 
 public class DimenUtils {
     private static final float HALF_PIXEL = 0.5f;
@@ -12,7 +12,7 @@ public class DimenUtils {
      * @return
      */
     public static int dip2px(float dip) {
-        float f = HandXunApplication.getInstance().getResources().getDisplayMetrics().density;
+        float f = HangXunApplication.getInstance().getResources().getDisplayMetrics().density;
         return (int) (dip * f + HALF_PIXEL);
     }
 
@@ -23,7 +23,7 @@ public class DimenUtils {
      * @return
      */
     public static int px2dip(float px) {
-        float f = HandXunApplication.getInstance().getResources().getDisplayMetrics().density;
+        float f = HangXunApplication.getInstance().getResources().getDisplayMetrics().density;
         return (int) (px / f);
     }
 
@@ -34,7 +34,7 @@ public class DimenUtils {
      * @return
      */
     public static int sp2dip(float sp) {
-        float f = HandXunApplication.getInstance().getResources().getDisplayMetrics().scaledDensity;
+        float f = HangXunApplication.getInstance().getResources().getDisplayMetrics().scaledDensity;
         return (int) (sp * f + HALF_PIXEL);
     }
 }

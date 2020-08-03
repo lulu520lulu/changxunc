@@ -53,6 +53,9 @@ public class BottomView extends FrameLayout {
     private TextView mLanguage;
     private ImageView mIvLanguage;
 
+    private CurrencyListBean mCurrencyListBean;
+    private LanguageListBean mLanguageListBean;
+
     private void initView(Context context) {
         inflate(context, R.layout.base_bottom_view, this);
         EventBus.getDefault().register(this);
@@ -73,7 +76,7 @@ public class BottomView extends FrameLayout {
     }
 
     private void showData() {
-        LanguageBean languageBean = LanguageSp.getInstance().getLanguage();
+        LanguageListBean languageBean = LanguageSp.getInstance().getLanguageList();
         CurrencyListBean currencyList = CurrencySp.getInstance().getCurrencyList();
         updateCurrency(currencyList);
         updateLanguage(languageBean);
@@ -116,9 +119,8 @@ public class BottomView extends FrameLayout {
     private BottomDialog mBottomDialog;
 
     private void showLanguageDialog() {
-        LanguageListBean list = LanguageSp.getInstance().getLanguageList();
-        if (list != null) {
-            mBottomDialog.updateLanguage(list);
+        if (mLanguageListBean != null) {
+            mBottomDialog.updateLanguage(mLanguageListBean);
             mBottomDialog.show();
         } else {
             HangXunBiz.getInstance().getLanguage(new ResponseListener<LanguageListBean>() {
@@ -132,7 +134,8 @@ public class BottomView extends FrameLayout {
                 public void onSuccess(LanguageListBean bean) {
                     HangLog.d(TAG, "onSuccess getLanguage bean: " + bean.toString());
                     LanguageSp.getInstance().saveLanguageList(bean);
-                    mBottomDialog.updateLanguage(list);
+                    mLanguageListBean = bean;
+                    mBottomDialog.updateLanguage(bean);
                     mBottomDialog.show();
                 }
             });
@@ -195,10 +198,7 @@ public class BottomView extends FrameLayout {
         mCurrency.setText(currency);
     }
 
-    private CurrencyListBean mCurrencyListBean;
-    private LanguageBean mLanguageBean;
-
-    public void updateLanguage(LanguageBean bean) {
+    public void updateLanguage(LanguageListBean bean) {
         String language = "简体中文";
         int imageResource = R.mipmap.china_language;
 
@@ -211,7 +211,7 @@ public class BottomView extends FrameLayout {
                 language = "Russian";
             }
         }
-        mLanguageBean = bean;
+        mLanguageListBean = bean;
 
         mLanguage.setText(language);
         mIvLanguage.setImageResource(imageResource);
@@ -224,22 +224,4 @@ public class BottomView extends FrameLayout {
         }
     }
 
-//    public String getLanguageCode() {
-//        if (mLanguageListBean != null) {
-//            return mLanguageListBean.getCode();
-//        }
-//        return "";
-//    }
-//
-//    public String getCellCode() {
-//        if (mLanguageListBean != null) {
-//            if (TextUtils.equals(mLanguageListBean.getCode(), "en-gb")) {
-//                return "001";
-//            } else if (TextUtils.equals(mLanguageListBean.getCode(), "ru-ru")) {
-//                return "007";
-//            }
-//        }
-//        return "86";
-//
-//    }
 }

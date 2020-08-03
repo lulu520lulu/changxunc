@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.BaseActivity;
-import com.c.hangxunc.HandXunApplication;
+import com.c.hangxunc.HangXunApplication;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.utils.Constants;
 import com.c.hangxunc.utils.DimenUtils;
@@ -47,10 +47,10 @@ public class HybridActivity extends BaseActivity {
         if (TextUtils.isEmpty(urlPath)) {
             return;
         }
-        Intent intent = new Intent(HandXunApplication.getInstance(), HybridActivity.class);
+        Intent intent = new Intent(HangXunApplication.getInstance(), HybridActivity.class);
         intent.putExtra(Constants.WEB_URL_KEY, urlPath);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        HandXunApplication.getInstance().startActivity(intent);
+        HangXunApplication.getInstance().startActivity(intent);
     }
 
     private void initView() {

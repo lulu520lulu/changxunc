@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.c.hangxunc.HandXunApplication;
-import com.c.hangxunc.bean.home.LanguageBean;
+import com.c.hangxunc.HangXunApplication;
 import com.c.hangxunc.bean.home.LanguageListBean;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -15,17 +14,15 @@ public class LanguageSp {
 
     private static final String TAG = LanguageSp.class.getSimpleName();
     private static final String LANGUAGE_SP = "language_sp";
-    private static final String LANGUAGE_SP_BEAN = "language_sp_bean";
-    private static final String LANGUAGE_SP_BEAN_LIST= "language_sp_bean_list";
+    private static final String LANGUAGE_SP_BEAN_LIST = "language_sp_bean_list";
 
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
     private LanguageListBean mLanguageListBean;
-    private LanguageBean mLanguage;
 
 
     private LanguageSp() {
-        mPreferences = HandXunApplication.getInstance().getSharedPreferences(LANGUAGE_SP, Context.MODE_PRIVATE);
+        mPreferences = HangXunApplication.getInstance().getSharedPreferences(LANGUAGE_SP, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
     }
 
@@ -48,47 +45,13 @@ public class LanguageSp {
     }
 
     public String getCode() {
-        if (mLanguage == null) {
-            mLanguage = getLanguage();
+        if (mLanguageListBean == null) {
+            mLanguageListBean = getLanguageList();
         }
-        if (mLanguage != null) {
-            return mLanguage.getCode();
+        if (mLanguageListBean != null) {
+            return mLanguageListBean.getCode();
         }
         return "";
-    }
-
-    public void saveLanguage(LanguageBean data) {
-        if (null == data) {
-            return;
-        }
-        mLanguage = data;
-        Gson gson = new Gson();
-        String strJson = gson.toJson(data);
-        Log.d(TAG, "setData, json:" + strJson);
-        mEditor.clear();
-        mEditor.putString(LANGUAGE_SP_BEAN, strJson);
-        mEditor.commit();
-    }
-
-    public LanguageBean getLanguage() {
-        if (mLanguage != null) {
-            return mLanguage;
-        }
-        LanguageBean data = null;
-        String strJson = mPreferences.getString(LANGUAGE_SP_BEAN, null);
-        if (null == strJson) {
-            return null;
-        }
-        Log.d(TAG, "getData, json:" + strJson);
-        try {
-            Gson gson = new Gson();
-            JsonElement jsonElement = new JsonParser().parse(strJson);
-            data = gson.fromJson(jsonElement, LanguageBean.class);
-            mLanguage = data;
-        } catch (Exception e) {
-            Log.e(TAG, "Exception : " + e.getMessage());
-        }
-        return data;
     }
 
     public void saveLanguageList(LanguageListBean data) {

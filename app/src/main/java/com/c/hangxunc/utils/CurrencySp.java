@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.c.hangxunc.HandXunApplication;
+import com.c.hangxunc.HangXunApplication;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.google.gson.Gson;
@@ -24,7 +24,7 @@ public class CurrencySp {
 
 
     private CurrencySp() {
-        mPreferences = HandXunApplication.getInstance().getSharedPreferences(CURRENCY_SP, Context.MODE_PRIVATE);
+        mPreferences = HangXunApplication.getInstance().getSharedPreferences(CURRENCY_SP, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
     }
 
@@ -42,7 +42,7 @@ public class CurrencySp {
         if (TextUtils.equals(code, "USD")) {
             return "US Dollar";
         }
-        return HandXunApplication.getInstance().getResources().getString(R.string.rmb);
+        return HangXunApplication.getInstance().getResources().getString(R.string.rmb);
     }
 
     public String getCode() {
