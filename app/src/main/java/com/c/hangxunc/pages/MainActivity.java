@@ -51,46 +51,8 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
 
     private void initData() {
         getLoginState();
-        getDataLC();
     }
 
-    private void getDataLC() {
-        HangXunBiz.getInstance().getLanguage(new ResponseListener<LanguageListBean>() {
-            @Override
-            public void onFail(int code, String message) {
-                HangLog.d(TAG, "onFail getLanguage code: " + code + ",message:" + message);
-
-            }
-
-            @Override
-            public void onSuccess(LanguageListBean bean) {
-                HangLog.d(TAG, "onSuccess getLanguage bean: " + bean.toString());
-                LanguageSp.getInstance().saveLanguageList(bean);
-
-                if (!TextUtils.equals(bean.getCode(), LanguageSp.getInstance().getCode())) {
-                    EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CHANGE));
-                }
-            }
-        });
-
-        HangXunBiz.getInstance().getCurrency(new ResponseListener<CurrencyListBean>() {
-            @Override
-            public void onFail(int code, String message) {
-                HangLog.d(TAG, "onFail getCurrency code: " + code + ",message:" + message);
-
-            }
-
-            @Override
-            public void onSuccess(CurrencyListBean bean) {
-                HangLog.d(TAG, "onSuccess getCurrency bean: " + bean.toString());
-                CurrencySp.getInstance().saveCurrencyList(bean);
-                if (!TextUtils.equals(bean.getCode(), CurrencySp.getInstance().getCode())) {
-                    EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CHANGE));
-                }
-            }
-
-        });
-    }
 
     private void getLoginState() {
         HangXunBiz.getInstance().isCustomerLogin(new ResponseListener<IsLoginBean>() {
@@ -109,7 +71,6 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
                 } else {
                     LoginUtils.getInstance().loginOut();
                 }
-
             }
         });
     }

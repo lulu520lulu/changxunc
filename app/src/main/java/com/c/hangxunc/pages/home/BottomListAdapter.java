@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c.hangxunc.R;
@@ -21,6 +24,7 @@ import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
 import com.c.hangxunc.utils.ToastUtils;
+import com.c.hangxunc.utils.WindowUtils;
 
 import java.util.List;
 
@@ -45,7 +49,18 @@ class BottomListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ProductBean item = mData.get(position);
         MyViewHolder viewHolder = (MyViewHolder) holder;
+
         viewHolder.content.setText(item.getName());
+
+        int windowWidth = WindowUtils.getWindowWidth((Activity) mContext);
+        int padding = DimenUtils.dip2px(6);
+
+        int width = windowWidth / 2 - padding;
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) viewHolder.image.getLayoutParams();
+        params.height = width;
+        params.width = width;
+        viewHolder.image.setLayoutParams(params);
+
         Glide.with(mContext)
                 .load(item.getThumb())
                 .error(R.mipmap.new_banner)
@@ -77,12 +92,13 @@ class BottomListAdapter extends RecyclerView.Adapter {
                 }
             });
         }
-        viewHolder.add_love.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        if (item.getSales() == 0) {
+            viewHolder.num.setVisibility(View.GONE);
+        } else {
+            viewHolder.num.setVisibility(View.VISIBLE);
+            String format = String.format(mContext.getString(R.string.pin), item.getSales() + "");
+            viewHolder.num.setText(format);
+        }
     }
 
     private void expandTouchArea(View view, int size) {
@@ -116,7 +132,7 @@ class BottomListAdapter extends RecyclerView.Adapter {
         private ImageView add_shop;
         private TextView content;
         private TextView price_text;
-        private ImageView add_love;
+        private TextView num;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,7 +140,7 @@ class BottomListAdapter extends RecyclerView.Adapter {
             content = itemView.findViewById(R.id.content);
             price_text = itemView.findViewById(R.id.price_text);
             add_shop = itemView.findViewById(R.id.add_shop);
-            add_love = itemView.findViewById(R.id.add_love);
+            num = itemView.findViewById(R.id.num);
         }
     }
 }

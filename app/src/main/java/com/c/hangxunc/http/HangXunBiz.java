@@ -63,16 +63,6 @@ public class HangXunBiz {
         return retrofit;
     }
 
-
-    private Retrofit postRetrofit() {
-        Retrofit retrofit = new Retrofit
-                .Builder()
-                .baseUrl(ApiConstants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        return retrofit;
-    }
-
     private HangXunBiz() {
     }
 
@@ -87,8 +77,8 @@ public class HangXunBiz {
 
     public void getHomeTop(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<ModulesListBean> call = service.getHomeTop(LoginUtils.getInstance().getCustomerId(), LanguageSp.getInstance().getCode()
-                , CurrencySp.getInstance().getCode());
+        Call<ModulesListBean> call = service.getHomeTop(LoginUtils.getInstance().getCustomerId(),
+                LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
 

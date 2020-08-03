@@ -49,8 +49,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
     private static final String TAG = HomeFragment.class.getSimpleName();
     @BindView(R.id.search)
     FrameLayout search;
-    @BindView(R.id.start_search)
-    ImageView startSearch;
+    @BindView(R.id.start_person)
+    ImageView start_person;
     @BindView(R.id.recycleView)
     RecyclerView recycleView;
     @BindView(R.id.type_list)
@@ -65,6 +65,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
     TextView tv_search;
     @BindView(R.id.webview)
     HangXunWebView webContainer;
+    @BindView(R.id.go_type)
+    ImageView go_type;
 
     private HomePresenter mHomePresenter;
     private HomeListAdapter mListAdapter;
@@ -96,10 +98,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         drawable.setBounds(0, 0, DimenUtils.dip2px(20), DimenUtils.dip2px(20));
         tv_search.setCompoundDrawables(drawable, null, null, null);
 
-        startSearch.setOnClickListener(new View.OnClickListener() {
+        start_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goShop();
+                goPerson();
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +116,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
                 getData();
             }
         });
+        go_type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goType();
+            }
+        });
         initTypeList();
         initList();
         getData();
@@ -123,8 +131,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         ((MainActivity) getActivity()).setSelect(1);
     }
 
-    private void goShop() {
-        ((MainActivity) getActivity()).setSelect(3);
+    private void goPerson() {
+        ((MainActivity) getActivity()).setSelect(4);
+    }
+
+    private void goType() {
+        ((MainActivity) getActivity()).setSelect(2);
     }
 
     private void getData() {
@@ -246,6 +258,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         recycleView.setVisibility(View.GONE);
         empty_view.setVisibility(View.GONE);
         bottomView.setVisibility(View.GONE);
+        go_type.setVisibility(View.GONE);
     }
 
     private void hideLoading() {
@@ -254,6 +267,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         bottomView.setVisibility(View.VISIBLE);
         type_list.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.VISIBLE);
+        go_type.setVisibility(View.VISIBLE);
+
     }
 
     private void showEmpty() {
@@ -263,6 +278,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         recycleView.setVisibility(View.GONE);
         empty_view.setVisibility(View.VISIBLE);
         bottomView.setVisibility(View.VISIBLE);
+        go_type.setVisibility(View.GONE);
     }
 
 

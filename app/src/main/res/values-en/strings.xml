@@ -99,5 +99,7 @@
     <string name="see_more">see more</string>
     <string name="search_empty_text">No matching products were found</string>
     <string name="all_product">All products</string>
+    <string name="find_more_good_product">Discover more popular products</string>
+    <string name="pin">Spelled%1$sPieces</string>
 
 </resources>

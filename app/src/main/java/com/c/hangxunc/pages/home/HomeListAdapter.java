@@ -22,6 +22,7 @@ import com.c.hangxunc.bean.home.BannersBean;
 import com.c.hangxunc.bean.home.ItemsBean;
 import com.c.hangxunc.bean.home.ModulesBean;
 import com.c.hangxunc.bean.home.ProductBean;
+import com.c.hangxunc.bean.home.TabsBean;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.pages.MainActivity;
 import com.c.hangxunc.utils.JumpUtils;
@@ -39,15 +40,26 @@ public class HomeListAdapter extends RecyclerView.Adapter {
     private Activity mContext;
     private List<ModulesBean> mData = new ArrayList<>();
 
+    private static final int ITEM_MODULE_ID = 81;
+    private static final int TABS_MODULE_ID = 87;
+    private static final int KEJI_MODULE_ID = 77;
+    private static final int XIANSHI_MODULE_ID = 36;
+    private static final int GONG_MODULE_ID = 86;
+
+
+    private static final int ITEM_TYPE_DEFAULT = 0;
     private static final int ITEM_TYPE_BANNER = 1;
+
     private static final int ITEM_TYPE_ITEM = 2;
     private static final int ITEM_TYPE_PRODUCT_KEJI = 3;
     private static final int ITEM_TYPE_PRODUCT_XIANSHI = 4;
-    private static final int ITEM_TYPE_BOTTOM_LIST = 5;
-    private static final int ITEM_TYPE_BOTTOM = 6;
     private static final int ITEM_TYPE_PRODUCT_GONGCHANG = 7;
 
-    private static final int ITEM_TYPE_PRODUCT_ALL = 8;
+//    private static final int ITEM_TYPE_PRODUCT_ALL = 8;
+
+    private static final int ITEM_TYPE_BOTTOM_LIST = 5;
+    private static final int ITEM_TYPE_BOTTOM = 6;
+    private static final int ITEM_TYPE_TAB = 9;
 
 
     @Override
@@ -64,29 +76,24 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         if (bean != null) {
             if (bean.getBanners() != null && bean.getBanners().size() > 0) {
                 return ITEM_TYPE_BANNER;
-            } else if (bean.getItems() != null && bean.getItems().size() > 0) {
+            } else if (bean.getModule_id() == ITEM_MODULE_ID) {
                 return ITEM_TYPE_ITEM;
-            } else if (bean.getProducts() != null && bean.getProducts().size() > 0) {
-                if (TextUtils.equals(bean.getTitle(), "科技成果")) {
-                    return ITEM_TYPE_PRODUCT_KEJI;
-                } else if (TextUtils.equals(bean.getTitle(), "限时优惠")) {
-                    return ITEM_TYPE_PRODUCT_XIANSHI;
-                } else if (TextUtils.equals(bean.getTitle(), "工厂尾单")) {
-                    if (TextUtils.isEmpty(bean.getHref())) {
-                        return ITEM_TYPE_PRODUCT_GONGCHANG;
-                    } else {
-                        return ITEM_TYPE_PRODUCT_ALL;
-                    }
-                }
+            } else if (bean.getModule_id() == TABS_MODULE_ID) {
+                return ITEM_TYPE_TAB;
+            } else if (bean.getModule_id() == KEJI_MODULE_ID) {
+                return ITEM_TYPE_PRODUCT_KEJI;
+            } else if (bean.getModule_id() == XIANSHI_MODULE_ID) {
+                return ITEM_TYPE_PRODUCT_XIANSHI;
+            } else if (bean.getModule_id() == GONG_MODULE_ID) {
+                return ITEM_TYPE_PRODUCT_GONGCHANG;
             } else if (TextUtils.equals(bean.getTitle(), "bottom")) {
                 return ITEM_TYPE_BOTTOM;
             } else if (TextUtils.equals(bean.getTitle(), "product")) {
                 return ITEM_TYPE_BOTTOM_LIST;
             }
         }
-        return super.getItemViewType(position);
+        return ITEM_TYPE_DEFAULT;
     }
-
 
     public HomeListAdapter(Activity mContext) {
         this.mContext = mContext;
@@ -146,15 +153,18 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             case ITEM_TYPE_PRODUCT_GONGCHANG:
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product_gongchang, parent, false);
                 return new HomeListAdapter.ProductGongViewHolder(view);
-            case ITEM_TYPE_PRODUCT_ALL:
-                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product_all, parent, false);
-                return new HomeListAdapter.ProductAllViewHolder(view);
+//            case ITEM_TYPE_PRODUCT_ALL:
+//                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product_all, parent, false);
+//                return new HomeListAdapter.ProductAllViewHolder(view);
             case ITEM_TYPE_BOTTOM_LIST:
-                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_bottom_list, parent, false);
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_product_all, parent, false);
                 return new HomeListAdapter.BottomListViewHolder(view);
             case ITEM_TYPE_BOTTOM:
                 view = LayoutInflater.from(mContext).inflate(R.layout.home_list_bottom, parent, false);
                 return new HomeListAdapter.BottomViewHolder(view);
+            case ITEM_TYPE_TAB:
+                view = LayoutInflater.from(mContext).inflate(R.layout.home_list_tabs, parent, false);
+                return new HomeListAdapter.TabsViewHolder(view);
 
         }
         return null;
@@ -182,17 +192,35 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             case ITEM_TYPE_PRODUCT_GONGCHANG:
                 handleProductGong(holder, bean);
                 break;
-            case ITEM_TYPE_PRODUCT_ALL:
-                handleProductAll(holder, bean);
-                break;
+//            case ITEM_TYPE_PRODUCT_ALL:
+//                handleProductAll(holder, bean);
+//                break;
             case ITEM_TYPE_BOTTOM_LIST:
                 handleBottomList(holder, bean);
                 break;
             case ITEM_TYPE_BOTTOM:
                 break;
+            case ITEM_TYPE_TAB:
+                handleTabs(holder, bean);
+                break;
 
 
         }
+    }
+
+    private void handleTabs(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
+        List<TabsBean> list = bean.getTabs();
+        if (list == null || list.size() == 0) {
+            return;
+        }
+        if (viewHolder == null || !(viewHolder instanceof TabsViewHolder)) {
+            return;
+        }
+        TabsViewHolder holder = (TabsViewHolder) viewHolder;
+
+        holder.recycleView.setLayoutManager(new GridLayoutManager(mContext, 2));
+        TabRecycleAdapter adapter = new TabRecycleAdapter(mContext, list);
+        holder.recycleView.setAdapter(adapter);
     }
 
     private void handleProductAll(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
@@ -209,7 +237,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         } else {
             holder.products_container.setVisibility(View.GONE);
         }
-        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
+        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext, 2));
         ProductAllAdapter adapter = new ProductAllAdapter(mContext, list);
         holder.product_recycle.setAdapter(adapter);
     }
@@ -335,7 +363,12 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         }
         BottomListViewHolder holder = (BottomListViewHolder) viewHolder;
 
-        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
+        if (TextUtils.isEmpty(bean.getSubtitle())) {
+            holder.products_container.setVisibility(View.VISIBLE);
+        } else {
+            holder.products_container.setVisibility(View.GONE);
+        }
+        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext, 2));
         BottomListAdapter adapter = new BottomListAdapter(mContext, list);
         holder.product_recycle.setAdapter(adapter);
         holder.product_recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -393,7 +426,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
 
         LocalImageLoader imageLoader = new LocalImageLoader();
         //样式
-        holder.banner.setBannerStyle(BannerConfig.NOT_INDICATOR);
+        holder.banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //加载器
         holder.banner.setImageLoader(imageLoader);
         //动画效果
@@ -492,11 +525,21 @@ public class HomeListAdapter extends RecyclerView.Adapter {
 
     private class BottomListViewHolder extends RecyclerView.ViewHolder {
         private RecyclerView product_recycle;
+        private RelativeLayout products_container;
+        private TextView see_more;
 
 
         public BottomListViewHolder(@NonNull View itemView) {
             super(itemView);
             product_recycle = itemView.findViewById(R.id.product_recycle);
+            products_container = itemView.findViewById(R.id.products_container);
+            see_more = itemView.findViewById(R.id.see_more_product_all);
+            see_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) mContext).setSelect(2);
+                }
+            });
         }
     }
 
@@ -531,4 +574,12 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         }
     }
 
+    public class TabsViewHolder extends RecyclerView.ViewHolder {
+        private RecyclerView recycleView;
+
+        public TabsViewHolder(View view) {
+            super(view);
+            recycleView = view.findViewById(R.id.recycleView);
+        }
+    }
 }

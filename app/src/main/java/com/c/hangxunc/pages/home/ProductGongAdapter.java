@@ -57,8 +57,8 @@ class ProductGongAdapter extends RecyclerView.Adapter {
             viewHolder.num.setVisibility(View.GONE);
         } else {
             viewHolder.num.setVisibility(View.VISIBLE);
-            viewHolder.num.setText("已拼" + item.getSales() + "件");
-
+            String format = String.format(mContext.getString(R.string.pin), item.getSales() + "");
+            viewHolder.num.setText(format);
         }
         if (viewHolder.itemView != null) {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

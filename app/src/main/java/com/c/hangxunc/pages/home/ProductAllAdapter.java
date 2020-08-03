@@ -3,6 +3,7 @@ package com.c.hangxunc.pages.home;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.TouchDelegate;
 import android.view.View;
@@ -24,7 +25,7 @@ import com.c.hangxunc.utils.ToastUtils;
 
 import java.util.List;
 
-class ProductAllAdapter  extends RecyclerView.Adapter {
+class ProductAllAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<ProductBean> mData;
 
@@ -37,14 +38,14 @@ class ProductAllAdapter  extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.list_bottom_product_item, parent, false);
-        ProductAllAdapter.MyViewHolder holder = new ProductAllAdapter.MyViewHolder(view);
+        MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ProductBean item = mData.get(position);
-        ProductAllAdapter.MyViewHolder viewHolder = (ProductAllAdapter.MyViewHolder) holder;
+        MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder.content.setText(item.getName());
         Glide.with(mContext)
                 .load(item.getThumb())
@@ -77,12 +78,13 @@ class ProductAllAdapter  extends RecyclerView.Adapter {
                 }
             });
         }
-        viewHolder.add_love.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        if (item.getSales() == 0) {
+            viewHolder.num.setVisibility(View.GONE);
+        } else {
+            viewHolder.num.setVisibility(View.VISIBLE);
+            String format = String.format(mContext.getString(R.string.pin), item.getSales() + "");
+            viewHolder.num.setText(format);
+        }
     }
 
     private void expandTouchArea(View view, int size) {
@@ -116,7 +118,7 @@ class ProductAllAdapter  extends RecyclerView.Adapter {
         private ImageView add_shop;
         private TextView content;
         private TextView price_text;
-        private ImageView add_love;
+        private TextView num;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,7 +126,7 @@ class ProductAllAdapter  extends RecyclerView.Adapter {
             content = itemView.findViewById(R.id.content);
             price_text = itemView.findViewById(R.id.price_text);
             add_shop = itemView.findViewById(R.id.add_shop);
-            add_love = itemView.findViewById(R.id.add_love);
+            num = itemView.findViewById(R.id.num);
         }
     }
 }

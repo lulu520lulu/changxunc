@@ -1,5 +1,6 @@
 package com.c.hangxunc.bean.home;
 
+
 import java.util.List;
 
 public class ModulesListBean {

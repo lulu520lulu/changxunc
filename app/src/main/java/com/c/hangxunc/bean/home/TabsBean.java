@@ -10,8 +10,10 @@ public class TabsBean {
      */
 
     private String name;
+    private String content;
+
     private String image;
-    private List<ProductsBeanX> products;
+    private List<ProductBean> products;
 
     public String getName() {
         return name;
@@ -29,157 +31,19 @@ public class TabsBean {
         this.image = image;
     }
 
-    public List<ProductsBeanX> getProducts() {
+    public List<ProductBean> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductsBeanX> products) {
+    public void setProducts(List<ProductBean> products) {
         this.products = products;
     }
 
-    public static class ProductsBeanX {
-        /**
-         * product_id : 160
-         * thumb : http://b.hangxunc.com/image/cache/catalog/急救包-300x300.png
-         * name : 急救包
-         * description : ..
-         * price : ￥0.25
-         * special : false
-         * flash : false
-         * tax : false
-         * seller : []
-         * minimum : 100
-         * rating : 0
-         * sales : 50040
-         * quantity : 75430
-         * href : http://b.hangxunc.com/index.php?route=product/product&amp;product_id=160
-         */
+    public String getContent() {
+        return content;
+    }
 
-        private int product_id;
-        private String thumb;
-        private String name;
-        private String description;
-        private String price;
-        private boolean special;
-        private boolean flash;
-        private boolean tax;
-        private int minimum;
-        private int rating;
-        private int sales;
-        private int quantity;
-        private String href;
-        private List<?> seller;
-
-        public int getProduct_id() {
-            return product_id;
-        }
-
-        public void setProduct_id(int product_id) {
-            this.product_id = product_id;
-        }
-
-        public String getThumb() {
-            return thumb;
-        }
-
-        public void setThumb(String thumb) {
-            this.thumb = thumb;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public void setPrice(String price) {
-            this.price = price;
-        }
-
-        public boolean isSpecial() {
-            return special;
-        }
-
-        public void setSpecial(boolean special) {
-            this.special = special;
-        }
-
-        public boolean isFlash() {
-            return flash;
-        }
-
-        public void setFlash(boolean flash) {
-            this.flash = flash;
-        }
-
-        public boolean isTax() {
-            return tax;
-        }
-
-        public void setTax(boolean tax) {
-            this.tax = tax;
-        }
-
-        public int getMinimum() {
-            return minimum;
-        }
-
-        public void setMinimum(int minimum) {
-            this.minimum = minimum;
-        }
-
-        public int getRating() {
-            return rating;
-        }
-
-        public void setRating(int rating) {
-            this.rating = rating;
-        }
-
-        public int getSales() {
-            return sales;
-        }
-
-        public void setSales(int sales) {
-            this.sales = sales;
-        }
-
-        public int getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(int quantity) {
-            this.quantity = quantity;
-        }
-
-        public String getHref() {
-            return href;
-        }
-
-        public void setHref(String href) {
-            this.href = href;
-        }
-
-        public List<?> getSeller() {
-            return seller;
-        }
-
-        public void setSeller(List<?> seller) {
-            this.seller = seller;
-        }
+    public void setContent(String content) {
+        this.content = content;
     }
 }
