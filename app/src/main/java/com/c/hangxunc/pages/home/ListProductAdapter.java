@@ -29,7 +29,7 @@ class ListProductAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.list_product_item, parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.list_product_item, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
@@ -41,6 +41,8 @@ class ListProductAdapter extends RecyclerView.Adapter {
         viewHolder.text.setText(productBean.getPrice());
         Glide.with(mContext)
                 .load(productBean.getThumb())
+                .error(R.mipmap.place_image)
+                .placeholder(R.mipmap.place_image)
                 .into(viewHolder.image);
 
         if (viewHolder.itemView != null) {

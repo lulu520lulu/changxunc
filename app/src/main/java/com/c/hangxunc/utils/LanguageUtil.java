@@ -58,12 +58,14 @@ public class LanguageUtil {
 
     public static Locale getLocaleByLanguage(String language) {
         Locale locale = Locale.SIMPLIFIED_CHINESE;
-
-        if (language.equals(LanguageType.CHINESE.getLanguage())) {
+        if (TextUtils.isEmpty(language)) {
+            return locale;
+        }
+        if (TextUtils.equals(language, LanguageType.CHINESE.getLanguage())) {
             locale = Locale.SIMPLIFIED_CHINESE;
-        } else if (language.equals(LanguageType.ENGLISH.getLanguage())) {
+        } else if (TextUtils.equals(language, LanguageType.ENGLISH.getLanguage())) {
             locale = Locale.ENGLISH;
-        } else if (language.equals(LanguageType.RU.getLanguage())) {
+        } else if (TextUtils.equals(language, LanguageType.RU.getLanguage())) {
             locale = new Locale("ru");
         }
         Log.d(TAG, "getLocaleByLanguage: " + locale.getDisplayName());

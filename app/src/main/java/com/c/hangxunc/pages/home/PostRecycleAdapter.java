@@ -55,8 +55,8 @@ class PostRecycleAdapter extends RecyclerView.Adapter {
         viewHolder.image.setLayoutParams(params);
         Glide.with(mContext)
                 .load(ApiConstants.IMAGE_BASE_URL + "/" + bean.getImage())
-                .error(R.mipmap.new_banner)
-                .placeholder(R.mipmap.new_banner)
+                .error(R.mipmap.place_image)
+                .placeholder(R.mipmap.place_image)
                 .into(viewHolder.image);
         if (viewHolder.itemView != null) {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

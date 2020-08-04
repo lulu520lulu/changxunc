@@ -10,7 +10,7 @@ public class TabsBean {
      */
 
     private String name;
-    private String content;
+    private String name_sub;
 
     private String image;
     private List<ProductBean> products;
@@ -39,11 +39,11 @@ public class TabsBean {
         this.products = products;
     }
 
-    public String getContent() {
-        return content;
+    public String getNameSub() {
+        return name_sub;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void settNameSub(String name_sub) {
+        this.name_sub = name_sub;
     }
 }

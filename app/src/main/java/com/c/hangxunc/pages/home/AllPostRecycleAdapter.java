@@ -43,8 +43,8 @@ public class AllPostRecycleAdapter extends RecyclerView.Adapter {
         viewHolder.content.setText(postsBean.getContent());
         Glide.with(mContext)
                 .load(ApiConstants.IMAGE_BASE_URL + "/" + postsBean.getImage())
-                .error(R.mipmap.new_banner)
-                .placeholder(R.mipmap.new_banner)
+                .error(R.mipmap.place_image)
+                .placeholder(R.mipmap.place_image)
                 .into(viewHolder.image);
         viewHolder.read_all.setOnClickListener(new View.OnClickListener() {
             @Override

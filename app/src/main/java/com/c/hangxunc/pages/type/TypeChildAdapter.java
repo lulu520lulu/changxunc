@@ -43,6 +43,8 @@ public class TypeChildAdapter extends RecyclerView.Adapter {
 
         Glide.with(mContext)
                 .load(categoryChildBean.getThumb())
+                .error(R.mipmap.place_image)
+                .placeholder(R.mipmap.place_image)
                 .into(vh.imageView);
         vh.textView.setOnClickListener(new View.OnClickListener() {
             @Override

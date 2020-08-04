@@ -149,7 +149,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
         HangLog.d(TAG, "showFail ");
         loadingView.setVisibility(View.GONE);
         resultContainer.setVisibility(View.VISIBLE);
-        emptyContainer.setVisibility(View.INVISIBLE);
+        emptyContainer.setVisibility(View.VISIBLE);
         resultList.setVisibility(View.GONE);
         sortList.setVisibility(View.GONE);
         bottomView.setVisibility(View.VISIBLE);

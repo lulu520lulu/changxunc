@@ -20,6 +20,9 @@
 #保持泛型
 -keepattributes Signature
 
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
 #保持所有实现 Serializable 接口的类成员
 -keepclassmembers class * implements java.io.Serializable {
     static final long serialVersionUID;
@@ -53,6 +56,8 @@
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
+-keep public class * extends androidx.fragment.app
+
 
 
 ##okhttp3混淆
@@ -113,21 +118,15 @@
 -dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
 -dontwarn me.iwf.photopicker.adapter.**
 
--keepattributes *Annotation*
-
--keepclassmembers class ** {
-
-@org.greenrobot.eventbus.Subscribe ;
-
-}
 
 #eventbus
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 
-# Only required if you use AsyncExecutor
-
--keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-
-(Java.lang.Throwable);
-
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+-keepclassmembers class ** {
+    public void onEvent*(**);
 }

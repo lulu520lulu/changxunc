@@ -6,17 +6,17 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:scaleType="fitXY" />
+        android:scaleType="fitEnd" />
 
     <TextView
         android:id="@+id/text"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
         android:maxLines="2"
         android:textColor="@color/black"
         android:textSize="14sp" />

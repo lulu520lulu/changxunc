@@ -39,7 +39,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
 
     private Activity mContext;
     private List<ModulesBean> mData = new ArrayList<>();
-
+    private static final int BANNER_MODULE_ID = 35;
     private static final int ITEM_MODULE_ID = 81;
     private static final int TABS_MODULE_ID = 87;
     private static final int KEJI_MODULE_ID = 77;
@@ -74,7 +74,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         ModulesBean bean = mData.get(position);
         if (bean != null) {
-            if (bean.getBanners() != null && bean.getBanners().size() > 0) {
+            if (bean.getModule_id() == BANNER_MODULE_ID) {
                 return ITEM_TYPE_BANNER;
             } else if (bean.getModule_id() == ITEM_MODULE_ID) {
                 return ITEM_TYPE_ITEM;
@@ -339,6 +339,8 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             textView.setText(item.getTitle());
             Glide.with(mContext)
                     .load(item.getImage())
+                    .error(R.mipmap.place_image)
+                    .placeholder(R.mipmap.place_image)
                     .into(image);
 
             holder.container.addView(view, layoutParams);

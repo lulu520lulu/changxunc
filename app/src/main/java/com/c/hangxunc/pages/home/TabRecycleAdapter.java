@@ -51,14 +51,13 @@ class TabRecycleAdapter extends RecyclerView.Adapter {
         MyViewHolder viewHolder = (MyViewHolder) holder;
         TabsBean item = mData.get(position);
         viewHolder.title.setText(item.getName());
-
+        viewHolder.content.setText(item.getNameSub());
 
         int windowWidth = WindowUtils.getWindowWidth((Activity) mContext);
         int padding = DimenUtils.dip2px(6);
         int margin = DimenUtils.dip2px(8);
 
         int width = (windowWidth / 2 - padding - 2 * padding - margin) / 2;
-
 
         List<ProductBean> products = item.getProducts();
 
@@ -73,6 +72,8 @@ class TabRecycleAdapter extends RecyclerView.Adapter {
                 imageView.setLayoutParams(params);
                 Glide.with(mContext)
                         .load(bean.getThumb())
+                        .error(R.mipmap.place_image)
+                        .placeholder(R.mipmap.place_image)
                         .into(imageView);
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override

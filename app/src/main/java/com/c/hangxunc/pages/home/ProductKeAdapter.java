@@ -48,8 +48,8 @@ public class ProductKeAdapter extends RecyclerView.Adapter {
         viewHolder.content.setText(item.getName());
         Glide.with(mContext)
                 .load(item.getThumb())
-                .error(R.mipmap.new_banner)
-                .placeholder(R.mipmap.new_banner)
+                .error(R.mipmap.place_image)
+                .placeholder(R.mipmap.place_image)
                 .into(viewHolder.image);
         viewHolder.price_text.setText(item.getPrice());
         if (item.getSales() == 0) {

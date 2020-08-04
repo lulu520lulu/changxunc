@@ -60,6 +60,8 @@ public class SearchAdapter extends RecyclerView.Adapter {
         viewHolder.product_text.setText(item.getName());
         Glide.with(mContext)
                 .load(item.getThumb())
+                .error(R.mipmap.place_image)
+                .placeholder(R.mipmap.place_image)
                 .into(viewHolder.product_image);
         viewHolder.icon_shop_cart.setOnClickListener(new View.OnClickListener() {
             @Override
