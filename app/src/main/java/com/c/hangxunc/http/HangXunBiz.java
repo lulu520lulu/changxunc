@@ -35,22 +35,7 @@ public class HangXunBiz {
     private static final String TAG = HangXunBiz.class.getSimpleName();
 
     private Retrofit getRetrofit() {
-//        //日志显示级别
-//        HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
-//        //新建log拦截器
-//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-//            @Override
-//            public void log(String message) {
-//                Log.d("lulu", "OkHttp====Message:" + message);
-//            }
-//        });
-//        loggingInterceptor.setLevel(level);
-
         OkHttpClient client = new OkHttpClient.Builder()
-//                .connectTimeout(21, TimeUnit.DAYS)
-//                .followRedirects(false)
-//                .readTimeout(21, TimeUnit.DAYS)
-//                .addInterceptor(loggingInterceptor)
                 .cookieJar(new LocalCookieJar())
                 .build();
 
@@ -62,6 +47,23 @@ public class HangXunBiz {
                 .build();
         return retrofit;
     }
+
+
+    private Retrofit getPostRetrofit() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new ParamInterceptor())
+                .cookieJar(new LocalCookieJar())
+                .build();
+
+        Retrofit retrofit = new Retrofit
+                .Builder()
+                .baseUrl(ApiConstants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        return retrofit;
+    }
+
 
     private HangXunBiz() {
     }
@@ -96,7 +98,7 @@ public class HangXunBiz {
      * @return
      */
     public void getAllProduct(int count, ResponseListener listener) {
-        HangXunCService service = getRetrofit().create(HangXunCService.class);
+        HangXunCService service = getPostRetrofit().create(HangXunCService.class);
         Call<ProductListBean> call = service.getAllProduct(LoginUtils.getInstance().getCustomerId(), count, ApiConstants.LIMIT,
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
@@ -134,17 +136,17 @@ public class HangXunBiz {
         call.enqueue(listener);
     }
 
-    /**
-     * 搜索
-     *
-     * @param listener
-     */
-    public void searchPro(String keyWord, ResponseListener listener) {
-        HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<BreadCrumbsBean> call = service.searchPro(LoginUtils.getInstance().getCustomerId(), keyWord,
-                LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
-        call.enqueue(listener);
-    }
+//    /**
+//     * 搜索
+//     *
+//     * @param listener
+//     */
+//    public void searchPro(String keyWord, ResponseListener listener) {
+//        HangXunCService service = getRetrofit().create(HangXunCService.class);
+//        Call<BreadCrumbsBean> call = service.searchPro(LoginUtils.getInstance().getCustomerId(), keyWord,
+//                LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
+//        call.enqueue(listener);
+//    }
 
     /**
      * 搜索

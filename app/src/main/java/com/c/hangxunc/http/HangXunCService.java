@@ -83,12 +83,12 @@ public interface HangXunCService {
                                      @Query("sort") String sort, @Query("order") String order, @Query("language") String language, @Query("currency") String currency);
 
     /**
-     * 搜索页数据
-     *
-     * @return
-     */
-    @GET(ApiConstants.SEARCH_PRO_PATH)
-    Call<BreadCrumbsBean> searchPro(@Query("customer_id") String customer_id, @Query("search") String keyWord, @Query("language") String language, @Query("currency") String currency);
+//     * 搜索页数据
+//     *
+//     * @return
+//     */
+//    @GET(ApiConstants.SEARCH_PRO_PATH)
+//    Call<BreadCrumbsBean> searchPro(@Query("customer_id") String customer_id, @Query("search") String keyWord, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 分类页--分类数据
