@@ -47,7 +47,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -67,7 +67,6 @@
             android:id="@+id/add_shop"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignBottom="@+id/price_container"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"

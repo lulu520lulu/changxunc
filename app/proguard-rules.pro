@@ -53,3 +53,81 @@
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
+
+
+##okhttp3混淆
+-keep class okhttp3.** {*;}
+-dontwarn okhttp3.**
+
+
+## ---------Retrofit混淆方法---------------
+-dontwarn javax.annotation.**
+-dontwarn javax.inject.**
+# OkHttp3
+-dontwarn okhttp3.logging.**
+-keep class okhttp3.internal.**{*;}
+-dontwarn okio.**
+# Retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+# RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+# Gson
+-keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
+
+# Gson
+-keep class com.demo.demo1.service.bean.**{*;} # 自定义数据模型的bean目录
+
+#butterknife 混淆
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+#glide混淆
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+#glide如果你的API级别<=Android API 27 则需要添加 4.6.1
+-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
+-dontwarn me.iwf.photopicker.adapter.**
+
+-keepattributes *Annotation*
+
+-keepclassmembers class ** {
+
+@org.greenrobot.eventbus.Subscribe ;
+
+}
+
+#eventbus
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+
+(Java.lang.Throwable);
+
+}
