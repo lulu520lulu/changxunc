@@ -2,14 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="18dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/products_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingTop="12dp"
@@ -23,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/home_item_title_text"
+            android:text="111"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
 
@@ -35,7 +34,8 @@
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
             android:layout_toRightOf="@+id/product_text"
-            android:background="@color/home_item_title_line" />
+            android:background="@color/home_item_title_line"
+            android:visibility="gone" />
 
         <ImageView
             android:layout_width="16dp"
@@ -44,7 +44,8 @@
             android:layout_gravity="center_vertical"
             android:layout_toRightOf="@+id/line"
             android:scaleType="fitCenter"
-            android:src="@mipmap/icon_home_title_xianshi" />
+            android:src="@mipmap/icon_home_title_xianshi"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/see_more"

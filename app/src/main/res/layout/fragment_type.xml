@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/type_title_type_check_bg"
+            android:background="@drawable/type_title_brand_check_bg"
             android:button="@null"
             android:gravity="center"
             android:text="@string/tab_type_brand"

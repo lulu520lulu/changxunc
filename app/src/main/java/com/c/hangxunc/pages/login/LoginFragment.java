@@ -130,7 +130,10 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
             return;
         }
         showLoading();
-        HangXunBiz.getInstance().login(type, mCountryBean == null ? "" : mCountryBean.getCode(), telephone, email, password,
+        if (mCountryBean == null) {
+            mCountryBean = CountrySp.getInstance().getCountry();
+        }
+        HangXunBiz.getInstance().login(type, mCountryBean == null ? "86" : mCountryBean.getCode(), telephone, email, password,
                 new ResponseListener<LoginInfo>() {
                     @Override
                     public void onFail(int code, String message) {
@@ -243,6 +246,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
             @Override
             public void onItemClick(CountryBean cellCode) {
                 mCountryBean = cellCode;
+                CountrySp.getInstance().saveCountry(mCountryBean);
                 if (cellCode != null) {
                     phoneCountryEdit.setText(cellCode.getName());
                 }

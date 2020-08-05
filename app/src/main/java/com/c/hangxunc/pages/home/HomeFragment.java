@@ -95,7 +95,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
 
     private void init(View view) {
         Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.tabbar_search_un_select);
-        drawable.setBounds(0, 0, DimenUtils.dip2px(20), DimenUtils.dip2px(20));
+        drawable.setBounds(0, 0, DimenUtils.dip2px(16), DimenUtils.dip2px(16));
         tv_search.setCompoundDrawables(drawable, null, null, null);
 
         start_person.setOnClickListener(new View.OnClickListener() {

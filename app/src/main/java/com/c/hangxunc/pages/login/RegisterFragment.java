@@ -200,6 +200,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
             @Override
             public void onItemClick(CountryBean cellCode) {
                 mCountryBean = cellCode;
+                CountrySp.getInstance().saveCountry(mCountryBean);
                 if (cellCode != null) {
                     phoneCountryEdit.setText(cellCode.getName());
                 }
@@ -217,7 +218,10 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
     }
 
     private void getSmsCode() {
-        HangXunBiz.getInstance().smsCode(mCountryBean == null ? "" : mCountryBean.getCode(), phoneEdit.getText().toString(),
+        if (mCountryBean == null) {
+            mCountryBean = CountrySp.getInstance().getCountry();
+        }
+        HangXunBiz.getInstance().smsCode(mCountryBean == null ? "86" : mCountryBean.getCode(), phoneEdit.getText().toString(),
                 new ResponseListener<SmsCodeBean>() {
                     @Override
                     public void onFail(int code, String message) {
