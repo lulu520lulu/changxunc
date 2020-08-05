@@ -21,6 +21,7 @@ import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
+import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.utils.ToastUtils;
 
 import java.util.List;
@@ -69,22 +70,28 @@ class ProductGongAdapter extends RecyclerView.Adapter {
             });
         }
         expandTouchArea(viewHolder.add_shop, DimenUtils.dip2px(20));
-        viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
-                    @Override
-                    public void onFail(int code, String message) {
-                        ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_fail));
-                    }
 
-                    @Override
-                    public void onSuccess(Object o) {
-                        ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
-                    }
-                });
-            }
-        });
+        if (LoginUtils.getInstance().isLogin()) {
+            viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
+                        @Override
+                        public void onFail(int code, String message) {
+                            ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_fail));
+                        }
+
+                        @Override
+                        public void onSuccess(Object o) {
+                            ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
+                        }
+                    });
+                }
+            });
+        }else {
+            ToastUtils.showToast(mContext,mContext.getString(R.string.show_login));
+        }
+
         if (position == mData.size() - 1) {
             viewHolder.line.setVisibility(View.GONE);
             viewHolder.space.setVisibility(View.VISIBLE);

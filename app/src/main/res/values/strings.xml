@@ -102,5 +102,6 @@
     <string name="find_more_good_product">发现更多人气好货</string>
     <string name="pin">已拼%1$s件</string>
     <string name="sales">销量%1$s</string>
+    <string name="show_login">请先登录</string>
 
 </resources>

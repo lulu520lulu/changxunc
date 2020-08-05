@@ -1,7 +1,6 @@
 package com.c.hangxunc.pages;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,19 +11,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.BaseActivity;
-import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.IsLoginBean;
-import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.mvp.BaseFragment;
-import com.c.hangxunc.utils.CurrencySp;
-import com.c.hangxunc.utils.HangLog;
-import com.c.hangxunc.utils.LanguageSp;
 import com.c.hangxunc.utils.LoginUtils;
 import com.google.android.material.tabs.TabLayout;
 
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +35,8 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN |
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_main_layout);
         ButterKnife.bind(this);
         initView();
@@ -125,7 +119,6 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
                 }
             }
         }
-
         return super.onKeyDown(keyCode, event);
     }
 }

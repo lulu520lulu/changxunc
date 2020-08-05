@@ -28,7 +28,7 @@
         <activity
             android:name=".pages.MainActivity"
             android:configChanges="orientation|screenSize|locale"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".web.HybridActivity"
             android:configChanges="orientation|screenSize|locale" />

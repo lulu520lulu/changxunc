@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.c.hangxunc.MessageGoHome;
 import com.c.hangxunc.R;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.mvp.BaseFragment;
@@ -44,21 +45,21 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
 
     private void initView(View view) {
         mWebContainer = view.findViewById(R.id.web_container);
-        showWeb();
-    }
+        if (!LoginUtils.getInstance().isLogin()) {
+            mWebContainer.setVisibility(View.GONE);
+        } else {
+            mWebContainer.setVisibility(View.VISIBLE);
+            showWeb();
+        }
 
+    }
 
     private void showWeb() {
         String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId()
                 + ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
                 + ApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode();
-        if (TextUtils.isEmpty(url)) {
-            return;
-        }
-
         mWebContainer.loadUrl(url);
     }
-
 
     @Override
     protected void onDestroyViewImpl() {
@@ -107,7 +108,6 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     public void handleLogin(MessageLogin message) {
         if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
             if (mWebContainer != null) {
-                mWebContainer.clearHistory();
                 showWeb();
             }
         } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
@@ -119,6 +119,13 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     public void changeCurrency(MessageLocal message) {
         if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
             showWeb();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void goHome(MessageGoHome message) {
+        if (TextUtils.equals(message.message, MessageGoHome.GO_HOME)) {
+            ((MainActivity) getActivity()).setSelect(0);
         }
     }
 }

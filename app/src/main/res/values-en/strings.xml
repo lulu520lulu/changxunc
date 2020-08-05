@@ -101,5 +101,6 @@
     <string name="all_product">All products</string>
     <string name="find_more_good_product">Discover more popular products</string>
     <string name="pin">Spelled%1$sPieces</string>
+    <string name="show_login">请先登录</string>
 
 </resources>

@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.c.hangxunc.MessageGoHome;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
@@ -111,6 +112,8 @@ public class HangXunWebView extends LinearLayout {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.e("lulu", "--------" + url);
+
                 if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=account/logout")) {
                     LoginUtils.getInstance().loginOut();
                     EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_OUT));
@@ -118,6 +121,9 @@ public class HangXunWebView extends LinearLayout {
                     handleChangeLanguage(url);
                 } else if (url.contains(ApiConstants.CURRENCY_PATH)) {
                     handleChangeCurrency(url);
+                } else if (TextUtils.equals(url, "http://c.hangxunc.com/")) {
+                    EventBus.getDefault().post(new MessageGoHome(MessageGoHome.GO_HOME));
+                    return true;
                 }
 
                 return false;
