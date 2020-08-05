@@ -37,8 +37,8 @@ public class HangXunBiz {
     private Retrofit getRetrofit() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .cookieJar(new LocalCookieJar())
-                .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间
-                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
+//                .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间
+//                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
                 .build();
 
         Retrofit retrofit = new Retrofit
@@ -54,8 +54,8 @@ public class HangXunBiz {
     private Retrofit getPostRetrofit() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new ParamInterceptor())
-                .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间
-                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
+//                .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间
+//                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
                 .cookieJar(new LocalCookieJar())
                 .build();
 
