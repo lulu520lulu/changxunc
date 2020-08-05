@@ -5,23 +5,23 @@ import java.util.List;
 public class ProductBean {
 
     /**
-     * product_id : 160
-     * thumb : http://c.hangxunc.com/image/cache/catalog/seller_products/2/s01-200x200.jpg
-     * name : 玻妞（HOBOT）188擦窗机器人 波妞智能家用擦玻璃清洁机器人电动全自动搽窗户机器人 高层擦玻璃神器
+     * product_id : 217
+     * thumb : http://c.hangxunc.com/image/cache/catalog/fk01-300x300.png
+     * name : 远红外理疗仪
      * description : ..
-     * price : ￥237.00
-     * special : false
+     * price : $19.63
+     * special : $1.41
      * flash : false
      * tax : false
-     * seller : {"seller_id":"2","seller_group_id":"1","customer_id":"4","store_name":"lei","company":"lei","description":"","country_id":"44","zone_id":"707","city_id":"2346","county_id":"2352","avatar":"catalog/微信截图_20200428183201.png","banner":"catalog/demo/banner/3_en.jpg","alipay":"17615865470","product_validation":"0","status":"1","date_added":"2020-04-28 09:25:59","date_modified":"2020-04-29 09:46:26","product_id":"160","number_sold":"0","approved":"1","sort_order":"0","date_until":"0000-00-00"}
+     * seller : []
      * minimum : 1
      * rating : 0
-     * sales : 2
-     * quantity : 99
-     * summary : null
-     * href : http://c.hangxunc.com/index.php?route=product/product&product_id=160
+     * sales : 1
+     * quantity : 100
+     * summary : 远红外理疗仪
+     * href : http://c.hangxunc.com/index.php?route=product/product&product_id=217
      * group_discount : 70
-     * group_price : ￥165.90
+     * group_price : $13.74
      * groupbuy_list : []
      * groupbuy_list_len : 0
      */
@@ -31,16 +31,16 @@ public class ProductBean {
     private String name;
     private String description;
     private String price;
-    private boolean special;
+    private String special;
     private boolean flash;
     private boolean tax;
-    private int minimum;
+    private String minimum;
     private int rating;
     private int sales;
     private int quantity;
-    private Object summary;
+    private String summary;
     private String href;
-    private int group_discount;
+    private String group_discount;
     private String group_price;
     private int groupbuy_list_len;
     private List<?> groupbuy_list;
@@ -85,11 +85,11 @@ public class ProductBean {
         this.price = price;
     }
 
-    public boolean isSpecial() {
+    public String getSpecial() {
         return special;
     }
 
-    public void setSpecial(boolean special) {
+    public void setSpecial(String special) {
         this.special = special;
     }
 
@@ -109,19 +109,11 @@ public class ProductBean {
         this.tax = tax;
     }
 
-//            public SellerBean getSeller() {
-//                return seller;
-//            }
-//
-//            public void setSeller(SellerBean seller) {
-//                this.seller = seller;
-//            }
-
-    public int getMinimum() {
+    public String getMinimum() {
         return minimum;
     }
 
-    public void setMinimum(int minimum) {
+    public void setMinimum(String minimum) {
         this.minimum = minimum;
     }
 
@@ -149,11 +141,11 @@ public class ProductBean {
         this.quantity = quantity;
     }
 
-    public Object getSummary() {
+    public String getSummary() {
         return summary;
     }
 
-    public void setSummary(Object summary) {
+    public void setSummary(String summary) {
         this.summary = summary;
     }
 
@@ -165,11 +157,11 @@ public class ProductBean {
         this.href = href;
     }
 
-    public int getGroup_discount() {
+    public String getGroup_discount() {
         return group_discount;
     }
 
-    public void setGroup_discount(int group_discount) {
+    public void setGroup_discount(String group_discount) {
         this.group_discount = group_discount;
     }
 
@@ -189,36 +181,12 @@ public class ProductBean {
         this.groupbuy_list_len = groupbuy_list_len;
     }
 
+
     public List<?> getGroupbuy_list() {
         return groupbuy_list;
     }
 
     public void setGroupbuy_list(List<?> groupbuy_list) {
         this.groupbuy_list = groupbuy_list;
-    }
-
-
-    @Override
-    public String toString() {
-        return "ProductsBean{" +
-                "product_id=" + product_id +
-                ", thumb='" + thumb + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price='" + price + '\'' +
-                ", special=" + special +
-                ", flash=" + flash +
-                ", tax=" + tax +
-                ", minimum=" + minimum +
-                ", rating=" + rating +
-                ", sales=" + sales +
-                ", quantity=" + quantity +
-                ", summary=" + summary +
-                ", href='" + href + '\'' +
-                ", group_discount=" + group_discount +
-                ", group_price='" + group_price + '\'' +
-                ", groupbuy_list_len=" + groupbuy_list_len +
-                ", groupbuy_list=" + groupbuy_list +
-                '}';
     }
 }

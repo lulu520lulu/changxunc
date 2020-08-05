@@ -287,7 +287,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             }
         });
         holder.product_text.setText(bean.getTitle());
-        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext, 4));
+        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext, 2));
         ProductXianAdapter recycleAdapter = new ProductXianAdapter(mContext, posts);
         holder.product_recycle.setAdapter(recycleAdapter);
     }
@@ -436,7 +436,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         //图片标题
         holder.banner.setBannerTitles(imageTitle);
         //间隔时间
-        holder.banner.setDelayTime(3000);
+        holder.banner.setDelayTime(5000);
         //是否为自动轮播
         holder.banner.isAutoPlay(true);
         //图片小点显示所在位置

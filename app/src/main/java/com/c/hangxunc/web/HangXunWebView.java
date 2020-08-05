@@ -125,6 +125,7 @@ public class HangXunWebView extends LinearLayout {
 
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                view.loadUrl("javascript:navBar()");
                 view.loadUrl("javascript:pageBackHid()");
                 view.loadUrl("javascript:bottomTabMenu()");
                 mLoadUrl = url;

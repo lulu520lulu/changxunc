@@ -3,11 +3,14 @@ package com.c.hangxunc.pages.home;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
 import com.c.hangxunc.utils.ToastUtils;
+import com.c.hangxunc.utils.WindowUtils;
 
 import java.util.List;
 
@@ -45,13 +49,40 @@ public class ProductXianAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ProductBean item = mData.get(position);
         ProductXianAdapter.MyViewHolder viewHolder = (ProductXianAdapter.MyViewHolder) holder;
+
+
+        int windowWidth = WindowUtils.getWindowWidth((Activity) mContext);
+        int parentPadding = DimenUtils.dip2px(12);
+        int margin = DimenUtils.dip2px(8);
+
+        int width = windowWidth / 2 - parentPadding - margin;
+
+        LinearLayout.LayoutParams imageParams = (LinearLayout.LayoutParams) viewHolder.image.getLayoutParams();
+        imageParams.width = width;
+        imageParams.height = (int) (width * 1.186);
+
+
         Glide.with(mContext)
                 .load(item.getThumb())
                 .error(R.mipmap.place_image)
                 .placeholder(R.mipmap.place_image)
                 .into(viewHolder.image);
-        viewHolder.price_text.setText(item.getGroup_price());
-        viewHolder.old_price.setText(item.getPrice());
+        if (TextUtils.equals(item.getSpecial(), "false")) {
+            viewHolder.price_text.setText(item.getPrice());
+        } else {
+            viewHolder.price_text.setText(item.getSpecial());
+        }
+
+        if (item.getSales() == 0) {
+            viewHolder.pinNum.setVisibility(View.GONE);
+        } else {
+            viewHolder.pinNum.setVisibility(View.VISIBLE);
+            String format = String.format(mContext.getString(R.string.pin), item.getGroupbuy_list_len() + "");
+            viewHolder.pinNum.setText(format);
+        }
+
+        viewHolder.sale_num.setText(String.format(mContext.getResources().getString(R.string.sales), item.getSales() + ""));
+        viewHolder.title.setText(item.getName());
         if (viewHolder.itemView != null) {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -60,23 +91,35 @@ public class ProductXianAdapter extends RecyclerView.Adapter {
                 }
             });
         }
-//        expandTouchArea(viewHolder.add_shop, DimenUtils.dip2px(20));
-//        viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
-//                    @Override
-//                    public void onFail(int code, String message) {
-//                        ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_fail));
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(Object o) {
-//                        ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
-//                    }
-//                });
-//            }
-//        });
+        expandTouchArea(viewHolder.add_shop, DimenUtils.dip2px(20));
+        viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
+                    @Override
+                    public void onFail(int code, String message) {
+                        ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_fail));
+                    }
+
+                    @Override
+                    public void onSuccess(Object o) {
+                        ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
+                    }
+                });
+            }
+        });
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) viewHolder.container.getLayoutParams();
+        if (position % 2 == 0) {
+            layoutParams.rightMargin = DimenUtils.dip2px(8);
+        } else {
+            layoutParams.leftMargin = DimenUtils.dip2px(0);
+        }
+        if (mData.size() % 2 == 0 && (position + 2) == mData.size()) {
+            layoutParams.bottomMargin = 0;
+        }
+        if ((position + 1) == mData.size()) {
+            layoutParams.bottomMargin = 0;
+        }
     }
 
     private void expandTouchArea(View view, int size) {
@@ -95,6 +138,7 @@ public class ProductXianAdapter extends RecyclerView.Adapter {
                 parentView.setTouchDelegate(new TouchDelegate(rect, view));
             }
         });
+
     }
 
     @Override
@@ -108,14 +152,22 @@ public class ProductXianAdapter extends RecyclerView.Adapter {
     private class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView image;
         private TextView price_text;
-        private TextView old_price;
+        private TextView title;
+        private TextView pinNum;
+        private TextView sale_num;
+        private ImageView add_shop;
+        private LinearLayout container;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
-            old_price = itemView.findViewById(R.id.old_price);
+            title = itemView.findViewById(R.id.title);
             price_text = itemView.findViewById(R.id.price_text);
+            pinNum = itemView.findViewById(R.id.num);
+            sale_num = itemView.findViewById(R.id.sale_num);
+            add_shop = itemView.findViewById(R.id.add_shop);
+            container = itemView.findViewById(R.id.container);
 
         }
     }

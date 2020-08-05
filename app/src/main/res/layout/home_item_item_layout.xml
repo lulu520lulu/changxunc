@@ -18,6 +18,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:maxLines="2"
-        android:textColor="@color/black"
+        android:textColor="@color/home_item_item_text"
         android:textSize="14sp" />
 </LinearLayout>

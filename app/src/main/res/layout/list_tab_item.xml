@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -21,7 +21,8 @@
             android:layout_marginTop="10dp"
             android:maxLines="2"
             android:textColor="@color/main_text"
-            android:textSize="16sp" />
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/content"
@@ -31,7 +32,7 @@
             android:maxLines="2"
             android:text="@string/find_more_good_product"
             android:textColor="@color/gray_text"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:id="@+id/image_container"
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="6dp"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"/>
     </LinearLayout>
 
     <View
@@ -48,5 +49,5 @@
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/line" />
+        android:background="@color/home_tab_item_line" />
 </LinearLayout>

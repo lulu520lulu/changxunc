@@ -101,5 +101,6 @@
     <string name="all_product">全部商品</string>
     <string name="find_more_good_product">发现更多人气好货</string>
     <string name="pin">已拼%1$s件</string>
+    <string name="sales">销量%1$s</string>
 
 </resources>
