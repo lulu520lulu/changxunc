@@ -60,18 +60,18 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter {
         VH vh = (VH) holder;
         CategoryBean categoryChildBean = mData.get(position);
         vh.textView.setText(categoryChildBean.getName());
-        Drawable drawable = null;
+//        Drawable drawable = null;
         if (categoryChildBean.isSelected()) {
-            vh.textView.setTextColor(mContext.getResources().getColor(R.color.main_orange_text));
-            drawable = mContext.getResources().getDrawable(R.drawable.radio_line_checked);
-            drawable.setBounds(0, 0, DimenUtils.dip2px(24), DimenUtils.dip2px(2));
+            vh.textView.setTextColor(mContext.getResources().getColor(R.color.main_red_text));
+//            drawable = mContext.getResources().getDrawable(R.drawable.radio_line_checked);
+//            drawable.setBounds(0, 0, DimenUtils.dip2px(24), DimenUtils.dip2px(2));
         } else {
             vh.textView.setTextColor(mContext.getResources().getColor(R.color.main_text));
-            drawable = mContext.getResources().getDrawable(R.drawable.radio_line_un_check);
-            drawable.setBounds(0, 0, DimenUtils.dip2px(24), DimenUtils.dip2px(2));
+//            drawable = mContext.getResources().getDrawable(R.drawable.radio_line_un_check);
+//            drawable.setBounds(0, 0, DimenUtils.dip2px(24), DimenUtils.dip2px(2));
         }
 
-        vh.textView.setCompoundDrawables(null, null, null, drawable);
+//        vh.textView.setCompoundDrawables(null, null, null, drawable);
         vh.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -92,6 +92,14 @@ class BottomListAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) viewHolder.container.getLayoutParams();
+        if (position % 2 == 0) {
+            layoutParams.leftMargin = DimenUtils.dip2px(8);
+            layoutParams.rightMargin = DimenUtils.dip2px(8);
+        } else {
+            layoutParams.leftMargin = DimenUtils.dip2px(0);
+            layoutParams.rightMargin = DimenUtils.dip2px(8);
+        }
         if (item.getSales() == 0) {
             viewHolder.num.setVisibility(View.GONE);
         } else {
@@ -133,9 +141,11 @@ class BottomListAdapter extends RecyclerView.Adapter {
         private TextView content;
         private TextView price_text;
         private TextView num;
+        private LinearLayout container;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            container = itemView.findViewById(R.id.container);
             image = itemView.findViewById(R.id.image);
             content = itemView.findViewById(R.id.content);
             price_text = itemView.findViewById(R.id.price_text);

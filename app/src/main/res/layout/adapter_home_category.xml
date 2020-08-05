@@ -7,7 +7,6 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/home_top_tab_height"
-        android:drawableBottom="@drawable/home_top_line_bg"
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
