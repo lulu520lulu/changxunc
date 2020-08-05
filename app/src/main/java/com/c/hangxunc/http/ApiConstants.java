@@ -44,13 +44,13 @@ public interface ApiConstants {
     String GET_MANUFACTURER_PAGE_PATH = "index.php?route=api/ioslink/getManufacturer";
 
     //语言切换：
-    String GET_LANGUAGE_PATH = " /index.php?route=api/ioslink/getLanguage";
+    String GET_LANGUAGE_PATH = "/index.php?route=api/ioslink/getLanguage";
 
     // 货币切换：
-    String GET_CURRENCY_PATH = " /index.php?route=api/ioslink/getCurrency";
+    String GET_CURRENCY_PATH = "/index.php?route=api/ioslink/getCurrency";
 
     //获得版权信息：
-    String GET_COPY_RIGHT_PATH = " /index.php?route=api/ioslink/getCopyRight";
+    String GET_COPY_RIGHT_PATH = "/index.php?route=api/ioslink/getCopyRight";
 
     //注册支持国家接口：
     String GET_COUNTRY_PATH = "/index.php?route=api/ioslink/getCountry";

@@ -145,9 +145,9 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
                             handleFail();
                             return;
                         }
-                        EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_IN));
                         ToastUtils.showToast(getActivity(), getActivity().getString(R.string.login_success));
                         LoginUtils.getInstance().setLoginInfo(info.getSession_id(), info.getCustomer_id());
+                        EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_IN));
                         if (mLoginChangeListener != null) {
                             mLoginChangeListener.showPersion(info.getCustomer_id());
                         }

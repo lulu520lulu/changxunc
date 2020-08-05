@@ -106,9 +106,12 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleLogin(MessageLogin message) {
         if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
-            showWeb();
+            if (mWebContainer != null) {
+                mWebContainer.clearHistory();
+                showWeb();
+            }
         } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
-            showWeb();
+            mWebContainer.clearHistory();
         }
     }
 

@@ -119,7 +119,7 @@ public class BottomView extends FrameLayout {
     private BottomDialog mBottomDialog;
 
     private void showLanguageDialog() {
-        if (mLanguageListBean != null) {
+        if (mLanguageListBean != null && mLanguageListBean.getLanguages() != null && mLanguageListBean.getLanguages().size() > 0) {
             mBottomDialog.updateLanguage(mLanguageListBean);
             mBottomDialog.show();
         } else {
@@ -156,7 +156,7 @@ public class BottomView extends FrameLayout {
     };
 
     private void showCurrencyDialog() {
-        if (mCurrencyListBean != null) {
+        if (mCurrencyListBean != null && mCurrencyListBean.getCurrencies() != null && mCurrencyListBean.getCurrencies().size() > 0) {
             mBottomDialog.updateCurrency(mCurrencyListBean);
             mBottomDialog.show();
         } else {

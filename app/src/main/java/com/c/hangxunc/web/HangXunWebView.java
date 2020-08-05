@@ -17,11 +17,22 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.c.hangxunc.R;
+import com.c.hangxunc.bean.home.CurrencyListBean;
+import com.c.hangxunc.bean.home.LanguageListBean;
+import com.c.hangxunc.http.ApiConstants;
+import com.c.hangxunc.pages.MessageLocal;
 import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.pages.login.WebLoginInterface;
+import com.c.hangxunc.utils.CurrencySp;
+import com.c.hangxunc.utils.CurrencyType;
+import com.c.hangxunc.utils.LanguageSp;
+import com.c.hangxunc.utils.LanguageType;
+import com.c.hangxunc.utils.LanguageUtil;
 import com.c.hangxunc.utils.LoginUtils;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Locale;
 
 
 public class HangXunWebView extends LinearLayout {
@@ -103,7 +114,12 @@ public class HangXunWebView extends LinearLayout {
                 if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=account/logout")) {
                     LoginUtils.getInstance().loginOut();
                     EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_OUT));
+                } else if (url.contains(ApiConstants.LANGUAGE_PATH)) {
+                    handleChangeLanguage(url);
+                } else if (url.contains(ApiConstants.CURRENCY_PATH)) {
+                    handleChangeCurrency(url);
                 }
+
                 return false;
             }
 
@@ -112,8 +128,84 @@ public class HangXunWebView extends LinearLayout {
                 view.loadUrl("javascript:pageBackHid()");
                 view.loadUrl("javascript:bottomTabMenu()");
                 mLoadUrl = url;
+
             }
         });
+    }
+
+    private void handleChangeCurrency(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        Log.e("lulu", "url:" + url);
+        String oldCode = CurrencySp.getInstance().getCode();
+        CurrencyListBean list = CurrencySp.getInstance().getCurrencyList();
+
+        String[] split = url.split("currency=");
+
+        if (split != null && split.length > 1) {
+            String s = split[1];
+            String[] split1 = s.split("&");
+
+            String currency = split1[0];
+
+            if (!TextUtils.isEmpty(currency) && !currency.contains("=")) {
+
+                if (TextUtils.equals(currency, CurrencyType.CHINESE.getCurrency())
+                        | TextUtils.equals(currency, CurrencyType.ENGLISH.getCurrency())) {
+
+                    if (!TextUtils.equals(oldCode, currency)) {
+                        if (list == null) {
+                            list = new CurrencyListBean();
+                        }
+                        list.setCode(currency);
+
+                        CurrencySp.getInstance().saveCurrencyList(list);
+                        EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CHANGE));
+                    }
+                }
+            }
+        }
+    }
+
+    private void handleChangeLanguage(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        Log.e("lulu", "url:" + url);
+
+        String oldCode = LanguageSp.getInstance().getCode();
+        LanguageListBean list = LanguageSp.getInstance().getLanguageList();
+
+        String[] split = url.split("language=");
+
+        if (split != null && split.length > 1) {
+            String s = split[1];
+            String[] split1 = s.split("&");
+
+            String language = split1[0];
+
+            if (!TextUtils.isEmpty(language) && !language.contains("=")) {
+                Log.e("lulu", "url:444444:language:" + language);
+
+                if (TextUtils.equals(language, LanguageType.CHINESE.getLanguage())
+                        | TextUtils.equals(language, LanguageType.ENGLISH.getLanguage())
+                        | TextUtils.equals(language, LanguageType.RU.getLanguage())) {
+                    Log.e("lulu", "url:55555:language:" + language);
+
+                    if (!TextUtils.equals(oldCode, language)) {
+                        Log.e("lulu", "url:66666:language:" + language);
+                        if (list == null) {
+                            list = new LanguageListBean();
+                        }
+                        list.setCode(language);
+
+                        LanguageSp.getInstance().saveLanguageList(list);
+                        LanguageUtil.changeLanguageAndKill(getContext(), language);
+                    }
+                }
+            }
+        }
     }
 
     private HangWebCallBack mHangWebCallBack;
@@ -141,6 +233,7 @@ public class HangXunWebView extends LinearLayout {
 
     public interface HangWebCallBack {
         void onReceivedTitle(WebView view, String title);
+
     }
 
     public void loadUrl(String url) {
