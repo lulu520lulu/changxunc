@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.BannersBean;
@@ -337,10 +339,14 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             ImageView image = view.findViewById(R.id.image);
             TextView textView = view.findViewById(R.id.text);
             textView.setText(item.getTitle());
-            Glide.with(mContext)
-                    .load(item.getImage())
+
+            RequestOptions options = new RequestOptions()
                     .error(R.mipmap.place_image)
                     .placeholder(R.mipmap.place_image)
+                    .bitmapTransform(new RoundedCorners(30));
+            Glide.with(mContext)
+                    .load(item.getImage())
+                    .apply(options)
                     .into(image);
 
             holder.container.addView(view, layoutParams);
@@ -462,10 +468,14 @@ public class HomeListAdapter extends RecyclerView.Adapter {
     private class LocalImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context.getApplicationContext())
-                    .load((String) path)
-                    .placeholder(R.mipmap.new_banner)
+
+            RequestOptions options = new RequestOptions()
                     .error(R.mipmap.new_banner)
+                    .placeholder(R.mipmap.new_banner)
+                    .bitmapTransform(new RoundedCorners(30));
+            Glide.with(mContext)
+                    .load((String) path)
+                    .apply(options)
                     .into(imageView);
         }
     }

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.PostsBean;
@@ -41,11 +43,17 @@ public class AllPostRecycleAdapter extends RecyclerView.Adapter {
         MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder.title.setText(postsBean.getName());
         viewHolder.content.setText(postsBean.getContent());
-        Glide.with(mContext)
-                .load(ApiConstants.IMAGE_BASE_URL + "/" + postsBean.getImage())
+
+        RequestOptions options = new RequestOptions()
                 .error(R.mipmap.place_image)
                 .placeholder(R.mipmap.place_image)
+                .bitmapTransform(new RoundedCorners(30));
+        Glide.with(mContext)
+                .load(ApiConstants.IMAGE_BASE_URL + "/" + postsBean.getImage())
+                .apply(options)
                 .into(viewHolder.image);
+
+
         viewHolder.read_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

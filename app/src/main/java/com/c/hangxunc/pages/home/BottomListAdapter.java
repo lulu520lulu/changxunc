@@ -17,9 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.ProductBean;
+import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.utils.DimenUtils;
@@ -63,11 +66,15 @@ class BottomListAdapter extends RecyclerView.Adapter {
         imageParams.height = (int) (width * 1.186);
 
 
-        Glide.with(mContext)
-                .load(item.getThumb())
+        RequestOptions options = new RequestOptions()
                 .error(R.mipmap.place_image)
                 .placeholder(R.mipmap.place_image)
+                .bitmapTransform(new RoundedCorners(30));
+        Glide.with(mContext)
+                .load(item.getThumb())
+                .apply(options)
                 .into(viewHolder.image);
+
 
         if (TextUtils.equals(item.getSpecial(), "false")) {
             viewHolder.price_text.setText(item.getPrice());

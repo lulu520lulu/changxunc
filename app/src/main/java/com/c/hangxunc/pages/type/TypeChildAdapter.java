@@ -1,5 +1,6 @@
 package com.c.hangxunc.pages.type;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.CategoryChildBean;
+import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
+import com.c.hangxunc.utils.WindowUtils;
 
 import java.util.List;
 
@@ -41,11 +46,25 @@ public class TypeChildAdapter extends RecyclerView.Adapter {
 
         vh.textView.setText(categoryChildBean.getName());
 
-        Glide.with(mContext)
-                .load(categoryChildBean.getThumb())
+
+        int windowWidth = WindowUtils.getWindowWidth((Activity) mContext);
+        int padding = DimenUtils.dip2px(6);
+        int width = (windowWidth - 6 * padding) / 3;
+        ViewGroup.LayoutParams params = vh.imageView.getLayoutParams();
+        params.height = width;
+        params.width = width;
+
+
+        RequestOptions options = new RequestOptions()
                 .error(R.mipmap.place_image)
                 .placeholder(R.mipmap.place_image)
+                .bitmapTransform(new RoundedCorners(30));
+        Glide.with(mContext)
+                .load(categoryChildBean.getThumb())
+                .apply(options)
                 .into(vh.imageView);
+
+
         vh.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

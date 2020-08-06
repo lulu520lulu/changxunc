@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.ProductBean;
@@ -71,11 +73,17 @@ class TabRecycleAdapter extends RecyclerView.Adapter {
                 }
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setLayoutParams(params);
-                Glide.with(mContext)
-                        .load(bean.getThumb())
+
+
+                RequestOptions options = new RequestOptions()
                         .error(R.mipmap.place_image)
                         .placeholder(R.mipmap.place_image)
+                        .bitmapTransform(new RoundedCorners(30));
+                Glide.with(mContext)
+                        .load(bean.getThumb())
+                        .apply(options)
                         .into(imageView);
+
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

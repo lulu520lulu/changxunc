@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.BannersBean;
@@ -53,11 +55,16 @@ class BannerAdapter extends RecyclerView.Adapter {
         params.width = width;
         params.height = width;
         viewHolder.image.setLayoutParams(params);
-        Glide.with(mContext)
-                .load(bean.getImage())
+
+        RequestOptions options = new RequestOptions()
                 .error(R.mipmap.new_banner)
                 .placeholder(R.mipmap.new_banner)
+                .bitmapTransform(new RoundedCorners(30));
+        Glide.with(mContext)
+                .load(bean.getImage())
+                .apply(options)
                 .into(viewHolder.image);
+
         if (viewHolder.itemView != null) {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
