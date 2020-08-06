@@ -379,12 +379,13 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
     }
 
     private void handleSuccess() {
+        clearData();
+
         ToastUtils.showToast(getActivity(), getActivity().getString(R.string.register_success));
 
         if (mRegisterChangeListener != null) {
             mRegisterChangeListener.showLogin();
         }
-        clearData();
     }
 
 
