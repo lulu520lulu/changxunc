@@ -3,6 +3,8 @@ package com.c.hangxunc.pages.login;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -87,6 +89,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
     private RegisterPresenter mRegisterPresenter;
     private RegisterChangeListener mRegisterChangeListener;
     private CountDownTimer mTimer;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public interface RegisterChangeListener {
         void showLogin();
@@ -107,12 +110,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
         View view = inflater.inflate(R.layout.fragment_register, null);
         ButterKnife.bind(this, view);
         initView(view);
-        initData();
         return view;
-    }
-
-    private void initData() {
-
     }
 
     private void initView(View view) {
@@ -382,10 +380,29 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
 
     private void handleSuccess() {
         ToastUtils.showToast(getActivity(), getActivity().getString(R.string.register_success));
-        
+
         if (mRegisterChangeListener != null) {
             mRegisterChangeListener.showLogin();
         }
+        clearData();
+    }
+
+
+    private void clearData() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                phoneEdit.setText("");
+                phonePasswordReEdit.setText("");
+                phonePasswordEdit.setText("");
+                smsEdit.setText("");
+
+                emailPasswordReEdit.setText("");
+                emailPasswordEdit.setText("");
+                emailEdit.setText("");
+            }
+        });
+
     }
 
     private void handleFail(String message) {
