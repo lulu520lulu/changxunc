@@ -41,7 +41,7 @@
 
     <color name="home_item_item_text">#626262</color>
 
-    <color name="home_tab_item_line">#7d7d7d</color>
+    <color name="home_tab_item_line">#ededed</color>
     <color name="pin_text_color">#DC7C80</color>
     <color name="pin_bg_color">#FFEFF5</color>
 

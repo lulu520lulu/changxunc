@@ -39,7 +39,7 @@
             android:layout_marginRight="6dp">
 
             <TextView
-                android:id="@+id/num"
+                android:id="@+id/sale_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/pin_bg_color"
@@ -53,7 +53,7 @@
                 android:id="@+id/price_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/num"
+                android:layout_below="@+id/sale_num"
                 android:layout_marginTop="5dp"
                 android:maxLines="2"
                 android:text="111"
@@ -61,10 +61,10 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/sale_num"
+                android:id="@+id/old_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/price_text"
+                android:layout_alignBaseline="@+id/price_text"
                 android:layout_marginLeft="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_toRightOf="@+id/price_text"

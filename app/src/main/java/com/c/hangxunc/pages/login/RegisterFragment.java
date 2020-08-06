@@ -353,13 +353,21 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
                     @Override
                     public void onFail(int code, String message) {
                         hideLoading();
-                        handleFail();
+                        handleFail("");
                     }
 
                     @Override
-                    public void onSuccess(RegistInfo o) {
+                    public void onSuccess(RegistInfo registInfo) {
                         hideLoading();
-                        handleSuccess();
+                        if (registInfo != null && registInfo.getCode() == 0) {
+                            handleSuccess();
+                        } else {
+                            if (registInfo == null) {
+                                handleFail("");
+                            } else {
+                                handleFail(registInfo.getMsg());
+                            }
+                        }
                     }
                 });
     }
@@ -374,13 +382,18 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
 
     private void handleSuccess() {
         ToastUtils.showToast(getActivity(), getActivity().getString(R.string.register_success));
+        
         if (mRegisterChangeListener != null) {
             mRegisterChangeListener.showLogin();
         }
     }
 
-    private void handleFail() {
-        ToastUtils.showToast(getActivity(), getActivity().getString(R.string.register_fail));
+    private void handleFail(String message) {
+        if (TextUtils.isEmpty(message)) {
+            ToastUtils.showToast(getActivity(), getActivity().getString(R.string.register_fail));
+        } else {
+            ToastUtils.showToast(getActivity(), message);
+        }
     }
 
     private void showLoading() {

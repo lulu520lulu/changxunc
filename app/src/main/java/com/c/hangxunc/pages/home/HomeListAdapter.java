@@ -225,25 +225,6 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         holder.recycleView.setAdapter(adapter);
     }
 
-    private void handleProductAll(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
-        List<ProductBean> list = bean.getBottomProducts();
-        if (list == null || list.size() == 0) {
-            return;
-        }
-        if (viewHolder == null || !(viewHolder instanceof ProductAllViewHolder)) {
-            return;
-        }
-        ProductAllViewHolder holder = (ProductAllViewHolder) viewHolder;
-        if (TextUtils.isEmpty(bean.getSubtitle())) {
-            holder.products_container.setVisibility(View.VISIBLE);
-        } else {
-            holder.products_container.setVisibility(View.GONE);
-        }
-        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext, 2));
-        ProductAllAdapter adapter = new ProductAllAdapter(mContext, list);
-        holder.product_recycle.setAdapter(adapter);
-    }
-
     private void handleProductGong(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
         List<ProductBean> posts = bean.getProducts();
         if (posts == null || posts.size() == 0) {

@@ -2,6 +2,7 @@ package com.c.hangxunc.pages.home;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -75,21 +76,18 @@ class BottomListAdapter extends RecyclerView.Adapter {
                 .apply(options)
                 .into(viewHolder.image);
 
+        viewHolder.price_text.setText(item.getGroup_price());
+        viewHolder.old_price.setText(item.getPrice() + "");
+        viewHolder.old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
-        if (TextUtils.equals(item.getSpecial(), "false")) {
-            viewHolder.price_text.setText(item.getPrice());
-        } else {
-            viewHolder.price_text.setText(item.getSpecial());
-        }
         if (item.getSales() == 0) {
-            viewHolder.pinNum.setVisibility(View.GONE);
+            viewHolder.sale_num.setVisibility(View.GONE);
         } else {
-            viewHolder.pinNum.setVisibility(View.VISIBLE);
-            String format = String.format(mContext.getString(R.string.pin), item.getGroupbuy_list_len() + "");
-            viewHolder.pinNum.setText(format);
+            viewHolder.sale_num.setVisibility(View.VISIBLE);
+            String format = String.format(mContext.getString(R.string.saled), item.getSales() + "");
+            viewHolder.sale_num.setText(format);
         }
 
-        viewHolder.sale_num.setText(String.format(mContext.getResources().getString(R.string.sales), item.getSales() + ""));
         viewHolder.title.setText(item.getName());
 
         expandTouchArea(viewHolder.add_shop, DimenUtils.dip2px(20));
@@ -171,7 +169,7 @@ class BottomListAdapter extends RecyclerView.Adapter {
         private ImageView image;
         private TextView price_text;
         private TextView title;
-        private TextView pinNum;
+        private TextView old_price;
         private TextView sale_num;
         private ImageView add_shop;
         private LinearLayout container;
@@ -182,7 +180,7 @@ class BottomListAdapter extends RecyclerView.Adapter {
             image = itemView.findViewById(R.id.image);
             title = itemView.findViewById(R.id.title);
             price_text = itemView.findViewById(R.id.price_text);
-            pinNum = itemView.findViewById(R.id.num);
+            old_price = itemView.findViewById(R.id.old_price);
             sale_num = itemView.findViewById(R.id.sale_num);
             add_shop = itemView.findViewById(R.id.add_shop);
             container = itemView.findViewById(R.id.container);

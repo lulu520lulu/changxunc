@@ -100,7 +100,7 @@
     <string name="search_empty_text">No matching products were found</string>
     <string name="all_product">All products</string>
     <string name="find_more_good_product">Discover more popular products</string>
-    <string name="pin">Spelled%1$sPieces</string>
-    <string name="show_login">请先登录</string>
+    <string name="saled">Sold%1$sPieces</string>
+    <string name="show_login">Please log in first</string>
 
 </resources>

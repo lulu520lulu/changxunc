@@ -64,11 +64,11 @@ class ProductGongAdapter extends RecyclerView.Adapter {
 
         viewHolder.price_text.setText(item.getPrice());
         if (item.getSales() == 0) {
-            viewHolder.num.setVisibility(View.GONE);
+            viewHolder.sale_num.setVisibility(View.GONE);
         } else {
-            viewHolder.num.setVisibility(View.VISIBLE);
-            String format = String.format(mContext.getString(R.string.pin), item.getSales() + "");
-            viewHolder.num.setText(format);
+            viewHolder.sale_num.setVisibility(View.VISIBLE);
+            String format = String.format(mContext.getString(R.string.saled), item.getSales() + "");
+            viewHolder.sale_num.setText(format);
         }
         if (viewHolder.itemView != null) {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +145,7 @@ class ProductGongAdapter extends RecyclerView.Adapter {
         private ImageView image;
         private TextView content;
         private TextView price_text;
-        private TextView num;
+        private TextView sale_num;
         private ImageView add_shop;
         private View line;
         private View space;
@@ -156,7 +156,7 @@ class ProductGongAdapter extends RecyclerView.Adapter {
             image = itemView.findViewById(R.id.image);
             content = itemView.findViewById(R.id.content);
             price_text = itemView.findViewById(R.id.price_text);
-            num = itemView.findViewById(R.id.num);
+            sale_num = itemView.findViewById(R.id.sale_num);
             add_shop = itemView.findViewById(R.id.add_shop);
             line = itemView.findViewById(R.id.line);
             space = itemView.findViewById(R.id.space);

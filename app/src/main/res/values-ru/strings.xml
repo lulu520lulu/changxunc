@@ -100,7 +100,7 @@
     <string name="search_empty_text">Подходящих товаров не найдено</string>
     <string name="all_product">все продукты</string>
     <string name="find_more_good_product">Откройте для себя более популярные продукты</string>
-    <string name="pin">полба%1$sКуски</string>
-    <string name="show_login">请先登录</string>
+    <string name="saled">Продано%1$sКуски</string>
+    <string name="show_login">Пожалуйста, войдите сначала</string>
 
 </resources>
