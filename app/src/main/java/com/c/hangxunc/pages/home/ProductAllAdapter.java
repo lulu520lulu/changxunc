@@ -74,7 +74,12 @@ class ProductAllAdapter extends RecyclerView.Adapter {
                 }
             });
         }else {
-            ToastUtils.showToast(mContext,mContext.getString(R.string.show_login));
+            viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtils.showToast(mContext, mContext.getString(R.string.show_login));
+                }
+            });
         }
 
         if (viewHolder.itemView != null) {

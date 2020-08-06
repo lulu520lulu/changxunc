@@ -205,12 +205,17 @@ public class BottomView extends FrameLayout {
         if (bean != null) {
             if (TextUtils.equals(bean.getCode(), "zh-cn")) {
                 language = "简体中文";
+                imageResource = R.mipmap.china_language;
             } else if (TextUtils.equals(bean.getCode(), "en-gb")) {
                 language = "English";
+                imageResource = R.mipmap.english;
+
             } else if (TextUtils.equals(bean.getCode(), "ru-ru")) {
                 language = "Russian";
+                imageResource = R.mipmap.eluosi;
             }
         }
+
         mLanguageListBean = bean;
 
         mLanguage.setText(language);
