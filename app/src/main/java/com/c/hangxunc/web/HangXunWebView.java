@@ -2,6 +2,8 @@ package com.c.hangxunc.web;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -43,7 +45,7 @@ public class HangXunWebView extends LinearLayout {
     private int mBarHeight = 5;
     private ProgressBar mProgressBar = null;
 
-    private String mLoadUrl;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public HangXunWebView(Context context) {
         super(context);
@@ -131,10 +133,14 @@ public class HangXunWebView extends LinearLayout {
 
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                view.loadUrl("javascript:navBar()");
-                view.loadUrl("javascript:pageBackHid()");
-                view.loadUrl("javascript:bottomTabMenu()");
-                mLoadUrl = url;
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.loadUrl("javascript:navBar()");
+                        view.loadUrl("javascript:pageBackHid()");
+                        view.loadUrl("javascript:bottomTabMenu()");
+                    }
+                }, 200);
 
             }
         });

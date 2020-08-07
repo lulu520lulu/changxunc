@@ -26,6 +26,7 @@ import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
+import com.c.hangxunc.pages.MainActivity;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
 import com.c.hangxunc.utils.LoginUtils;
@@ -112,6 +113,7 @@ class BottomListAdapter extends RecyclerView.Adapter {
             viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ((MainActivity) mContext).setSelect(4);
                     ToastUtils.showToast(mContext, mContext.getString(R.string.show_login));
                 }
             });

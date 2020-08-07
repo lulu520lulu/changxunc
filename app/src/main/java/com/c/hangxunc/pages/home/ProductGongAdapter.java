@@ -21,6 +21,7 @@ import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
+import com.c.hangxunc.pages.MainActivity;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
 import com.c.hangxunc.utils.LoginUtils;
@@ -102,6 +103,7 @@ class ProductGongAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     ToastUtils.showToast(mContext, mContext.getString(R.string.show_login));
+                    ((MainActivity) mContext).setSelect(4);
                 }
             });
         }
