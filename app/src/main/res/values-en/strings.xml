@@ -102,7 +102,7 @@
     <string name="find_more_good_product">Discover more popular products</string>
     <string name="saled">Sold%1$sPieces</string>
     <string name="show_login">Please log in first</string>
-    <string name="please_get_registe_sms">请先获取验证码</string>
-    <string name="registe_sms_time_out">验证码超时，请重新获取</string>
+    <string name="please_get_registe_sms">Please get the verification code first</string>
+    <string name="registe_sms_time_out">Verification code timed out, please re-acquire</string>
 
 </resources>
