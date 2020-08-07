@@ -102,5 +102,8 @@
     <string name="find_more_good_product">发现更多人气好货</string>
     <string name="saled">已销%1$s件</string>
     <string name="show_login">请先登录</string>
+    <string name="please_get_registe_sms">请先获取验证码</string>
+    <string name="registe_sms_error">验证码不正确</string>
+    <string name="registe_sms_time_out">验证码超时，请重新获取</string>
 
 </resources>

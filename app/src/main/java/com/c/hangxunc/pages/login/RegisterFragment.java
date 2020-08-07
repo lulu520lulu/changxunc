@@ -215,26 +215,41 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
         }
     }
 
-    private void getSmsCode() {
+    private String getCellCode() {
         if (mCountryBean == null) {
             mCountryBean = CountrySp.getInstance().getCountry();
         }
-        HangXunBiz.getInstance().smsCode(mCountryBean == null ? "86" : mCountryBean.getCode(), phoneEdit.getText().toString(),
+        String code = "86";
+        if (mCountryBean != null && !TextUtils.isEmpty(mCountryBean.getCode())) {
+            code = mCountryBean.getCode();
+        }
+        return code;
+    }
+
+    private SmsCodeBean mSmsCodeBean;
+
+    private void getSmsCode() {
+        showLoading();
+        HangXunBiz.getInstance().smsCode(getCellCode(), phoneEdit.getText().toString(),
                 new ResponseListener<SmsCodeBean>() {
                     @Override
                     public void onFail(int code, String message) {
+                        mSmsCodeBean = null;
+                        hideLoading();
                         HangLog.d(TAG, "getSmsCode onFail code:" + code + ",message:" + message);
                         ToastUtils.showToast(getActivity(), getActivity().getString(R.string.get_sms_code_fail));
                     }
 
                     @Override
                     public void onSuccess(SmsCodeBean bean) {
-                        if (bean != null && bean.getCode() == 200) {
+                        hideLoading();
+                        if (bean != null && bean.getCode() == 0) {
+                            mSmsCodeBean = bean;
                             HangLog.d(TAG, "getSmsCode onSuccess bean:" + bean.toString());
                             ToastUtils.showToast(getActivity(), getActivity().getString(R.string.get_sms_code_success));
                             startTimer();
-
                         } else {
+                            mSmsCodeBean = null;
                             ToastUtils.showToast(getActivity(), getActivity().getString(R.string.get_sms_code_fail));
                             HangLog.d(TAG, "getSmsCode onSuccess bean==null");
                         }
@@ -298,7 +313,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
         }
         boolean isEmail = radioGroup.getCheckedRadioButtonId() == R.id.show_email;
 
-        String type = "mobile";
+        String type = ApiConstants.LOGIN_MOBILE_TYPE;
         String telephone = "";
         String email = "";
         String password = "";
@@ -307,7 +322,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
         String smsCode = "";
         String newsletter = checked ? "1" : "0";
         if (isEmail) {
-            type = "email";
+            type = ApiConstants.LOGIN_EMAIL_TYPE;
             email = emailEdit.getText().toString();
             password = emailPasswordEdit.getText().toString();
             if (TextUtils.isEmpty(email)) {
@@ -329,6 +344,25 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
             }
             rePassword = phonePasswordReEdit.getText().toString();
 
+
+            if (mSmsCodeBean == null || mSmsCodeBean.getCode() != 0) {
+                ToastUtils.showToast(getActivity(), getActivity().getString(R.string.please_get_registe_sms));
+                return;
+            }
+
+            String code = mSmsCodeBean.getSmsCode();
+            if (!TextUtils.equals(code, smsCode)) {
+                ToastUtils.showToast(getActivity(), getActivity().getString(R.string.registe_sms_error));
+                return;
+            }
+
+            long currentTimeMillis = System.currentTimeMillis();
+            int time = mSmsCodeBean.getTime();
+            long dTime = currentTimeMillis/1000 - time;
+            if (dTime > 60 * 1000) {
+                ToastUtils.showToast(getActivity(), getActivity().getString(R.string.registe_sms_time_out));
+                return;
+            }
         }
         if (TextUtils.isEmpty(password)) {
             ToastUtils.showToast(getActivity(), getActivity().getString(R.string.register_password_is_empty));
@@ -343,9 +377,12 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
             ToastUtils.showToast(getActivity(), getActivity().getString(R.string.register_password_no_equal));
             return;
         }
+
+
         showLoading();
 
-        HangXunBiz.getInstance().regist(type, email, mCountryBean == null ? "" : mCountryBean.getCode(),
+
+        HangXunBiz.getInstance().regist(type, email, getCellCode(),
                 telephone, smsCode, password, rePassword, newsletter, agree,
                 new ResponseListener<RegistInfo>() {
                     @Override
@@ -358,6 +395,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
                     public void onSuccess(RegistInfo registInfo) {
                         hideLoading();
                         if (registInfo != null && registInfo.getCode() == 0) {
+                            HangLog.d("onSuccess:" + registInfo.toString());
                             handleSuccess();
                         } else {
                             if (registInfo == null) {

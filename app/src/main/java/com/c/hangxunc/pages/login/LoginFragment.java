@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CountryBean;
 import com.c.hangxunc.bean.login.LoginInfo;
+import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
@@ -34,8 +35,7 @@ import butterknife.ButterKnife;
 public class LoginFragment extends BaseFragment<LoginPresenter> {
 
     private static final String TAG = LoginFragment.class.getSimpleName();
-    //    @BindView(R.id.title_text)
-//    TextView titleText;
+
     @BindView(R.id.radio_group)
     RadioGroup radioGroup;
     @BindView(R.id.email_edit)
@@ -104,13 +104,13 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
     }
 
     private void goLogin(boolean isEmail) {
-        String type = "mobile";
+        String type = ApiConstants.LOGIN_MOBILE_TYPE;
         String telephone = "";
         String email = "";
         String password = "";
 
         if (isEmail) {
-            type = "email";
+            type = ApiConstants.LOGIN_EMAIL_TYPE;
             email = emailEdit.getText().toString();
             password = emailPasswordEdit.getText().toString();
             if (TextUtils.isEmpty(email)) {
@@ -133,33 +133,46 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
         if (mCountryBean == null) {
             mCountryBean = CountrySp.getInstance().getCountry();
         }
-        HangXunBiz.getInstance().login(type, mCountryBean == null ? "86" : mCountryBean.getCode(), telephone, email, password,
+        String code = "86";
+        if (mCountryBean != null && !TextUtils.isEmpty(mCountryBean.getCode())) {
+            code = mCountryBean.getCode();
+        }
+        HangXunBiz.getInstance().login(type, code, telephone, email, password,
                 new ResponseListener<LoginInfo>() {
                     @Override
                     public void onFail(int code, String message) {
                         hideLoading();
-                        handleFail();
+                        handleFail("");
                     }
 
                     @Override
                     public void onSuccess(LoginInfo info) {
                         hideLoading();
-                        if (info == null) {
-                            handleFail();
-                            return;
+                        if (info != null && info.getCode() == 0) {
+                            ToastUtils.showToast(getActivity(), getActivity().getString(R.string.login_success));
+                            LoginUtils.getInstance().setLoginInfo(info.getSession_id(), info.getCustomer_id());
+                            EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_IN));
+                            if (mLoginChangeListener != null) {
+                                mLoginChangeListener.showPersion(info.getCustomer_id());
+                            }
+                        } else {
+                            if (info == null) {
+                                handleFail("");
+                            } else {
+                                handleFail(info.getMsg());
+                            }
                         }
-                        ToastUtils.showToast(getActivity(), getActivity().getString(R.string.login_success));
-                        LoginUtils.getInstance().setLoginInfo(info.getSession_id(), info.getCustomer_id());
-                        EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_IN));
-                        if (mLoginChangeListener != null) {
-                            mLoginChangeListener.showPersion(info.getCustomer_id());
-                        }
+
                     }
                 });
     }
 
-    private void handleFail() {
-        ToastUtils.showToast(getActivity(), getActivity().getString(R.string.login_fail));
+    private void handleFail(String message) {
+        if (TextUtils.isEmpty(message)) {
+            ToastUtils.showToast(getActivity(), getActivity().getString(R.string.login_fail));
+        } else {
+            ToastUtils.showToast(getActivity(), message);
+        }
     }
 
     private void hideSoftKeyboard(Activity activity) {

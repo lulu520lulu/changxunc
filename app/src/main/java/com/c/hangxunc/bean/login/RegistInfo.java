@@ -1,5 +1,7 @@
 package com.c.hangxunc.bean.login;
 
+import androidx.annotation.NonNull;
+
 public class RegistInfo {
 
     /**
@@ -34,5 +36,14 @@ public class RegistInfo {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    @Override
+    public String toString() {
+        return "RegistInfo{" +
+                "code=" + code +
+                ", data=" + data +
+                ", msg='" + msg + '\'' +
+                '}';
     }
 }

@@ -8,11 +8,29 @@ public class LoginInfo {
      * shipping_address : {"address_id":3,"firstname":"test","lastname":"T","calling_code":"86","telephone":"13333333333","company":"test","address_1":"test1","address_2":"test2","postcode":"273500","zone_id":707,"zone":"山东省","zone_code":"SA","country_id":44,"country":"中国","iso_code_2":"CN","iso_code_3":"CHN","address_format":"","city_id":2346,"city":"青岛市","county_id":2351,"county":"市北区","custom_field":null}
      * payment_address : null
      */
+    private int code;
+    private String msg;
 
     private String customer_id;
     private String session_id;
     private ShippingAddressBean shipping_address;
     private Object payment_address;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public String getCustomer_id() {
         return customer_id;
@@ -46,7 +64,47 @@ public class LoginInfo {
         this.payment_address = payment_address;
     }
 
+    @Override
+    public String toString() {
+        return "LoginInfo{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", customer_id='" + customer_id + '\'' +
+                ", session_id='" + session_id + '\'' +
+                ", shipping_address=" + shipping_address +
+                ", payment_address=" + payment_address +
+                '}';
+    }
+
     public static class ShippingAddressBean {
+        @Override
+        public String toString() {
+            return "ShippingAddressBean{" +
+                    "address_id=" + address_id +
+                    ", firstname='" + firstname + '\'' +
+                    ", lastname='" + lastname + '\'' +
+                    ", calling_code='" + calling_code + '\'' +
+                    ", telephone='" + telephone + '\'' +
+                    ", company='" + company + '\'' +
+                    ", address_1='" + address_1 + '\'' +
+                    ", address_2='" + address_2 + '\'' +
+                    ", postcode='" + postcode + '\'' +
+                    ", zone_id=" + zone_id +
+                    ", zone='" + zone + '\'' +
+                    ", zone_code='" + zone_code + '\'' +
+                    ", country_id=" + country_id +
+                    ", country='" + country + '\'' +
+                    ", iso_code_2='" + iso_code_2 + '\'' +
+                    ", iso_code_3='" + iso_code_3 + '\'' +
+                    ", address_format='" + address_format + '\'' +
+                    ", city_id=" + city_id +
+                    ", city='" + city + '\'' +
+                    ", county_id=" + county_id +
+                    ", county='" + county + '\'' +
+                    ", custom_field=" + custom_field +
+                    '}';
+        }
+
         /**
          * address_id : 3
          * firstname : test
