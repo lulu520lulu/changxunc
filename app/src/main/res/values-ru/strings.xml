@@ -103,6 +103,7 @@
     <string name="saled">Продано%1$sКуски</string>
     <string name="show_login">Пожалуйста, войдите сначала</string>
     <string name="please_get_registe_sms">Пожалуйста, сначала получите код подтверждения</string>
+    <string name="registe_sms_error">Неверный проверочный код</string>
     <string name="registe_sms_time_out">Срок действия кода подтверждения истек, повторите попытку</string>
 
 </resources>

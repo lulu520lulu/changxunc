@@ -14,8 +14,8 @@
         <item>Home</item>
         <item>Search</item>
         <item>Category</item>
-        <item>Shopping Cart</item>
-        <item>Member Center</item>
+        <item>Cart</item>
+        <item>Account</item>
     </string-array>
 
     <string name="tryagainBack">Press again to exit the program</string>
@@ -103,6 +103,7 @@
     <string name="saled">Sold%1$sPieces</string>
     <string name="show_login">Please log in first</string>
     <string name="please_get_registe_sms">Please get the verification code first</string>
+    <string name="registe_sms_error">Incorrect verification code</string>
     <string name="registe_sms_time_out">Verification code timed out, please re-acquire</string>
 
 </resources>
