@@ -55,7 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter {
         viewHolder.product_image = view.findViewById(R.id.product_image);
         viewHolder.product_text = view.findViewById(R.id.product_text);
         viewHolder.price_text = view.findViewById(R.id.price_text);
-        viewHolder.icon_shop_cart = view.findViewById(R.id.icon_shop_cart);
+        viewHolder.add_shop = view.findViewById(R.id.add_shop);
         return viewHolder;
     }
 
@@ -78,7 +78,7 @@ public class SearchAdapter extends RecyclerView.Adapter {
                 .into(viewHolder.product_image);
 
         if (LoginUtils.getInstance().isLogin()) {
-            viewHolder.icon_shop_cart.setOnClickListener(new View.OnClickListener() {
+            viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
@@ -96,7 +96,7 @@ public class SearchAdapter extends RecyclerView.Adapter {
                 }
             });
         } else {
-            viewHolder.icon_shop_cart.setOnClickListener(new View.OnClickListener() {
+            viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((MainActivity) mContext).setSelect(4);
@@ -127,7 +127,7 @@ public class SearchAdapter extends RecyclerView.Adapter {
         private ImageView product_image;
         private TextView product_text;
         private TextView price_text;
-        private ImageView icon_shop_cart;
+        private ImageView add_shop;
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -38,7 +38,7 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:id="@+id/icon_shop_cart"
+            android:id="@+id/add_shop"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
