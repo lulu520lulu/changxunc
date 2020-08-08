@@ -26,7 +26,7 @@ import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
-import com.c.hangxunc.pages.MessageLocal;
+import com.c.hangxunc.pages.shop.MessageLocal;
 import com.c.hangxunc.pages.home.ui.MessageHome;
 import com.c.hangxunc.pages.widget.BottomView;
 import com.c.hangxunc.utils.DimenUtils;

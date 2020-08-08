@@ -12,7 +12,6 @@ import com.c.hangxunc.R;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
-import com.c.hangxunc.pages.MessageLocal;
 import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.LanguageSp;
@@ -120,6 +119,13 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     public void changeCurrency(MessageLocal message) {
         if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
             showWeb();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void addShopSuccess(MessageShop message) {
+        if (TextUtils.equals(message.message, MessageShop.ADD_SHOP_SUCCESS)) {
+            mWebContainer.reload();
         }
     }
 

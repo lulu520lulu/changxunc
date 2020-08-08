@@ -11,7 +11,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,7 +22,7 @@ import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.http.ApiConstants;
-import com.c.hangxunc.pages.MessageLocal;
+import com.c.hangxunc.pages.shop.MessageLocal;
 import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.pages.login.WebLoginInterface;
 import com.c.hangxunc.utils.CurrencySp;
@@ -34,8 +33,6 @@ import com.c.hangxunc.utils.LanguageUtil;
 import com.c.hangxunc.utils.LoginUtils;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.Locale;
 
 
 public class HangXunWebView extends LinearLayout {
@@ -250,8 +247,17 @@ public class HangXunWebView extends LinearLayout {
     }
 
     public void loadUrl(String url) {
-        Log.e("http", "loadurl");
+        if (mWebView == null) {
+            return;
+        }
         mWebView.loadUrl(url);
+    }
+
+    public void reload() {
+        if (mWebView == null) {
+            return;
+        }
+        mWebView.reload();
     }
 
     public boolean canGoBack() {

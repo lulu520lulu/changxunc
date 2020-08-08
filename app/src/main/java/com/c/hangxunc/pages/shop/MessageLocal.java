@@ -1,4 +1,4 @@
-package com.c.hangxunc.pages;
+package com.c.hangxunc.pages.shop;
 
 public class MessageLocal {
     public static final String CHANGE = "change";

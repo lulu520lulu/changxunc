@@ -22,10 +22,13 @@ import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.pages.shop.MessageShop;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
 import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -93,6 +96,7 @@ class ProductGongAdapter extends RecyclerView.Adapter {
 
                         @Override
                         public void onSuccess(Object o) {
+                            EventBus.getDefault().post(MessageShop.getInstance(MessageShop.ADD_SHOP_SUCCESS));
                             ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
                         }
                     });

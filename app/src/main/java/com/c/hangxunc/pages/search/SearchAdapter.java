@@ -1,5 +1,6 @@
 package com.c.hangxunc.pages.search;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,13 @@ import com.c.hangxunc.bean.home.BreadCrumbsBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
+import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.pages.shop.MessageShop;
 import com.c.hangxunc.utils.JumpUtils;
+import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +34,10 @@ public class SearchAdapter extends RecyclerView.Adapter {
 
     private static final String TAG = SearchAdapter.class.getSimpleName();
 
-    private Context mContext;
+    private Activity mContext;
     private List<ProductBean> mDatas = new ArrayList<>();
 
-    public SearchAdapter(Context context) {
+    public SearchAdapter(Activity context) {
         this.mContext = context;
     }
 
@@ -49,7 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter {
         viewHolder.product_image = view.findViewById(R.id.product_image);
         viewHolder.product_text = view.findViewById(R.id.product_text);
         viewHolder.price_text = view.findViewById(R.id.price_text);
-        viewHolder.icon_shop_cart=view.findViewById(R.id.icon_shop_cart);
+        viewHolder.icon_shop_cart = view.findViewById(R.id.icon_shop_cart);
         return viewHolder;
     }
 
@@ -71,22 +77,34 @@ public class SearchAdapter extends RecyclerView.Adapter {
                 .apply(options)
                 .into(viewHolder.product_image);
 
-        viewHolder.icon_shop_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
-                    @Override
-                    public void onFail(int code, String message) {
-                        ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_fail));
-                    }
+        if (LoginUtils.getInstance().isLogin()) {
+            viewHolder.icon_shop_cart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
+                        @Override
+                        public void onFail(int code, String message) {
+                            ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_fail));
+                        }
 
-                    @Override
-                    public void onSuccess(Object o) {
-                        ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
-                    }
-                });
-            }
-        });
+                        @Override
+                        public void onSuccess(Object o) {
+                            EventBus.getDefault().post(MessageShop.getInstance(MessageShop.ADD_SHOP_SUCCESS));
+                            ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
+                        }
+                    });
+                }
+            });
+        } else {
+            viewHolder.icon_shop_cart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) mContext).setSelect(4);
+                    ToastUtils.showToast(mContext, mContext.getString(R.string.show_login));
+                }
+            });
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

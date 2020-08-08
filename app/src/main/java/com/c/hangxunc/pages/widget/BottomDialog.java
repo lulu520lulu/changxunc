@@ -20,7 +20,7 @@ import com.c.hangxunc.bean.home.LanguageBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
-import com.c.hangxunc.pages.MessageLocal;
+import com.c.hangxunc.pages.shop.MessageLocal;
 import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.CurrencyType;
 import com.c.hangxunc.utils.DimenUtils;
