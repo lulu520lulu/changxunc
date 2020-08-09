@@ -82,10 +82,10 @@ public class ProductKeAdapter extends RecyclerView.Adapter {
         }
         expandTouchArea(viewHolder.add_shop, DimenUtils.dip2px(20));
 
-        if (LoginUtils.getInstance().isLogin()) {
-            viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (LoginUtils.getInstance().isLogin()) {
                     HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
                         @Override
                         public void onFail(int code, String message) {
@@ -98,17 +98,12 @@ public class ProductKeAdapter extends RecyclerView.Adapter {
                             ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
                         }
                     });
-                }
-            });
-        }else {
-            viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                } else {
                     ((MainActivity) mContext).setSelect(4);
                     ToastUtils.showToast(mContext, mContext.getString(R.string.show_login));
                 }
-            });
-        }
+            }
+        });
 
         if (position == mData.size() - 1) {
             viewHolder.line.setVisibility(View.GONE);

@@ -77,10 +77,10 @@ public class SearchAdapter extends RecyclerView.Adapter {
                 .apply(options)
                 .into(viewHolder.product_image);
 
-        if (LoginUtils.getInstance().isLogin()) {
-            viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (LoginUtils.getInstance().isLogin()) {
                     HangXunBiz.getInstance().addShopCart(item.getProduct_id(), item.getQuantity(), new ResponseListener() {
                         @Override
                         public void onFail(int code, String message) {
@@ -93,17 +93,12 @@ public class SearchAdapter extends RecyclerView.Adapter {
                             ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_success));
                         }
                     });
-                }
-            });
-        } else {
-            viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                } else {
                     ((MainActivity) mContext).setSelect(4);
                     ToastUtils.showToast(mContext, mContext.getString(R.string.show_login));
                 }
-            });
-        }
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
