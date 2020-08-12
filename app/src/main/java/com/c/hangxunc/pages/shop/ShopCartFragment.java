@@ -124,9 +124,12 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
         }
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addShopSuccess(MessageShop message) {
         if (TextUtils.equals(message.message, MessageShop.ADD_SHOP_SUCCESS)) {
+            mWebContainer.reload();
+        } else if (TextUtils.equals(message.message, MessageShop.CART_NEED_REFRESH)) {
             mWebContainer.reload();
         }
     }

@@ -20,6 +20,7 @@ import com.c.hangxunc.BaseActivity;
 import com.c.hangxunc.HangXunApplication;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.pages.shop.MessageShop;
 import com.c.hangxunc.utils.Constants;
 import com.c.hangxunc.utils.DimenUtils;
 
@@ -133,6 +134,7 @@ public class HybridActivity extends BaseActivity {
             mWebContainer.destroyView();
         }
         EventBus.getDefault().unregister(this);
+        EventBus.getDefault().post(MessageShop.getInstance(MessageShop.ADD_SHOP_SUCCESS));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
