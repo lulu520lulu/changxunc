@@ -239,7 +239,7 @@ public class ChangeLanguageActivity extends BaseActivity {
                     CurrencySp.getInstance().saveCurrencyList(bean);
 
                     MessageLocal instance = MessageLocal.getInstance(MessageLocal.CURRENCY_CHANGE);
-                    instance.setCode(bean.getCode());
+                    instance.setCode(getCurrencySymbol(bean.getCode()));
                     instance.setName(getCurrencyTitle(bean.getCode()));
                     EventBus.getDefault().post(instance);
                     finish();
