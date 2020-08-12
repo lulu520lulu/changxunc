@@ -35,6 +35,9 @@
         <activity
             android:name=".pages.home.AllPostActivity"
             android:configChanges="orientation|screenSize|locale" />
+        <activity
+            android:name=".change.ChangeLanguageActivity"
+            android:theme="@style/Transparent" />
     </application>
 
 </manifest>

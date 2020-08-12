@@ -379,7 +379,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(MessageLocal message) {
-        if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
+        if (TextUtils.equals(message.message, MessageLocal.CURRENCY_CHANGE)) {
+            getData();
+        } else if (TextUtils.equals(message.message, MessageLocal.LANGUAGE_CHANGE)) {
             getData();
         }
     }

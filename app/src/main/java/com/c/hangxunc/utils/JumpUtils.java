@@ -17,17 +17,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class JumpUtils {
     public static final String SEE_MORE_POST_DATA = "see_more_post_data";
 
-//    public static void goProductPage(String id) {
-//        if (TextUtils.isEmpty(id)) {
-//            return;
-//        }
-//        HybridActivity.openWeb(ApiConstants.BASE_URL + ApiConstants.PRODUCT_PAGE_PATH + id + ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId());
-//    }
-//
-//    public static void goCategoryDetailPage(String path) {
-//        HybridActivity.openWeb(ApiConstants.BASE_URL + ApiConstants.CATEGORY_DETAIL_PATH + path + ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId());
-//    }
-
 
     public static void goWeb(String url) {
         if (TextUtils.isEmpty(url)) {
@@ -36,9 +25,19 @@ public class JumpUtils {
         if (url.indexOf("amp;") > -1) {
             url = url.replace("amp;", "");
         }
-        HybridActivity.openWeb(url + ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId()
-                + ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
-                + ApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode());
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(url);
+        if (LoginUtils.getInstance().isLogin()) {
+            buffer.append(ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId());
+        }
+        if (TextUtils.isEmpty(LanguageSp.getInstance().getCode())) {
+            buffer.append(ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode());
+        }
+        if (TextUtils.isEmpty(CurrencySp.getInstance().getCode())) {
+            buffer.append(ApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode());
+        }
+
+        HybridActivity.openWeb(buffer.toString());
     }
 
     public static void goSeeMorePost(Context context, ArrayList<PostsBean> posts) {

@@ -13,12 +13,19 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.c.hangxunc.MessageGoHome;
+import com.c.hangxunc.MessageGoLogin;
 import com.c.hangxunc.R;
 import com.c.hangxunc.BaseActivity;
 import com.c.hangxunc.HangXunApplication;
 import com.c.hangxunc.http.ApiConstants;
+import com.c.hangxunc.pages.MainActivity;
 import com.c.hangxunc.utils.Constants;
 import com.c.hangxunc.utils.DimenUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +46,7 @@ public class HybridActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         initView();
         initData();
     }
@@ -81,16 +89,19 @@ public class HybridActivity extends BaseActivity {
         });
     }
 
+    private String mUrl;
+
     private void initData() {
         Intent intent = getIntent();
-        String url = intent.getStringExtra(Constants.WEB_URL_KEY);
-        if (TextUtils.isEmpty(url)) {
+        mUrl = intent.getStringExtra(Constants.WEB_URL_KEY);
+        if (TextUtils.isEmpty(mUrl)) {
             return;
         }
+        mUrl = mUrl + "&app=app";
         mWebContainer.setHangWebCallBack(new HangXunWebView.HangWebCallBack() {
             @Override
             public void onReceivedTitle(WebView view, String title) {
-                if (TextUtils.equals(ApiConstants.RULE_PATH, url)) {
+                if (TextUtils.equals(ApiConstants.RULE_PATH, mUrl)) {
                     titleText.setText(R.string.register_rule);
                     return;
                 }
@@ -99,7 +110,7 @@ public class HybridActivity extends BaseActivity {
                 }
             }
         });
-        mWebContainer.loadUrl(url);
+        mWebContainer.loadUrl(mUrl);
     }
 
     @Override
@@ -121,5 +132,14 @@ public class HybridActivity extends BaseActivity {
         if (mWebContainer != null) {
             mWebContainer.destroyView();
         }
+        EventBus.getDefault().unregister(this);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void goLogin(MessageGoLogin message) {
+        if (TextUtils.equals(message.message, MessageGoLogin.GO_LOGIN)) {
+            finish();
+        }
+    }
+
 }

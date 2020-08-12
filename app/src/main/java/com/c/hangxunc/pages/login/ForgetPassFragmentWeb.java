@@ -11,6 +11,8 @@ import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.web.HangXunWebView;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class ForgetPassFragmentWeb extends BaseFragment<ForgetPassPresenterWeb> {
 
     private ForgetPassPresenterWeb mForgetPassPresenterWeb;
@@ -33,7 +35,7 @@ public class ForgetPassFragmentWeb extends BaseFragment<ForgetPassPresenterWeb> 
     }
 
     private void initView(View view) {
-        webContainer = view.findViewById(R.id.container);
+        webContainer = view.findViewById(R.id.web_container);
     }
 
     private void initData() {

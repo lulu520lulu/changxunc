@@ -18,18 +18,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.c.hangxunc.MessageGoHome;
+import com.c.hangxunc.MessageGoLogin;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyListBean;
-import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.pages.shop.MessageLocal;
 import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.pages.login.WebLoginInterface;
 import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.CurrencyType;
-import com.c.hangxunc.utils.LanguageSp;
-import com.c.hangxunc.utils.LanguageType;
-import com.c.hangxunc.utils.LanguageUtil;
 import com.c.hangxunc.utils.LoginUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -75,7 +72,7 @@ public class HangXunWebView extends LinearLayout {
         mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setLoadsImagesAutomatically(true);
-
+        addJavascriptInterface();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
             mWebView.setWebContentsDebuggingEnabled(true);
@@ -110,19 +107,39 @@ public class HangXunWebView extends LinearLayout {
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Log.e("lulu", "--------" + url);
+            public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
+                super.doUpdateVisitedHistory(view, url, isReload);
 
+                if (needClearHistory) {
+                    needClearHistory = false;//清除历史记录的标识，在满足某个条件时，设置为true，删除历史记录
+                    view.clearHistory();//清除历史记录
+                }
+            }
+
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=account/logout")) {
                     LoginUtils.getInstance().loginOut();
                     EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_OUT));
                 } else if (url.contains(ApiConstants.LANGUAGE_PATH)) {
-                    handleChangeLanguage(url);
+//                    ChangeLanguageActivity.launch(getContext(), ChangeLanguageActivity.LANGUAGE_FLAG);
+
+//                    return true;
+
                 } else if (url.contains(ApiConstants.CURRENCY_PATH)) {
                     handleChangeCurrency(url);
                 } else if (TextUtils.equals(url, "http://c.hangxunc.com/")) {
                     EventBus.getDefault().post(new MessageGoHome(MessageGoHome.GO_HOME));
                     return true;
+                } else if (url.contains("/index.php?route=account/login")) {
+                    EventBus.getDefault().post(new MessageGoLogin(MessageGoLogin.GO_LOGIN));
+                    return true;
+                } else if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=checkout/cart")) {
+                    if (!LoginUtils.getInstance().isLogin()) {
+                        EventBus.getDefault().post(new MessageGoLogin(MessageGoLogin.GO_LOGIN));
+                        return true;
+                    }
                 }
 
                 return false;
@@ -130,18 +147,18 @@ public class HangXunWebView extends LinearLayout {
 
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.loadUrl("javascript:navBar()");
-                        view.loadUrl("javascript:pageBackHid()");
-                        view.loadUrl("javascript:bottomTabMenu()");
-                    }
-                }, 200);
+                view.loadUrl("javascript:bottomTabMenu()");
+                if (!url.contains(ApiConstants.CART_PAGE_PATH)
+                        && !url.contains(ApiConstants.ACCOUNT_PAGE_PATH)) {
+                    view.loadUrl("javascript:navBar()");
+                    view.loadUrl("javascript:pageBackHid()");
 
+                }
             }
         });
     }
+
+    private boolean needClearHistory = false;
 
     private void handleChangeCurrency(String url) {
         if (TextUtils.isEmpty(url)) {
@@ -171,52 +188,52 @@ public class HangXunWebView extends LinearLayout {
                         list.setCode(currency);
 
                         CurrencySp.getInstance().saveCurrencyList(list);
-                        EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CHANGE));
+                        EventBus.getDefault().post(MessageLocal.getInstance(MessageLocal.CURRENCY_CHANGE));
                     }
                 }
             }
         }
     }
 
-    private void handleChangeLanguage(String url) {
-        if (TextUtils.isEmpty(url)) {
-            return;
-        }
-        Log.e("lulu", "url:" + url);
-
-        String oldCode = LanguageSp.getInstance().getCode();
-        LanguageListBean list = LanguageSp.getInstance().getLanguageList();
-
-        String[] split = url.split("language=");
-
-        if (split != null && split.length > 1) {
-            String s = split[1];
-            String[] split1 = s.split("&");
-
-            String language = split1[0];
-
-            if (!TextUtils.isEmpty(language) && !language.contains("=")) {
-                Log.e("lulu", "url:444444:language:" + language);
-
-                if (TextUtils.equals(language, LanguageType.CHINESE.getLanguage())
-                        | TextUtils.equals(language, LanguageType.ENGLISH.getLanguage())
-                        | TextUtils.equals(language, LanguageType.RU.getLanguage())) {
-                    Log.e("lulu", "url:55555:language:" + language);
-
-                    if (!TextUtils.equals(oldCode, language)) {
-                        Log.e("lulu", "url:66666:language:" + language);
-                        if (list == null) {
-                            list = new LanguageListBean();
-                        }
-                        list.setCode(language);
-
-                        LanguageSp.getInstance().saveLanguageList(list);
-                        LanguageUtil.changeLanguageAndKill(getContext(), language);
-                    }
-                }
-            }
-        }
-    }
+//    private void handleChangeLanguage(String url) {
+//        if (TextUtils.isEmpty(url)) {
+//            return;
+//        }
+//        Log.e("lulu", "url:" + url);
+//
+//        String oldCode = LanguageSp.getInstance().getCode();
+//        LanguageListBean list = LanguageSp.getInstance().getLanguageList();
+//
+//        String[] split = url.split("language=");
+//
+//        if (split != null && split.length > 1) {
+//            String s = split[1];
+//            String[] split1 = s.split("&");
+//
+//            String language = split1[0];
+//
+//            if (!TextUtils.isEmpty(language) && !language.contains("=")) {
+//                Log.e("lulu", "url:444444:language:" + language);
+//
+//                if (TextUtils.equals(language, LanguageType.CHINESE.getLanguage())
+//                        | TextUtils.equals(language, LanguageType.ENGLISH.getLanguage())
+//                        | TextUtils.equals(language, LanguageType.RU.getLanguage())) {
+//                    Log.e("lulu", "url:55555:language:" + language);
+//
+//                    if (!TextUtils.equals(oldCode, language)) {
+//                        Log.e("lulu", "url:66666:language:" + language);
+//                        if (list == null) {
+//                            list = new LanguageListBean();
+//                        }
+//                        list.setCode(language);
+//
+//                        LanguageSp.getInstance().saveLanguageList(list);
+//                        LanguageUtil.changeAppLanguage(getContext(), language);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private HangWebCallBack mHangWebCallBack;
 
@@ -226,10 +243,10 @@ public class HangXunWebView extends LinearLayout {
 
     public void clearHistory() {
         if (null != mWebView) {
-            mWebView.clearHistory();
-            mWebView.clearCache(true);
+            needClearHistory = true;
             mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-            mWebView.loadUrl("about:blank");
+            mWebView.clearCache(true);
+            mWebView.clearHistory();
             mWebView.freeMemory();
             mWebView.pauseTimers();
         }
@@ -286,7 +303,7 @@ public class HangXunWebView extends LinearLayout {
 
     public void addJavascriptInterface() {
         if (null != mWebView) {
-            mWebView.addJavascriptInterface(new WebLoginInterface(getContext()), "changxun");
+            mWebView.addJavascriptInterface(new WebLoginInterface(getContext()), "c_hangxun");
         }
     }
 

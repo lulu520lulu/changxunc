@@ -106,4 +106,9 @@
     <string name="registe_sms_error">验证码不正确</string>
     <string name="registe_sms_time_out">验证码超时，请重新获取</string>
 
+    <string name="change_language">改变语言</string>
+
+    <string name="chinese">中文</string>
+    <string name="english">英语</string>
+    <string name="thailand">泰语</string>
 </resources>

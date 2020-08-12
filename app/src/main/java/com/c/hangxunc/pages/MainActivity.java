@@ -1,6 +1,10 @@
 package com.c.hangxunc.pages;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -9,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.c.hangxunc.HangXunApplication;
+import com.c.hangxunc.MessageGoLogin;
 import com.c.hangxunc.R;
 import com.c.hangxunc.BaseActivity;
 import com.c.hangxunc.bean.home.IsLoginBean;
@@ -18,6 +24,10 @@ import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.utils.LoginUtils;
 import com.google.android.material.tabs.TabLayout;
 
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +49,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_main_layout);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         initView();
         initData();
     }
@@ -93,8 +104,8 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
 
         mSlidingTabs.setOnTabSelectedListener(new HomeTabListener(mViewpager));
         mViewpager.setOffscreenPageLimit(5);
-        mSlidingTabs.getTabAt(0).select();
 
+        setSelect( HangXunApplication.getInstance().MAIN_SELECT_ITEM);
     }
 
     public void setSelect(int position) {
@@ -121,4 +132,26 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mViewpager != null) {
+            HangXunApplication.getInstance().MAIN_SELECT_ITEM = mViewpager.getCurrentItem();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void goLogin(MessageGoLogin message) {
+        if (TextUtils.equals(message.message, MessageGoLogin.GO_LOGIN)) {
+            setSelect(4);
+        }
+    }
+
 }

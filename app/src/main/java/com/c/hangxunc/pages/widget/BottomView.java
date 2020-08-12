@@ -1,5 +1,6 @@
 package com.c.hangxunc.pages.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,14 +15,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.c.hangxunc.change.ChangeLanguageActivity;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
-import com.c.hangxunc.http.HangXunBiz;
-import com.c.hangxunc.http.ResponseListener;
+import com.c.hangxunc.pages.MainActivity;
 import com.c.hangxunc.pages.shop.MessageLocal;
 import com.c.hangxunc.utils.CurrencySp;
-import com.c.hangxunc.utils.HangLog;
 import com.c.hangxunc.utils.LanguageSp;
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,11 +51,11 @@ public class BottomView extends FrameLayout {
     private LinearLayout mLanguageContainer;
     private TextView mLanguage;
     private ImageView mIvLanguage;
+    private Context mContext;
 
-    private CurrencyListBean mCurrencyListBean;
-    private LanguageListBean mLanguageListBean;
 
     private void initView(Context context) {
+        mContext = context;
         inflate(context, R.layout.base_bottom_view, this);
         EventBus.getDefault().register(this);
         mSupport = findViewById(R.id.support);
@@ -69,8 +69,8 @@ public class BottomView extends FrameLayout {
         mLanguage = findViewById(R.id.language);
         mIvLanguage = findViewById(R.id.iv_language);
         mLanguageContainer.setOnClickListener(mLanguageClickListener);
-        mBottomDialog = new BottomDialog(getContext());
-        mBottomDialog.setItemClickListener(mItemClickListener);
+//        mBottomDialog = new BottomDialog(getContext());
+//        mBottomDialog.setItemClickListener(mItemClickListener);
         showData();
     }
 
@@ -81,64 +81,40 @@ public class BottomView extends FrameLayout {
         updateLanguage(languageBean);
     }
 
-    private BottomDialog.ItemClickListener mItemClickListener = new BottomDialog.ItemClickListener() {
-        @Override
-        public void languageItemClick(String code, String name) {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    int drawableRes;
-                    if (TextUtils.equals(code, "en-gb")) {
-                        drawableRes = R.mipmap.english;
-                    } else if (TextUtils.equals(code, "ru-ru")) {
-                        drawableRes = R.mipmap.eluosi;
-                    } else {
-                        drawableRes = R.mipmap.china_language;
-                    }
-                    mIvLanguage.setImageResource(drawableRes);
-                    mLanguage.setText(name);
+    private void languageItemClick(String code, String name) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                int drawableRes;
+                if (TextUtils.equals(code, "en-gb")) {
+                    drawableRes = R.mipmap.english;
+                } else if (TextUtils.equals(code, "ru-ru")) {
+                    drawableRes = R.mipmap.eluosi;
+                } else {
+                    drawableRes = R.mipmap.china_language;
                 }
-            });
-        }
+                mIvLanguage.setImageResource(drawableRes);
+                mLanguage.setText(name);
+            }
+        });
+    }
 
-        @Override
-        public void currencyItemClick(String symbol, String title) {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    mCurrency.setText(symbol);
-                    mCurrencyValue.setText(title);
-                }
-            });
+    private void currencyItemClick(String symbol, String title) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mCurrency.setText(symbol);
+                mCurrencyValue.setText(title);
+            }
+        });
 
-        }
-    };
+    }
+
     private static Handler mHandler = new Handler(Looper.getMainLooper());
 
-    private BottomDialog mBottomDialog;
 
     private void showLanguageDialog() {
-        if (mLanguageListBean != null && mLanguageListBean.getLanguages() != null && mLanguageListBean.getLanguages().size() > 0) {
-            mBottomDialog.updateLanguage(mLanguageListBean);
-            mBottomDialog.show();
-        } else {
-            HangXunBiz.getInstance().getLanguage(new ResponseListener<LanguageListBean>() {
-                @Override
-                public void onFail(int code, String message) {
-                    HangLog.d(TAG, "onFail getLanguage code: " + code + ",message:" + message);
-
-                }
-
-                @Override
-                public void onSuccess(LanguageListBean bean) {
-                    HangLog.d(TAG, "onSuccess getLanguage bean: " + bean.toString());
-                    LanguageSp.getInstance().saveLanguageList(bean);
-                    mLanguageListBean = bean;
-                    mBottomDialog.updateLanguage(bean);
-                    mBottomDialog.show();
-                }
-            });
-        }
+        ChangeLanguageActivity.launch(getContext(), ChangeLanguageActivity.LANGUAGE_FLAG);
     }
 
     private OnClickListener mCurrencyClickListener = new OnClickListener() {
@@ -155,28 +131,7 @@ public class BottomView extends FrameLayout {
     };
 
     private void showCurrencyDialog() {
-        if (mCurrencyListBean != null && mCurrencyListBean.getCurrencies() != null && mCurrencyListBean.getCurrencies().size() > 0) {
-            mBottomDialog.updateCurrency(mCurrencyListBean);
-            mBottomDialog.show();
-        } else {
-            HangXunBiz.getInstance().getCurrency(new ResponseListener<CurrencyListBean>() {
-                @Override
-                public void onFail(int code, String message) {
-                    HangLog.d(TAG, "onFail getCurrency code: " + code + ",message:" + message);
-
-                }
-
-                @Override
-                public void onSuccess(CurrencyListBean bean) {
-                    HangLog.d(TAG, "onSuccess getCurrency bean: " + bean.toString());
-                    CurrencySp.getInstance().saveCurrencyList(bean);
-                    mBottomDialog.updateCurrency(bean);
-                    mCurrencyListBean = bean;
-                    mBottomDialog.show();
-                }
-
-            });
-        }
+        ChangeLanguageActivity.launch(getContext(), ChangeLanguageActivity.CURRENCY_FLAG);
     }
 
     private void updateCurrency(CurrencyListBean bean) {
@@ -191,7 +146,6 @@ public class BottomView extends FrameLayout {
                 currencyValue = getContext().getResources().getString(R.string.rmb);
             }
         }
-        mCurrencyListBean = bean;
 
         mCurrencyValue.setText(currencyValue);
         mCurrency.setText(currency);
@@ -215,15 +169,19 @@ public class BottomView extends FrameLayout {
             }
         }
 
-        mLanguageListBean = bean;
-
         mLanguage.setText(language);
         mIvLanguage.setImageResource(imageResource);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeLocal(MessageLocal message) {
-        if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
+        String code = message.getCode();
+        String name = message.getName();
+        if (TextUtils.equals(message.message, MessageLocal.CURRENCY_CHANGE)) {
+            currencyItemClick(code, name);
+            showData();
+        } else if (TextUtils.equals(message.message, MessageLocal.LANGUAGE_CHANGE)) {
+            languageItemClick(code, name);
             showData();
         }
     }

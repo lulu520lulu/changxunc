@@ -13,6 +13,10 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.c.hangxunc.HangXunApplication;
+import com.c.hangxunc.bean.home.LanguageListBean;
+import com.c.hangxunc.pages.MainActivity;
+
 import java.util.Locale;
 
 public class LanguageUtil {
@@ -50,11 +54,11 @@ public class LanguageUtil {
      * @param newLanguage 想要切换的语言类型 比如 "en" ,"zh"
      */
     @SuppressWarnings("deprecation")
-    public static void changeLanguageAndKill(Context context, String newLanguage) {
-        if (changeAppLanguage(context, newLanguage)) {
-            killSelf(context);
-        }
-    }
+//    public static void changeLanguageAndKill(Context context, String newLanguage) {
+//        if (changeAppLanguage(context, newLanguage)) {
+//            killSelf(context);
+//        }
+//    }
 
     public static Locale getLocaleByLanguage(String language) {
         Locale locale = Locale.SIMPLIFIED_CHINESE;
@@ -74,7 +78,6 @@ public class LanguageUtil {
 
     public static Context attachBaseContext(Context context, String language) {
         Log.d(TAG, "attachBaseContext: " + Build.VERSION.SDK_INT);
-        Log.e("lulu", "attachBaseContext:");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return updateResources(context, language);
@@ -102,5 +105,25 @@ public class LanguageUtil {
         AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent); // 1秒钟后重启应用
         System.exit(0);
+    }
+
+    /**
+     * 如果是7.0以下，我们需要调用changeAppLanguage方法，
+     * 如果是7.0及以上系统，直接把我们想要切换的语言类型保存在SharedPreferences中即可
+     * 然后重新启动MainActivity
+     *
+     * @param language
+     */
+    public static void changeLanguage(LanguageListBean language) {
+        if (language == null) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            LanguageUtil.changeAppLanguage(HangXunApplication.getInstance(), language.getCode());
+        }
+        LanguageSp.getInstance().saveLanguageList(language);
+        Intent intent = new Intent(HangXunApplication.getInstance(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        HangXunApplication.getInstance().startActivity(intent);
     }
 }

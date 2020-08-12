@@ -14,13 +14,14 @@ import com.c.hangxunc.utils.LanguageUtil;
 public class HangXunApplication extends Application {
 
     private static HangXunApplication mHangXunApplication;
+    public int MAIN_SELECT_ITEM = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onCreate() {
         super.onCreate();
         mHangXunApplication = this;
-        HangLog.setShowLog(TextUtils.equals(BuildConfig.BUILD_TYPE,"debug"));
+        HangLog.setShowLog(TextUtils.equals(BuildConfig.BUILD_TYPE, "debug"));
         /**
          * 对于7.0以下，需要在Application创建的时候进行语言切换
          */

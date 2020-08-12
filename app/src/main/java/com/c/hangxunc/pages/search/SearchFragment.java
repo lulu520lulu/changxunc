@@ -293,7 +293,8 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(MessageLocal message) {
-        if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
+        if (TextUtils.equals(message.message, MessageLocal.LANGUAGE_CHANGE)
+                || TextUtils.equals(message.message, MessageLocal.CURRENCY_CHANGE)) {
             String keyword = search.getText().toString();
             if (!TextUtils.isEmpty(keyword)) {
                 startSearch(keyword, "", "");

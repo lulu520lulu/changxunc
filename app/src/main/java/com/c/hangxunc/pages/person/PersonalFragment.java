@@ -2,11 +2,13 @@ package com.c.hangxunc.pages.person;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -17,6 +19,7 @@ import com.c.hangxunc.pages.login.ForgetPassFragmentWeb;
 import com.c.hangxunc.pages.login.LoginFragment;
 import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.pages.login.RegisterFragment;
+import com.c.hangxunc.pages.shop.MessageLocal;
 import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.LanguageSp;
 import com.c.hangxunc.utils.LoginUtils;
@@ -33,6 +36,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
     private FrameLayout mFragmentContainer;
     private LoginFragment mLoginFragment;
     private RegisterFragment mRegisterFragment;
+    private FragmentManager mFragmentManager;
 
     @Override
     protected PersonalPresenter onCreateTopPresenter() {
@@ -50,6 +54,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
 
     private void initView(View view) {
+        mFragmentManager = getChildFragmentManager();
         mWebContainer = view.findViewById(R.id.web_container);
         mFragmentContainer = view.findViewById(R.id.fragment_container);
 
@@ -61,6 +66,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
             initWebData(LoginUtils.getInstance().getCustomerId());
         }
     }
+
 
     private void initFragment() {
         mLoginFragment = new LoginFragment();
@@ -93,8 +99,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
 
     private void showLoginFragment() {
-        FragmentManager manager = getChildFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
@@ -106,21 +111,23 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
     }
 
     private void showRegisterFragment() {
-        FragmentManager manager = getChildFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
         if (mWebContainer.getVisibility() == View.VISIBLE) {
             mWebContainer.setVisibility(View.GONE);
         }
-        transaction.replace(R.id.fragment_container, mRegisterFragment);
-        transaction.commit();
+        transaction.add(R.id.fragment_container, mRegisterFragment, REGISTER_FRAGMENT)
+                .addToBackStack(null)
+                .commit();
     }
 
+    private static final String FORGET_PASSWORD_FRAGMENT = "forget_password_fragmetn";
+    private static final String REGISTER_FRAGMENT = "register_fragment";
+
     private void showForgetFragment() {
-        FragmentManager manager = getChildFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
         if (mFragmentContainer.getVisibility() == View.GONE) {
             mFragmentContainer.setVisibility(View.VISIBLE);
         }
@@ -128,8 +135,9 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
             mWebContainer.setVisibility(View.GONE);
         }
         ForgetPassFragmentWeb fragment = new ForgetPassFragmentWeb();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.commit();
+        transaction.add(R.id.fragment_container, fragment, FORGET_PASSWORD_FRAGMENT)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void initWebData(String customId) {
@@ -187,6 +195,30 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
     @Override
     public boolean onBackPressed() {
+        if (mFragmentManager != null) {
+            Fragment fragment1 = mFragmentManager.findFragmentByTag(FORGET_PASSWORD_FRAGMENT);
+            if (fragment1 instanceof ForgetPassFragmentWeb) {
+                ForgetPassFragmentWeb fragmentWeb = (ForgetPassFragmentWeb) fragment1;
+                if (fragmentWeb.onBackPressed()) {
+                    return true;
+                }
+                int backStackEntryCount = mFragmentManager.getBackStackEntryCount();
+                if (backStackEntryCount > 0) {
+                    mFragmentManager.popBackStack();
+                    return true;
+                }
+            }
+            Fragment fragment2 = mFragmentManager.findFragmentByTag(REGISTER_FRAGMENT);
+            if (fragment2 instanceof RegisterFragment) {
+                RegisterFragment fragmentWeb = (RegisterFragment) fragment2;
+
+                int backStackEntryCount = mFragmentManager.getBackStackEntryCount();
+                if (backStackEntryCount > 0) {
+                    mFragmentManager.popBackStack();
+                    return true;
+                }
+            }
+        }
         if (mWebContainer != null && mWebContainer.canGoBack()) {
             mWebContainer.goBack();
             return true;
@@ -206,4 +238,14 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeCurrency(MessageLocal message) {
+        if (TextUtils.equals(message.message, MessageLocal.CURRENCY_CHANGE)) {
+
+        } else if (TextUtils.equals(message.message, MessageLocal.LANGUAGE_CHANGE)) {
+            if (LoginUtils.getInstance().isLogin()) {
+                mWebContainer.reload();
+            }
+        }
+    }
 }

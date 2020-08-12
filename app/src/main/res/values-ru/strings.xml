@@ -106,4 +106,10 @@
     <string name="registe_sms_error">Неверный проверочный код</string>
     <string name="registe_sms_time_out">Срок действия кода подтверждения истек, повторите попытку</string>
 
+
+    <string name="chinese">ชาวจีน</string>
+    <string name="english">อังกฤษ</string>
+    <string name="thailand">ประเทศไทย</string>
+    <string name="change_language">เปลี่ยนภาษา</string>
+
 </resources>

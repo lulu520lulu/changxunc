@@ -117,7 +117,9 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(MessageLocal message) {
-        if (TextUtils.equals(message.message, MessageLocal.CHANGE)) {
+        if (TextUtils.equals(message.message, MessageLocal.CURRENCY_CHANGE)) {
+           showWeb();
+        } else if (TextUtils.equals(message.message, MessageLocal.LANGUAGE_CHANGE)) {
             showWeb();
         }
     }
