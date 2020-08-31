@@ -31,11 +31,11 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-public class ProductKeAdapter extends RecyclerView.Adapter {
+public class SpecialAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<ProductBean> mData;
 
-    public ProductKeAdapter(Activity mContext, List<ProductBean> list) {
+    public SpecialAdapter(Activity mContext, List<ProductBean> list) {
         this.mData = list;
         this.mContext = mContext;
     }

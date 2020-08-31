@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CategoryBean;
-import com.c.hangxunc.bean.home.ModulesBean;
+import com.c.hangxunc.bean.home.CategoryData;
+import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.ModulesListBean;
+import com.c.hangxunc.bean.home.ModulesBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
 import com.c.hangxunc.http.ApiConstants;
@@ -141,7 +143,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
 
     private void getData() {
         showLoading();
-        HangXunBiz.getInstance().getCategory(new ResponseListener<List<CategoryBean>>() {
+        HangXunBiz.getInstance().getCategory(new ResponseListener<CategoryData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getCategory code: " + code + ",message:" + message);
@@ -149,12 +151,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
             }
 
             @Override
-            public void onSuccess(List<CategoryBean> list) {
+            public void onSuccess(CategoryData data) {
                 HangLog.d(TAG, "onSuccess getCategory ");
-                if (list == null || list.size() == 0) {
+                if (data == null || data.getData() == null || data.getData().size() == 0) {
                     showEmpty();
                     return;
                 }
+                List<CategoryBean> list = data.getData();
                 mTypeAdapter.setData(list);
                 getTopData();
             }
@@ -162,7 +165,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
     }
 
     private void getTopData() {
-        HangXunBiz.getInstance().getHomeTop(new ResponseListener<ModulesListBean>() {
+        HangXunBiz.getInstance().getHomeTop(new ResponseListener<ModulesListData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getHomeTop code: " + code + ",message:" + message);
@@ -170,13 +173,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
             }
 
             @Override
-            public void onSuccess(ModulesListBean bean) {
+            public void onSuccess(ModulesListData bean) {
                 HangLog.d(TAG, "onSuccess getHomeTop ");
-                if (bean == null) {
+                if (bean == null || bean.getData() == null) {
                     showEmpty();
                     return;
                 }
-                List<ModulesBean> modules = bean.getModules();
+                ModulesListBean data = bean.getData();
+                List<ModulesBean> modules = data.getModules();
                 if (modules == null || modules.size() == 0) {
                     showEmpty();
                     return;

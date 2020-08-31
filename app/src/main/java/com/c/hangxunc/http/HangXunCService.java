@@ -1,14 +1,14 @@
 package com.c.hangxunc.http;
 
 import com.c.hangxunc.bean.home.BaseBean;
-import com.c.hangxunc.bean.home.BreadCrumbsBean;
 import com.c.hangxunc.bean.home.CategoryBean;
+import com.c.hangxunc.bean.home.CategoryData;
 import com.c.hangxunc.bean.home.CategoryListBean;
 import com.c.hangxunc.bean.home.CountryBean;
 import com.c.hangxunc.bean.home.CurrencyListBean;
+import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.IsLoginBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
-import com.c.hangxunc.bean.home.ModulesListBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
 import com.c.hangxunc.bean.home.SearchResultBean;
@@ -29,7 +29,7 @@ public interface HangXunCService {
 
 
     @GET(ApiConstants.GET_HOME_TOP_PATH)
-    Call<ModulesListBean> getHomeTop(@Query("customer_id") String custom_id, @Query("language") String language, @Query("currency") String currency);
+    Call<ModulesListData> getHomeTop(@Query("customer_id") String custom_id, @Query("language") String language, @Query("currency") String currency);
 
     @GET(ApiConstants.GET_HOME_BOTTOM_PATH)
     Call<ProductListBean> getHomeBottom(@Query("customer_id") String custom_id, @Query("language") String language, @Query("currency") String currency);
@@ -62,7 +62,7 @@ public interface HangXunCService {
      * @return
      */
     @GET(ApiConstants.GET_CATEGORY_PATH)
-    Call<List<CategoryBean>> getCategory(@Query("customer_id") String customer_id, @Query("language") String language, @Query("currency") String currency);
+    Call<CategoryData> getCategory(@Query("customer_id") String customer_id, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 根据id获得产品

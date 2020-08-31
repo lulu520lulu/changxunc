@@ -1,16 +1,15 @@
 package com.c.hangxunc.http;
 
-import android.util.Log;
 
 import com.c.hangxunc.bean.home.BaseBean;
-import com.c.hangxunc.bean.home.BreadCrumbsBean;
 import com.c.hangxunc.bean.home.CategoryBean;
+import com.c.hangxunc.bean.home.CategoryData;
 import com.c.hangxunc.bean.home.CategoryListBean;
 import com.c.hangxunc.bean.home.CountryBean;
 import com.c.hangxunc.bean.home.CurrencyListBean;
+import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.IsLoginBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
-import com.c.hangxunc.bean.home.ModulesListBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
 import com.c.hangxunc.bean.home.SearchResultBean;
@@ -22,10 +21,8 @@ import com.c.hangxunc.utils.LanguageSp;
 import com.c.hangxunc.utils.LoginUtils;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -83,7 +80,7 @@ public class HangXunBiz {
 
     public void getHomeTop(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<ModulesListBean> call = service.getHomeTop(LoginUtils.getInstance().getCustomerId(),
+        Call<ModulesListData> call = service.getHomeTop(LoginUtils.getInstance().getCustomerId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
@@ -123,7 +120,7 @@ public class HangXunBiz {
      */
     public void getCategory(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<List<CategoryBean>> call = service.getCategory(LoginUtils.getInstance().getCustomerId(),
+        Call<CategoryData> call = service.getCategory(LoginUtils.getInstance().getCustomerId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
@@ -139,18 +136,6 @@ public class HangXunBiz {
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
-
-//    /**
-//     * 搜索
-//     *
-//     * @param listener
-//     */
-//    public void searchPro(String keyWord, ResponseListener listener) {
-//        HangXunCService service = getRetrofit().create(HangXunCService.class);
-//        Call<BreadCrumbsBean> call = service.searchPro(LoginUtils.getInstance().getCustomerId(), keyWord,
-//                LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
-//        call.enqueue(listener);
-//    }
 
     /**
      * 搜索

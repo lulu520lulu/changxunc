@@ -1,10 +1,8 @@
 package com.c.hangxunc.bean.home;
 
-
 import java.util.List;
 
 public class ModulesListBean {
-
     private List<ModulesBean> modules;
 
     public List<ModulesBean> getModules() {

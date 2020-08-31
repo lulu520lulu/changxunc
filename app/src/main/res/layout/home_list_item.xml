@@ -10,4 +10,8 @@
     android:paddingRight="10dp"
     android:paddingBottom="16dp">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
