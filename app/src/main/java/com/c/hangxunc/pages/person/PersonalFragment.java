@@ -63,7 +63,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (!LoginUtils.getInstance().isLogin()) {
             showLoginFragment();
         } else {
-            initWebData(LoginUtils.getInstance().getCustomerId());
+            initWebData(LoginUtils.getInstance().getScoId());
         }
     }
 
@@ -189,7 +189,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (!LoginUtils.getInstance().isLogin()) {
             showLoginFragment();
         } else {
-            initWebData(LoginUtils.getInstance().getCustomerId());
+            initWebData(LoginUtils.getInstance().getScoId());
         }
     }
 

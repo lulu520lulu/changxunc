@@ -54,7 +54,7 @@ public class ShopCartFragment extends BaseFragment<ShopCarPresenter> {
     }
 
     private void showWeb() {
-        String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getCustomerId()
+        String url = ApiConstants.BASE_URL + ApiConstants.CART_PAGE_PATH + LoginUtils.getInstance().getScoId()
                 + ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
                 + ApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode();
         mWebContainer.loadUrl(url);

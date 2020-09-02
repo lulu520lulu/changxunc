@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CountryBean;
+import com.c.hangxunc.bean.login.LoginData;
 import com.c.hangxunc.bean.login.LoginInfo;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.http.HangXunBiz;
@@ -108,7 +109,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
         String telephone = "";
         String email = "";
         String password = "";
-
+        String code = "";
         if (isEmail) {
             type = ApiConstants.LOGIN_EMAIL_TYPE;
             email = emailEdit.getText().toString();
@@ -124,6 +125,12 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
                 ToastUtils.showToast(getActivity(), getActivity().getString(R.string.emil_phone_is_empty));
                 return;
             }
+
+            if (mCountryBean != null && !TextUtils.isEmpty(mCountryBean.getCode())) {
+                code = mCountryBean.getCode();
+            } else {
+                code = "86";
+            }
         }
         if (TextUtils.isEmpty(password)) {
             ToastUtils.showToast(getActivity(), getActivity().getString(R.string.emil_password_is_empty));
@@ -133,12 +140,9 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
         if (mCountryBean == null) {
             mCountryBean = CountrySp.getInstance().getCountry();
         }
-        String code = "86";
-        if (mCountryBean != null && !TextUtils.isEmpty(mCountryBean.getCode())) {
-            code = mCountryBean.getCode();
-        }
+
         HangXunBiz.getInstance().login(type, code, telephone, email, password,
-                new ResponseListener<LoginInfo>() {
+                new ResponseListener<LoginData>() {
                     @Override
                     public void onFail(int code, String message) {
                         hideLoading();
@@ -146,20 +150,21 @@ public class LoginFragment extends BaseFragment<LoginPresenter> {
                     }
 
                     @Override
-                    public void onSuccess(LoginInfo info) {
+                    public void onSuccess(LoginData data) {
                         hideLoading();
-                        if (info != null && info.getCode() == 0) {
+                        if (data != null && data.getCode() == 0 && data.getData() != null) {
+                            LoginInfo info = data.getData();
                             ToastUtils.showToast(getActivity(), getActivity().getString(R.string.login_success));
-                            LoginUtils.getInstance().setLoginInfo(info.getSession_id(), info.getCustomer_id());
+                            LoginUtils.getInstance().setLoginInfo(info.getSession_id(), info.getScoId());
                             EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_IN));
                             if (mLoginChangeListener != null) {
-                                mLoginChangeListener.showPersion(info.getCustomer_id());
+                                mLoginChangeListener.showPersion(info.getScoId());
                             }
                         } else {
-                            if (info == null) {
+                            if (data == null) {
                                 handleFail("");
                             } else {
-                                handleFail(info.getMsg());
+                                handleFail(data.getMsg());
                             }
                         }
 

@@ -1,6 +1,5 @@
 package com.c.hangxunc.bean.login;
 
-import androidx.annotation.NonNull;
 
 public class RegistInfo {
 

@@ -1,28 +1,15 @@
 package com.c.hangxunc.bean.home;
 
 public class SmsCodeBean {
-
     /**
-     * code : 0
-     * smsCode : 585696
-     * telephone : 111111111
-     * time : 1596792770
-     * status : success
+     * smsCode : 245322
+     * telephone : 15621052858
+     * time : 1599061158
      */
 
-    private int code;
-    private String smsCode;
+    private String  smsCode;
     private String telephone;
     private int time;
-    private String status;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
 
     public String getSmsCode() {
         return smsCode;
@@ -46,24 +33,5 @@ public class SmsCodeBean {
 
     public void setTime(int time) {
         this.time = time;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "SmsCodeBean{" +
-                "code=" + code +
-                ", smsCode='" + smsCode + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", time=" + time +
-                ", status='" + status + '\'' +
-                '}';
     }
 }

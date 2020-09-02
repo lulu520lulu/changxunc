@@ -1,34 +1,10 @@
 package com.c.hangxunc.bean.home;
 
 public class SellerBean {
-    /**
-     * seller_id : 2
-     * seller_group_id : 1
-     * customer_id : 4
-     * store_name : lei
-     * company : lei
-     * description :
-     * country_id : 44
-     * zone_id : 707
-     * city_id : 2346
-     * county_id : 2352
-     * avatar : catalog/微信截图_20200428183201.png
-     * banner : catalog/demo/banner/3_en.jpg
-     * alipay : 17615865470
-     * product_validation : 0
-     * status : 1
-     * date_added : 2020-04-28 09:25:59
-     * date_modified : 2020-04-29 09:46:26
-     * product_id : 160
-     * number_sold : 0
-     * approved : 1
-     * sort_order : 0
-     * date_until : 0000-00-00
-     */
 
     private String seller_id;
     private String seller_group_id;
-    private String customer_id;
+    private String sco;
     private String store_name;
     private String company;
     private String description;
@@ -66,12 +42,12 @@ public class SellerBean {
         this.seller_group_id = seller_group_id;
     }
 
-    public String getCustomer_id() {
-        return customer_id;
+    public String getScoId() {
+        return sco;
     }
 
-    public void setCustomer_id(String customer_id) {
-        this.customer_id = customer_id;
+    public void setScoId(String sco) {
+        this.sco = sco;
     }
 
     public String getStore_name() {
@@ -231,7 +207,7 @@ public class SellerBean {
         return "SellerBean{" +
                 "seller_id='" + seller_id + '\'' +
                 ", seller_group_id='" + seller_group_id + '\'' +
-                ", customer_id='" + customer_id + '\'' +
+                ", sco='" + sco + '\'' +
                 ", store_name='" + store_name + '\'' +
                 ", company='" + company + '\'' +
                 ", description='" + description + '\'' +

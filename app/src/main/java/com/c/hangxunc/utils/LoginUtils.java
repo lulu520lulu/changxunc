@@ -29,23 +29,23 @@ public class LoginUtils {
         return Singleton.instance;
     }
 
-    public void setLoginInfo(String session, String customer_id) {
+    public void setLoginInfo(String session, String sco) {
         SharedPreferences.Editor editor = mSharedPreferencesContext.edit();
         editor.putString("session", session);
-        editor.putString("customer_id", customer_id);
+        editor.putString("sco", sco);
         editor.commit();
     }
 
 
     public void loginOut() {
         SharedPreferences.Editor editor = mSharedPreferencesContext.edit();
-        editor.putString("customer_id", "");
+        editor.putString("sco", "");
         editor.commit();
     }
 
 
-    public String getCustomerId() {
-        return mSharedPreferencesContext.getString("customer_id", "");
+    public String getScoId() {
+        return mSharedPreferencesContext.getString("sco", "");
     }
 
     public String getSession() {
@@ -54,7 +54,7 @@ public class LoginUtils {
 
 
     public boolean isLogin() {
-        String customerId = getCustomerId();
+        String customerId = getScoId();
         String session = getSession();
         if (!TextUtils.isEmpty(session) && !TextUtils.isEmpty(customerId)) {
             return true;

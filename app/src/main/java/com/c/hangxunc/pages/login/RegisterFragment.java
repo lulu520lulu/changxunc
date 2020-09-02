@@ -25,6 +25,7 @@ import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CountryBean;
 import com.c.hangxunc.bean.home.SmsCodeBean;
 import com.c.hangxunc.bean.login.RegistInfo;
+import com.c.hangxunc.bean.login.SmsCodeData;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
@@ -231,7 +232,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
     private void getSmsCode() {
         showLoading();
         HangXunBiz.getInstance().smsCode(getCellCode(), phoneEdit.getText().toString(),
-                new ResponseListener<SmsCodeBean>() {
+                new ResponseListener<SmsCodeData>() {
                     @Override
                     public void onFail(int code, String message) {
                         mSmsCodeBean = null;
@@ -241,16 +242,21 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
                     }
 
                     @Override
-                    public void onSuccess(SmsCodeBean bean) {
+                    public void onSuccess(SmsCodeData data) {
                         hideLoading();
-                        if (bean != null && bean.getCode() == 0) {
+                        if (data != null && data.getCode() == 0 && data.getData() != null) {
+                            SmsCodeBean bean = data.getData();
                             mSmsCodeBean = bean;
                             HangLog.d(TAG, "getSmsCode onSuccess bean:" + bean.toString());
                             ToastUtils.showToast(getActivity(), getActivity().getString(R.string.get_sms_code_success));
                             startTimer();
                         } else {
                             mSmsCodeBean = null;
-                            ToastUtils.showToast(getActivity(), getActivity().getString(R.string.get_sms_code_fail));
+                            if (data == null) {
+                                ToastUtils.showToast(getActivity(), getActivity().getString(R.string.get_sms_code_fail));
+                            } else {
+                                ToastUtils.showToast(getActivity(), data.getMsg());
+                            }
                             HangLog.d(TAG, "getSmsCode onSuccess bean==null");
                         }
 
@@ -345,7 +351,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
             rePassword = phonePasswordReEdit.getText().toString();
 
 
-            if (mSmsCodeBean == null || mSmsCodeBean.getCode() != 0) {
+            if (mSmsCodeBean == null) {
                 ToastUtils.showToast(getActivity(), getActivity().getString(R.string.please_get_registe_sms));
                 return;
             }
@@ -358,7 +364,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
 
             long currentTimeMillis = System.currentTimeMillis();
             int time = mSmsCodeBean.getTime();
-            long dTime = currentTimeMillis/1000 - time;
+            long dTime = currentTimeMillis / 1000 - time;
             if (dTime > 60 * 1000) {
                 ToastUtils.showToast(getActivity(), getActivity().getString(R.string.registe_sms_time_out));
                 return;

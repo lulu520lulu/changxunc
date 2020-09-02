@@ -357,7 +357,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
                 webContainer.setVisibility(View.GONE);
                 recycleView.setVisibility(View.VISIBLE);
             } else {
-                String url = ApiConstants.BASE_URL + ApiConstants.CATEGORY_DETAIL_PATH + categoryBean.getCategory_id() + ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId();
+                String url = ApiConstants.BASE_URL + ApiConstants.CATEGORY_DETAIL_PATH + categoryBean.getCategory_id() + ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getScoId();
                 showWebView(url);
             }
             mTypeAdapter.updateData(data);

@@ -28,7 +28,7 @@ public class JumpUtils {
         StringBuffer buffer = new StringBuffer();
         buffer.append(url);
         if (LoginUtils.getInstance().isLogin()) {
-            buffer.append(ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getCustomerId());
+            buffer.append(ApiConstants.CUSTOMER_ID_PATH + LoginUtils.getInstance().getScoId());
         }
         if (TextUtils.isEmpty(LanguageSp.getInstance().getCode())) {
             buffer.append(ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode());
