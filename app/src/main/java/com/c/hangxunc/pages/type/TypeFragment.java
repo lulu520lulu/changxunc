@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CategoryChildBean;
 import com.c.hangxunc.bean.home.CategoryListBean;
+import com.c.hangxunc.bean.home.CategoryListData;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
@@ -148,7 +149,7 @@ public class TypeFragment extends BaseFragment<TypePresenter> {
 
     private void getData() {
         showLoading();
-        HangXunBiz.getInstance().getCategoryPage(new ResponseListener<CategoryListBean>() {
+        HangXunBiz.getInstance().getCategoryPage(new ResponseListener<CategoryListData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getCategoryPage code: " + code + ",message:" + message);
@@ -156,11 +157,12 @@ public class TypeFragment extends BaseFragment<TypePresenter> {
             }
 
             @Override
-            public void onSuccess(CategoryListBean bean) {
-                if (bean == null) {
+            public void onSuccess(CategoryListData data) {
+                if (data == null || data.getData() == null) {
                     showEmpty();
                     return;
                 }
+                CategoryListBean bean = data.getData();
                 List<CategoryChildBean> categories = bean.getCategories();
                 if (categories == null || categories.size() == 0) {
                     showEmpty();
@@ -174,7 +176,7 @@ public class TypeFragment extends BaseFragment<TypePresenter> {
 
     private void getBrandData() {
         showLoading();
-        HangXunBiz.getInstance().getManufacturer(new ResponseListener<CategoryListBean>() {
+        HangXunBiz.getInstance().getManufacturer(new ResponseListener<CategoryListData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getManufacturer code: " + code + ",message:" + message);
@@ -182,11 +184,12 @@ public class TypeFragment extends BaseFragment<TypePresenter> {
             }
 
             @Override
-            public void onSuccess(CategoryListBean bean) {
-                if (bean == null) {
+            public void onSuccess(CategoryListData data) {
+                if (data == null || data.getData() == null) {
                     showEmpty();
                     return;
                 }
+                CategoryListBean bean = data.getData();
                 List<CategoryChildBean> categories = bean.getCategories();
                 if (categories == null || categories.size() == 0) {
                     showEmpty();

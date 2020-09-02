@@ -15,8 +15,10 @@ import com.c.hangxunc.BaseActivity;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyBean;
 import com.c.hangxunc.bean.home.CurrencyListBean;
+import com.c.hangxunc.bean.home.CurrencyListData;
 import com.c.hangxunc.bean.home.LanguageBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
+import com.c.hangxunc.bean.home.LanguageListData;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.pages.shop.MessageLocal;
@@ -93,7 +95,7 @@ public class ChangeLanguageActivity extends BaseActivity {
         if (languageList != null && languageList.getLanguages() != null && languageList.getLanguages().size() > 0) {
             updateLanguage(languageList);
         } else {
-            HangXunBiz.getInstance().getLanguage(new ResponseListener<LanguageListBean>() {
+            HangXunBiz.getInstance().getLanguage(new ResponseListener<LanguageListData>() {
                 @Override
                 public void onFail(int code, String message) {
                     HangLog.d(TAG, "onFail getLanguage code: " + code + ",message:" + message);
@@ -101,10 +103,13 @@ public class ChangeLanguageActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onSuccess(LanguageListBean bean) {
-                    HangLog.d(TAG, "onSuccess getLanguage bean: " + bean.toString());
-                    LanguageSp.getInstance().saveLanguageList(bean);
-                    updateLanguage(bean);
+                public void onSuccess(LanguageListData data) {
+                    if (data != null && data.getData() != null) {
+                        LanguageListBean bean = data.getData();
+                        HangLog.d(TAG, "onSuccess getLanguage bean: " + bean.toString());
+                        LanguageSp.getInstance().saveLanguageList(bean);
+                        updateLanguage(bean);
+                    }
                 }
             });
         }
@@ -115,7 +120,7 @@ public class ChangeLanguageActivity extends BaseActivity {
         if (currencyList != null && currencyList.getCurrencies() != null && currencyList.getCurrencies().size() > 0) {
             updateCurrency(currencyList);
         } else {
-            HangXunBiz.getInstance().getCurrency(new ResponseListener<CurrencyListBean>() {
+            HangXunBiz.getInstance().getCurrency(new ResponseListener<CurrencyListData>() {
                 @Override
                 public void onFail(int code, String message) {
                     HangLog.d(TAG, "onFail getCurrency code: " + code + ",message:" + message);
@@ -123,10 +128,13 @@ public class ChangeLanguageActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onSuccess(CurrencyListBean bean) {
-                    HangLog.d(TAG, "onSuccess getCurrency bean: " + bean.toString());
-                    CurrencySp.getInstance().saveCurrencyList(bean);
-                    updateCurrency(bean);
+                public void onSuccess(CurrencyListData data) {
+                    if (data != null && data.getData() != null) {
+                        CurrencyListBean bean = data.getData();
+                        HangLog.d(TAG, "onSuccess getCurrency bean: " + bean.toString());
+                        CurrencySp.getInstance().saveCurrencyList(bean);
+                        updateCurrency(bean);
+                    }
                 }
 
             });
@@ -189,7 +197,7 @@ public class ChangeLanguageActivity extends BaseActivity {
     }
 
     private void startLanguageReport(String newCode, String oldCode) {
-        HangXunBiz.getInstance().setLanguage(newCode, new ResponseListener<LanguageListBean>() {
+        HangXunBiz.getInstance().setLanguage(newCode, new ResponseListener<LanguageListData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFailure");
@@ -197,18 +205,21 @@ public class ChangeLanguageActivity extends BaseActivity {
             }
 
             @Override
-            public void onSuccess(LanguageListBean bean) {
-                HangLog.d(TAG, "response success:" + bean.getCode());
-                if (!TextUtils.equals(bean.getCode(), oldCode)) {
-                    LanguageSp.getInstance().saveLanguageList(bean);
+            public void onSuccess(LanguageListData data) {
+                if (data != null && data.getData() != null) {
+                    LanguageListBean bean = data.getData();
+                    HangLog.d(TAG, "response success:" + bean.getCode());
+                    if (!TextUtils.equals(bean.getCode(), oldCode)) {
+                        LanguageSp.getInstance().saveLanguageList(bean);
 
-                    MessageLocal instance = MessageLocal.getInstance(MessageLocal.LANGUAGE_CHANGE);
-                    instance.setCode(bean.getCode());
-                    instance.setName(getLanguageName(bean.getCode()));
-                    EventBus.getDefault().post(instance);
-                    LanguageUtil.changeLanguage(bean);
-                    finish();
+                        MessageLocal instance = MessageLocal.getInstance(MessageLocal.LANGUAGE_CHANGE);
+                        instance.setCode(bean.getCode());
+                        instance.setName(getLanguageName(bean.getCode()));
+                        EventBus.getDefault().post(instance);
+                        LanguageUtil.changeLanguage(bean);
+                        finish();
 
+                    }
                 }
             }
         });
@@ -224,7 +235,7 @@ public class ChangeLanguageActivity extends BaseActivity {
     }
 
     private void startCurrencyReport(String newCode, String oldCode) {
-        HangXunBiz.getInstance().setCurrency(newCode, new ResponseListener<CurrencyListBean>() {
+        HangXunBiz.getInstance().setCurrency(newCode, new ResponseListener<CurrencyListData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFailure");
@@ -232,19 +243,22 @@ public class ChangeLanguageActivity extends BaseActivity {
             }
 
             @Override
-            public void onSuccess(CurrencyListBean bean) {
-                HangLog.d(TAG, "response success:" + bean);
+            public void onSuccess(CurrencyListData data) {
+                if (data != null && data.getData() != null) {
+                    CurrencyListBean bean = data.getData();
+                    HangLog.d(TAG, "response success:" + bean);
 
-                if (!TextUtils.equals(bean.getCode(), oldCode)) {
-                    CurrencySp.getInstance().saveCurrencyList(bean);
+                    if (!TextUtils.equals(bean.getCode(), oldCode)) {
+                        CurrencySp.getInstance().saveCurrencyList(bean);
 
-                    MessageLocal instance = MessageLocal.getInstance(MessageLocal.CURRENCY_CHANGE);
-                    instance.setCode(getCurrencySymbol(bean.getCode()));
-                    instance.setName(getCurrencyTitle(bean.getCode()));
-                    EventBus.getDefault().post(instance);
-                    finish();
+                        MessageLocal instance = MessageLocal.getInstance(MessageLocal.CURRENCY_CHANGE);
+                        instance.setCode(getCurrencySymbol(bean.getCode()));
+                        instance.setName(getCurrencyTitle(bean.getCode()));
+                        EventBus.getDefault().post(instance);
+                        finish();
+                    }
+
                 }
-
             }
         });
     }

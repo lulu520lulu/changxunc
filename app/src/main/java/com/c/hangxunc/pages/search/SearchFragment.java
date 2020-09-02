@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.SearchResultBean;
+import com.c.hangxunc.bean.home.SearchResultData;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
@@ -243,7 +244,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
 
     private void startSearch(String keyword, String sorts, String order) {
         showLoading();
-        HangXunBiz.getInstance().searchPro(keyword, sorts, order, new ResponseListener<SearchResultBean>() {
+        HangXunBiz.getInstance().searchPro(keyword, sorts, order, new ResponseListener<SearchResultData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail startSearch code: " + code + ",message:" + message);
@@ -251,11 +252,12 @@ public class SearchFragment extends BaseFragment<SearchPresenter> {
             }
 
             @Override
-            public void onSuccess(SearchResultBean bean) {
-                if (bean == null) {
+            public void onSuccess(SearchResultData data) {
+                if (data == null || data.getData() == null) {
                     handleFail();
                     return;
                 }
+                SearchResultBean bean = data.getData();
                 List<ProductBean> products = bean.getProducts();
                 if (products == null || products.size() == 0) {
                     handleFail();

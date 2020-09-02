@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CategoryBean;
-import com.c.hangxunc.bean.home.CategoryData;
+import com.c.hangxunc.bean.home.HomeCategoryData;
 import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.ModulesListBean;
 import com.c.hangxunc.bean.home.ModulesBean;
@@ -143,7 +143,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
 
     private void getData() {
         showLoading();
-        HangXunBiz.getInstance().getCategory(new ResponseListener<CategoryData>() {
+        HangXunBiz.getInstance().getCategory(new ResponseListener<HomeCategoryData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getCategory code: " + code + ",message:" + message);
@@ -151,7 +151,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
             }
 
             @Override
-            public void onSuccess(CategoryData data) {
+            public void onSuccess(HomeCategoryData data) {
                 HangLog.d(TAG, "onSuccess getCategory ");
                 if (data == null || data.getData() == null || data.getData().size() == 0) {
                     showEmpty();

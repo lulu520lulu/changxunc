@@ -2,7 +2,7 @@ package com.c.hangxunc.bean.home;
 
 import java.util.List;
 
-public class CategoryData extends BaseBean{
+public class HomeCategoryData extends BaseBean{
     List<CategoryBean> data;
 
     public List<CategoryBean> getData() {

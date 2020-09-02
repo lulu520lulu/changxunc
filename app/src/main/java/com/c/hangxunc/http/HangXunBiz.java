@@ -2,17 +2,17 @@ package com.c.hangxunc.http;
 
 
 import com.c.hangxunc.bean.home.BaseBean;
-import com.c.hangxunc.bean.home.CategoryBean;
-import com.c.hangxunc.bean.home.CategoryData;
-import com.c.hangxunc.bean.home.CategoryListBean;
-import com.c.hangxunc.bean.home.CountryBean;
-import com.c.hangxunc.bean.home.CurrencyListBean;
+import com.c.hangxunc.bean.home.CategoryListData;
+import com.c.hangxunc.bean.home.CountryListData;
+import com.c.hangxunc.bean.home.CurrencyListData;
+import com.c.hangxunc.bean.home.HomeCategoryData;
+import com.c.hangxunc.bean.home.LanguageListData;
 import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.IsLoginBean;
-import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
 import com.c.hangxunc.bean.home.SearchResultBean;
+import com.c.hangxunc.bean.home.SearchResultData;
 import com.c.hangxunc.bean.home.SmsCodeBean;
 import com.c.hangxunc.bean.login.LoginInfo;
 import com.c.hangxunc.bean.login.RegistInfo;
@@ -20,7 +20,6 @@ import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.LanguageSp;
 import com.c.hangxunc.utils.LoginUtils;
 
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -85,12 +84,12 @@ public class HangXunBiz {
         call.enqueue(listener);
     }
 
-    public void getHomeBottom(ResponseListener listener) {
-        HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<ProductListBean> call = service.getHomeBottom(LoginUtils.getInstance().getCustomerId(), LanguageSp.getInstance().getCode()
-                , CurrencySp.getInstance().getCode());
-        call.enqueue(listener);
-    }
+//    public void getHomeBottom(ResponseListener listener) {
+//        HangXunCService service = getRetrofit().create(HangXunCService.class);
+//        Call<ProductListBean> call = service.getHomeBottom(LoginUtils.getInstance().getCustomerId(), LanguageSp.getInstance().getCode()
+//                , CurrencySp.getInstance().getCode());
+//        call.enqueue(listener);
+//    }
 
     /**
      * 全部商品模块
@@ -120,22 +119,22 @@ public class HangXunBiz {
      */
     public void getCategory(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<CategoryData> call = service.getCategory(LoginUtils.getInstance().getCustomerId(),
+        Call<HomeCategoryData> call = service.getCategory(LoginUtils.getInstance().getCustomerId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
 
-    /**
-     * 根据id获得产品信息
-     *
-     * @param listener
-     */
-    public void getProduct(int id, ResponseListener listener) {
-        HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<ProductBean> call = service.getProduct(LoginUtils.getInstance().getCustomerId(), id,
-                LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
-        call.enqueue(listener);
-    }
+//    /**
+//     * 根据id获得产品信息
+//     *
+//     * @param listener
+//     */
+//    public void getProduct(int id, ResponseListener listener) {
+//        HangXunCService service = getRetrofit().create(HangXunCService.class);
+//        Call<ProductBean> call = service.getProduct(LoginUtils.getInstance().getCustomerId(), id,
+//                LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
+//        call.enqueue(listener);
+//    }
 
     /**
      * 搜索
@@ -144,7 +143,7 @@ public class HangXunBiz {
      */
     public void searchPro(String keyWord, String sorts, String order, ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<SearchResultBean> call = service.searchPro(LoginUtils.getInstance().getCustomerId(),
+        Call<SearchResultData> call = service.searchPro(LoginUtils.getInstance().getCustomerId(),
                 keyWord, sorts, order, LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
@@ -157,15 +156,18 @@ public class HangXunBiz {
      */
     public void getCategoryPage(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<CategoryListBean> call = service.getCategoryPage(LoginUtils.getInstance().getCustomerId(),
+        Call<CategoryListData> call = service.getCategoryPage(LoginUtils.getInstance().getCustomerId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
 
-
+    /**
+     * 品牌
+     * @param listener
+     */
     public void getManufacturer(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<CategoryListBean> call = service.getManufacturer(LoginUtils.getInstance().getCustomerId(),
+        Call<CategoryListData> call = service.getManufacturer(LoginUtils.getInstance().getCustomerId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
@@ -177,7 +179,7 @@ public class HangXunBiz {
      */
     public void getLanguage(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<LanguageListBean> call = service.getLanguage(LoginUtils.getInstance().getCustomerId());
+        Call<LanguageListData> call = service.getLanguage(LoginUtils.getInstance().getCustomerId());
         call.enqueue(listener);
     }
 
@@ -186,7 +188,7 @@ public class HangXunBiz {
      */
     public void getCurrency(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<CurrencyListBean> call = service.getCurrency(LoginUtils.getInstance().getCustomerId());
+        Call<CurrencyListData> call = service.getCurrency(LoginUtils.getInstance().getCustomerId());
         call.enqueue(listener);
     }
 
@@ -198,7 +200,7 @@ public class HangXunBiz {
      */
     public void setLanguage(String language, ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<LanguageListBean> call = service.getLanguage(LoginUtils.getInstance().getCustomerId(), language);
+        Call<LanguageListData> call = service.getLanguage(LoginUtils.getInstance().getCustomerId(), language);
         call.enqueue(listener);
     }
 
@@ -207,7 +209,7 @@ public class HangXunBiz {
      */
     public void setCurrency(String currency, ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<CurrencyListBean> call = service.getCurrency(LoginUtils.getInstance().getCustomerId(), currency);
+        Call<CurrencyListData> call = service.getCurrency(LoginUtils.getInstance().getCustomerId(), currency);
         call.enqueue(listener);
     }
 
@@ -217,7 +219,7 @@ public class HangXunBiz {
      */
     public void getCountry(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<List<CountryBean>> call = service.getCountry(LoginUtils.getInstance().getCustomerId(),
+        Call<CountryListData> call = service.getCountry(LoginUtils.getInstance().getCustomerId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }

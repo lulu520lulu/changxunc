@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CountryBean;
+import com.c.hangxunc.bean.home.CountryListData;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
@@ -77,7 +78,7 @@ public class CellCodeDialog extends Dialog {
 
     private void getCellCode() {
         showLoading();
-        HangXunBiz.getInstance().getCountry(new ResponseListener<List<CountryBean>>() {
+        HangXunBiz.getInstance().getCountry(new ResponseListener<CountryListData>() {
             @Override
             public void onFail(int code, String message) {
                 hideLoading();
@@ -85,13 +86,16 @@ public class CellCodeDialog extends Dialog {
             }
 
             @Override
-            public void onSuccess(List<CountryBean> list) {
+            public void onSuccess(CountryListData data) {
                 hideLoading();
-                if (list == null || list.size() == 0) {
-                    cancel();
-                    return;
+                if (data != null) {
+                    List<CountryBean> list = data.getData();
+                    if (list == null || list.size() == 0) {
+                        cancel();
+                        return;
+                    }
+                    updateCellCode(list);
                 }
-                updateCellCode(list);
             }
         });
     }
