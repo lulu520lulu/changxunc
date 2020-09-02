@@ -46,11 +46,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|right"
+                    android:background="@drawable/top_search_btn_bg"
                     android:clickable="false"
+                    android:gravity="center_vertical"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
-                    android:background="@drawable/top_search_btn_bg"
-                    android:gravity="center_vertical"
                     android:text="@string/tab_search"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
@@ -64,7 +64,37 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/icon_home_person" />
+                android:src="@mipmap/icon_home_person"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/login_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="false"
+                    android:includeFontPadding="false"
+                    android:text="a*"
+                    android:textColor="@color/main_text"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="8dp"
+                    android:layout_height="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@+id/name"
+                    android:scaleType="center"
+                    android:src="@mipmap/person_center_more" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout

@@ -3,12 +3,17 @@ package com.c.hangxunc.pages.home;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +33,8 @@ import com.c.hangxunc.http.ResponseListener;
 import com.c.hangxunc.loading.LoadingView;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.pages.home.ui.HomePopupWindow;
+import com.c.hangxunc.pages.login.MessageLogin;
 import com.c.hangxunc.pages.shop.MessageLocal;
 import com.c.hangxunc.pages.home.ui.MessageHome;
 import com.c.hangxunc.pages.widget.BottomView;
@@ -69,6 +76,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
     HangXunWebView webContainer;
     @BindView(R.id.go_type)
     ImageView go_type;
+    @BindView(R.id.login_person)
+    RelativeLayout login_person;
+    @BindView(R.id.name)
+    TextView name;
 
     private HomePresenter mHomePresenter;
     private HomeListAdapter mListAdapter;
@@ -106,6 +117,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
                 goPerson();
             }
         });
+        login_person.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupWindow();
+            }
+        });
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,9 +141,23 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
                 goType();
             }
         });
+
+        loginChangeView(LoginUtils.getInstance().isLogin());
         initTypeList();
         initList();
         getData();
+    }
+
+    private void loginChangeView(boolean isLogin) {
+        if (isLogin) {
+            start_person.setVisibility(View.GONE);
+            login_person.setVisibility(View.VISIBLE);
+            // TODO: 2020/9/2
+            name.setText("a*");
+        } else {
+            start_person.setVisibility(View.VISIBLE);
+            login_person.setVisibility(View.GONE);
+        }
     }
 
     private void goSearch() {
@@ -390,6 +421,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLogin(MessageLogin message) {
+        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+            loginChangeView(true);
+        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            loginChangeView(false);
+        }
+    }
+
+
     @Override
     public boolean onBackPressed() {
         if (webContainer != null && webContainer.canGoBack()) {
@@ -397,5 +438,17 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
             return true;
         }
         return false;
+    }
+
+    private HomePopupWindow mHomePopupWindow;
+
+    private void showPopupWindow() {
+        if (mHomePopupWindow == null) {
+            mHomePopupWindow = new HomePopupWindow(getActivity());
+        }
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        getActivity().getWindow().setAttributes(lp);
+        mHomePopupWindow.showAsDropDown(login_person, 0, 0, Gravity.BOTTOM | Gravity.RIGHT);
     }
 }

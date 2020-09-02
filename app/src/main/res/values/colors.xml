@@ -44,5 +44,6 @@
     <color name="home_tab_item_line">#ededed</color>
     <color name="pin_text_color">#DC7C80</color>
     <color name="pin_bg_color">#FFEFF5</color>
+    <color name="home_popup_text">#8F8F8F</color>
 
 </resources>
