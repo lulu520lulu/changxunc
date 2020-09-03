@@ -1,7 +1,6 @@
 package com.c.hangxunc.bean.login;
 
 import com.c.hangxunc.bean.home.BaseBean;
-import com.c.hangxunc.bean.home.SmsCodeBean;
 
 public class SmsCodeData extends BaseBean {
 

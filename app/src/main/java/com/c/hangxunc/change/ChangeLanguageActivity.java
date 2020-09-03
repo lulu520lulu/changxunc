@@ -15,13 +15,12 @@ import com.c.hangxunc.BaseActivity;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyBean;
 import com.c.hangxunc.bean.home.CurrencyListBean;
-import com.c.hangxunc.bean.home.CurrencyListData;
 import com.c.hangxunc.bean.home.LanguageBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
 import com.c.hangxunc.bean.home.LanguageListData;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
-import com.c.hangxunc.pages.shop.MessageLocal;
+import com.c.hangxunc.message.MessageLocal;
 import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.CurrencyType;
 import com.c.hangxunc.utils.DimenUtils;
@@ -120,7 +119,7 @@ public class ChangeLanguageActivity extends BaseActivity {
         if (currencyList != null && currencyList.getCurrencies() != null && currencyList.getCurrencies().size() > 0) {
             updateCurrency(currencyList);
         } else {
-            HangXunBiz.getInstance().getCurrency(new ResponseListener<CurrencyListData>() {
+            HangXunBiz.getInstance().getCurrency(new ResponseListener<CurrencyListBean>() {
                 @Override
                 public void onFail(int code, String message) {
                     HangLog.d(TAG, "onFail getCurrency code: " + code + ",message:" + message);
@@ -128,9 +127,8 @@ public class ChangeLanguageActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onSuccess(CurrencyListData data) {
-                    if (data != null && data.getData() != null) {
-                        CurrencyListBean bean = data.getData();
+                public void onSuccess(CurrencyListBean bean) {
+                    if (bean != null) {
                         HangLog.d(TAG, "onSuccess getCurrency bean: " + bean.toString());
                         CurrencySp.getInstance().saveCurrencyList(bean);
                         updateCurrency(bean);
@@ -159,7 +157,7 @@ public class ChangeLanguageActivity extends BaseActivity {
                 continue;
             }
             TextView textView = new TextView(ChangeLanguageActivity.this);
-            textView.setTextColor(ChangeLanguageActivity.this.getResources().getColor(R.color.content_text));
+            textView.setTextColor(ChangeLanguageActivity.this.getResources().getColor(R.color.mall_content_text));
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             textView.setText(bean.getName());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DimenUtils.dip2px(48));
@@ -188,10 +186,10 @@ public class ChangeLanguageActivity extends BaseActivity {
                 }
             });
             if ((i + 1) < languages.size()) {
-                View line = new View(ChangeLanguageActivity.this);
-                line.setBackgroundResource(R.color.line);
+                View mall_line = new View(ChangeLanguageActivity.this);
+                mall_line.setBackgroundResource(R.color.mall_line);
                 LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DimenUtils.dip2px(0.5f));
-                itemContainer.addView(line, lineParams);
+                itemContainer.addView(mall_line, lineParams);
             }
         }
     }
@@ -235,7 +233,7 @@ public class ChangeLanguageActivity extends BaseActivity {
     }
 
     private void startCurrencyReport(String newCode, String oldCode) {
-        HangXunBiz.getInstance().setCurrency(newCode, new ResponseListener<CurrencyListData>() {
+        HangXunBiz.getInstance().setCurrency(newCode, new ResponseListener<CurrencyListBean>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFailure");
@@ -243,9 +241,8 @@ public class ChangeLanguageActivity extends BaseActivity {
             }
 
             @Override
-            public void onSuccess(CurrencyListData data) {
-                if (data != null && data.getData() != null) {
-                    CurrencyListBean bean = data.getData();
+            public void onSuccess(CurrencyListBean bean) {
+                if (bean != null) {
                     HangLog.d(TAG, "response success:" + bean);
 
                     if (!TextUtils.equals(bean.getCode(), oldCode)) {
@@ -301,7 +298,7 @@ public class ChangeLanguageActivity extends BaseActivity {
                 continue;
             }
             TextView textView = new TextView(ChangeLanguageActivity.this);
-            textView.setTextColor(ChangeLanguageActivity.this.getResources().getColor(R.color.content_text));
+            textView.setTextColor(ChangeLanguageActivity.this.getResources().getColor(R.color.mall_content_text));
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             textView.setText(bean.getSymbol_left() + " " + bean.getTitle());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DimenUtils.dip2px(48));
@@ -317,10 +314,10 @@ public class ChangeLanguageActivity extends BaseActivity {
                 }
             });
             if ((i + 1) < currencies.size()) {
-                View line = new View(ChangeLanguageActivity.this);
-                line.setBackgroundResource(R.color.line);
+                View mall_line = new View(ChangeLanguageActivity.this);
+                mall_line.setBackgroundResource(R.color.mall_line);
                 LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DimenUtils.dip2px(0.5f));
-                itemContainer.addView(line, lineParams);
+                itemContainer.addView(mall_line, lineParams);
             }
         }
     }

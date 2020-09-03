@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.c.hangxunc.R;
-import com.c.hangxunc.pages.home.HomeFragment;
+import com.c.hangxunc.pages.home.MallHomeFragment;
 import com.c.hangxunc.pages.person.PersonalFragment;
 import com.c.hangxunc.pages.search.SearchFragment;
 import com.c.hangxunc.pages.shop.ShopCartFragment;
@@ -34,7 +34,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new HomeFragment();
+                return new MallHomeFragment();
             case 1:
                 return new SearchFragment();
             case 2:

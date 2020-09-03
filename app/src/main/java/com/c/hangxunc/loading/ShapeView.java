@@ -46,17 +46,17 @@ public class ShapeView extends View {
             case Circle:
                 // 画圆形
                 int center = getWidth() / 2;
-                mPaint.setColor(ContextCompat.getColor(getContext(), R.color.loading_circle));
+                mPaint.setColor(ContextCompat.getColor(getContext(), R.color.mall_loading_circle));
                 canvas.drawCircle(center, center, center, mPaint);
                 break;
             case Square:
                 // 画正方形
-                mPaint.setColor(ContextCompat.getColor(getContext(), R.color.loading_rect));
+                mPaint.setColor(ContextCompat.getColor(getContext(), R.color.mall_loading_rect));
                 canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
                 break;
             case Triangle:
                 // 画三角  Path 画路线
-                mPaint.setColor(ContextCompat.getColor(getContext(), R.color.loading_triangle));
+                mPaint.setColor(ContextCompat.getColor(getContext(), R.color.mall_loading_triangle));
                 if (mPath == null) {
                     // 画路径
                     mPath = new Path();

@@ -28,8 +28,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
-            android:textColor="@color/main_text"
-            android:textSize="@dimen/main_tab_text_size" />
+            android:textColor="@color/mall_main_text"
+            android:textSize="@dimen/mall_main_tab_text_size" />
 
 
     </LinearLayout>
@@ -37,7 +37,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line" />
+        android:background="@color/mall_line" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycle"

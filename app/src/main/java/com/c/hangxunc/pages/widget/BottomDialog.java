@@ -20,7 +20,7 @@
 //import com.c.hangxunc.bean.home.LanguageListBean;
 //import com.c.hangxunc.http.HangXunBiz;
 //import com.c.hangxunc.http.ResponseListener;
-//import com.c.hangxunc.pages.shop.MessageLocal;
+//import com.c.hangxunc.message.MessageLocal;
 //import com.c.hangxunc.utils.CurrencySp;
 //import com.c.hangxunc.utils.CurrencyType;
 //import com.c.hangxunc.utils.DimenUtils;
@@ -95,7 +95,7 @@
 //                continue;
 //            }
 //            TextView textView = new TextView(getContext());
-//            textView.setTextColor(getContext().getResources().getColor(R.color.content_text));
+//            textView.setTextColor(getContext().getResources().getColor(R.color.mall_content_text));
 //            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 //            textView.setText(bean.getName());
 //            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DimenUtils.dip2px(48));
@@ -124,10 +124,10 @@
 //                }
 //            });
 //            if ((i + 1) < languages.size()) {
-//                View line = new View(getContext());
-//                line.setBackgroundResource(R.color.line);
+//                View mall_line = new View(getContext());
+//                mall_line.setBackgroundResource(R.color.mall_line);
 //                LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DimenUtils.dip2px(0.5f));
-//                itemContainer.addView(line, lineParams);
+//                itemContainer.addView(mall_line, lineParams);
 //            }
 //        }
 //    }
@@ -238,7 +238,7 @@
 //                continue;
 //            }
 //            TextView textView = new TextView(getContext());
-//            textView.setTextColor(getContext().getResources().getColor(R.color.content_text));
+//            textView.setTextColor(getContext().getResources().getColor(R.color.mall_content_text));
 //            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 //            textView.setText(bean.getSymbol_left() + " " + bean.getTitle());
 //            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DimenUtils.dip2px(48));
@@ -254,10 +254,10 @@
 //                }
 //            });
 //            if ((i + 1) < currencies.size()) {
-//                View line = new View(getContext());
-//                line.setBackgroundResource(R.color.line);
+//                View mall_line = new View(getContext());
+//                mall_line.setBackgroundResource(R.color.mall_line);
 //                LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DimenUtils.dip2px(0.5f));
-//                itemContainer.addView(line, lineParams);
+//                itemContainer.addView(mall_line, lineParams);
 //            }
 //        }
 //    }

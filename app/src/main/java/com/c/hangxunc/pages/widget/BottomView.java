@@ -1,6 +1,5 @@
 package com.c.hangxunc.pages.widget;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,8 +18,7 @@ import com.c.hangxunc.change.ChangeLanguageActivity;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.LanguageListBean;
-import com.c.hangxunc.pages.MainActivity;
-import com.c.hangxunc.pages.shop.MessageLocal;
+import com.c.hangxunc.message.MessageLocal;
 import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.LanguageSp;
 

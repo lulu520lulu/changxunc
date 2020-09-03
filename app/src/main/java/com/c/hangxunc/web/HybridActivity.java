@@ -13,14 +13,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.c.hangxunc.MessageGoHome;
-import com.c.hangxunc.MessageGoLogin;
+import com.c.hangxunc.message.MessageGoLogin;
 import com.c.hangxunc.R;
 import com.c.hangxunc.BaseActivity;
 import com.c.hangxunc.HangXunApplication;
 import com.c.hangxunc.http.ApiConstants;
-import com.c.hangxunc.pages.MainActivity;
-import com.c.hangxunc.pages.shop.MessageShop;
+import com.c.hangxunc.message.MessageShop;
 import com.c.hangxunc.utils.Constants;
 import com.c.hangxunc.utils.DimenUtils;
 

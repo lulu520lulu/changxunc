@@ -4,18 +4,14 @@ package com.c.hangxunc.http;
 import com.c.hangxunc.bean.home.BaseBean;
 import com.c.hangxunc.bean.home.CategoryListData;
 import com.c.hangxunc.bean.home.CountryListData;
-import com.c.hangxunc.bean.home.CurrencyListData;
+import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.HomeCategoryData;
 import com.c.hangxunc.bean.home.LanguageListData;
 import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.IsLoginBean;
-import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
-import com.c.hangxunc.bean.home.SearchResultBean;
 import com.c.hangxunc.bean.home.SearchResultData;
-import com.c.hangxunc.bean.home.SmsCodeBean;
 import com.c.hangxunc.bean.login.LoginData;
-import com.c.hangxunc.bean.login.LoginInfo;
 import com.c.hangxunc.bean.login.RegistInfo;
 import com.c.hangxunc.bean.login.SmsCodeData;
 import com.c.hangxunc.utils.CurrencySp;
@@ -190,7 +186,7 @@ public class HangXunBiz {
      */
     public void getCurrency(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<CurrencyListData> call = service.getCurrency(LoginUtils.getInstance().getScoId());
+        Call<CurrencyListBean> call = service.getCurrency(LoginUtils.getInstance().getScoId());
         call.enqueue(listener);
     }
 
@@ -211,7 +207,7 @@ public class HangXunBiz {
      */
     public void setCurrency(String currency, ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<CurrencyListData> call = service.getCurrency(LoginUtils.getInstance().getScoId(), currency);
+        Call<CurrencyListBean> call = service.getCurrency(LoginUtils.getInstance().getScoId(), currency);
         call.enqueue(listener);
     }
 

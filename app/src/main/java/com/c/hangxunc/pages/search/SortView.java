@@ -84,7 +84,7 @@
 //            return;
 //        }
 //        mSortView.setText(name);
-//        mSortView.setTextColor(getResources().getColor(R.color.main_text));
+//        mSortView.setTextColor(getResources().getColor(R.color.mall_main_text));
 //        mSortView.setSelected(false);
 //        HangLog.e("sort:" + sort);
 //        for (int i = 0; i < bean.size(); i++) {
@@ -96,7 +96,7 @@
 //
 //            if (TextUtils.equals(s, name)) {
 //                if (TextUtils.equals(sort, sortsBean.getValue())) {
-//                    mSortView.setTextColor(getResources().getColor(R.color.main_blue_text));
+//                    mSortView.setTextColor(getResources().getColor(R.color.mall_main_blue_text));
 //                    mSortView.setSelected(true);
 //                }
 //            }

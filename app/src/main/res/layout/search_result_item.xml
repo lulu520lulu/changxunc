@@ -20,7 +20,7 @@
         android:layout_height="60dp"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/search_result_title_text"
+        android:textColor="@color/mall_search_result_title_text"
         android:textSize="16sp" />
 
     <RelativeLayout
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textColor="@color/product_price"
+            android:textColor="@color/mall_product_price"
             android:textSize="16sp" />
 
         <ImageView

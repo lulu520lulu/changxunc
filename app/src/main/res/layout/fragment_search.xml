@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
+    android:background="@color/mall_main_bg"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,14 +16,14 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/tab_search"
-            android:textColor="@color/title_bar_text"
-            android:textSize="@dimen/title_text_size" />
+            android:textColor="@color/mall_title_bar_text"
+            android:textSize="@dimen/mall_title_text_size" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/title_line_bg" />
+        android:background="@color/mall_title_line_bg" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,20 +44,20 @@
             android:maxLines="1"
             android:paddingLeft="8dp"
             android:singleLine="true"
-            android:textColor="@color/main_text"
-            android:textColorHint="@color/home_tab_text_un_select"
+            android:textColor="@color/mall_main_text"
+            android:textColorHint="@color/mall_home_tab_text_un_select"
             android:textCursorDrawable="@drawable/edit_cursor"
-            android:textSize="@dimen/start_search_text" />
+            android:textSize="@dimen/mall_start_search_text" />
 
         <TextView
             android:id="@+id/start_search"
             android:layout_width="52dp"
             android:layout_height="match_parent"
-            android:background="@color/main_orange_text"
+            android:background="@color/mall_main_orange_text"
             android:gravity="center"
             android:text="@string/tab_search"
             android:textColor="@color/white"
-            android:textSize="@dimen/start_search_text" />
+            android:textSize="@dimen/mall_start_search_text" />
     </LinearLayout>
 
 
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/search_empty_text"
-                    android:textColor="@color/content_text"
+                    android:textColor="@color/mall_content_text"
                     android:textSize="18sp" />
             </LinearLayout>
 

@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.c.hangxunc.bean.home.PostsBean;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.pages.MainActivity;
-import com.c.hangxunc.pages.home.AllPostActivity;
+import com.c.hangxunc.pages.home.MallAllPostActivity;
 import com.c.hangxunc.web.HybridActivity;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class JumpUtils {
         if (posts == null || posts.size() == 0) {
             return;
         }
-        Intent intent = new Intent(context, AllPostActivity.class);
+        Intent intent = new Intent(context, MallAllPostActivity.class);
         intent.putParcelableArrayListExtra(SEE_MORE_POST_DATA, posts);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

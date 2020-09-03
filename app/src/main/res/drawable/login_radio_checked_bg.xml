@@ -5,7 +5,7 @@
             <solid android:color="@color/white" />
             <stroke
                 android:width="1px"
-                android:color="@color/line" />
+                android:color="@color/mall_line" />
         </shape>
     </item>
 </layer-list>

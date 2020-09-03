@@ -3,18 +3,14 @@ package com.c.hangxunc.http;
 import com.c.hangxunc.bean.home.BaseBean;
 import com.c.hangxunc.bean.home.CategoryListData;
 import com.c.hangxunc.bean.home.CountryListData;
-import com.c.hangxunc.bean.home.CurrencyListData;
+import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.bean.home.HomeCategoryData;
 import com.c.hangxunc.bean.home.LanguageListData;
 import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.IsLoginBean;
-import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.ProductListBean;
-import com.c.hangxunc.bean.home.SearchResultBean;
 import com.c.hangxunc.bean.home.SearchResultData;
-import com.c.hangxunc.bean.home.SmsCodeBean;
 import com.c.hangxunc.bean.login.LoginData;
-import com.c.hangxunc.bean.login.LoginInfo;
 import com.c.hangxunc.bean.login.RegistInfo;
 import com.c.hangxunc.bean.login.SmsCodeData;
 
@@ -117,7 +113,7 @@ public interface HangXunCService {
      * 货币切换
      */
     @GET(ApiConstants.GET_CURRENCY_PATH)
-    Call<CurrencyListData> getCurrency(@Query("sco") String sco);
+    Call<CurrencyListBean> getCurrency(@Query("sco") String sco);
 
 
     /**
@@ -130,7 +126,7 @@ public interface HangXunCService {
      * 货币切换
      */
     @GET(ApiConstants.GET_CURRENCY_PATH)
-    Call<CurrencyListData> getCurrency(@Query("sco") String sco, @Query("currency") String currency);
+    Call<CurrencyListBean> getCurrency(@Query("sco") String sco, @Query("currency") String currency);
 
 //    /**
 //     * 获取版权信息

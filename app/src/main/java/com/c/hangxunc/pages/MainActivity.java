@@ -1,10 +1,7 @@
 package com.c.hangxunc.pages;
 
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,7 +11,7 @@ import android.widget.TextView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.c.hangxunc.HangXunApplication;
-import com.c.hangxunc.MessageGoLogin;
+import com.c.hangxunc.message.MessageGoLogin;
 import com.c.hangxunc.R;
 import com.c.hangxunc.BaseActivity;
 import com.c.hangxunc.bean.home.IsLoginBean;
@@ -95,7 +92,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
             img.setImageResource(footer[i]);
             text.setText(mAdapter.getPageTitle(i));
             if (i == 0) {
-                text.setTextColor(getResources().getColor(R.color.main_red_text));
+                text.setTextColor(getResources().getColor(R.color.mall_main_red_text));
             }
             mSlidingTabs.addTab(mSlidingTabs.newTab().setCustomView(view));
         }

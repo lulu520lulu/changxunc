@@ -17,13 +17,13 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.c.hangxunc.MessageGoHome;
-import com.c.hangxunc.MessageGoLogin;
+import com.c.hangxunc.message.MessageGoHome;
+import com.c.hangxunc.message.MessageGoLogin;
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CurrencyListBean;
 import com.c.hangxunc.http.ApiConstants;
-import com.c.hangxunc.pages.shop.MessageLocal;
-import com.c.hangxunc.pages.login.MessageLogin;
+import com.c.hangxunc.message.MessageLocal;
+import com.c.hangxunc.message.MessageLogin;
 import com.c.hangxunc.pages.login.WebLoginInterface;
 import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.CurrencyType;

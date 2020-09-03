@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_tab_drawable_padding">5dp</dimen>
-    <dimen name="home_top_tab_text_size">18sp</dimen>
-
-    <dimen name="main_tab_text_size">14sp</dimen>
-    <dimen name="title_text_size">18sp</dimen>
-    <dimen name="start_search_text">16sp</dimen>
+    <dimen name="mall_main_tab_text_size">14sp</dimen>
+    <dimen name="mall_title_text_size">18sp</dimen>
+    <dimen name="mall_start_search_text">16sp</dimen>
 
 
-    <dimen name="home_top_tab_height">48dp</dimen>
+    <dimen name="mall_home_top_tab_height">48dp</dimen>
 </resources>

@@ -23,7 +23,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.c.hangxunc.R;
 import com.c.hangxunc.bean.home.CountryBean;
-import com.c.hangxunc.bean.home.SmsCodeBean;
+import com.c.hangxunc.bean.login.SmsCodeBean;
 import com.c.hangxunc.bean.login.RegistInfo;
 import com.c.hangxunc.bean.login.SmsCodeData;
 import com.c.hangxunc.http.ApiConstants;
@@ -159,15 +159,15 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
                 String text = s.toString();
                 if (TextUtils.isEmpty(text)) {
                     smsGet.setEnabled(false);
-                    smsGet.setBackgroundResource(R.color.main_blue_text_un_enable);
+                    smsGet.setBackgroundResource(R.color.mall_main_blue_text_un_enable);
                     return;
                 }
                 if (isMobileNO(text)) {
                     smsGet.setEnabled(true);
-                    smsGet.setBackgroundResource(R.color.main_blue_text);
+                    smsGet.setBackgroundResource(R.color.mall_main_blue_text);
                 } else {
                     smsGet.setEnabled(false);
-                    smsGet.setBackgroundResource(R.color.main_blue_text_un_enable);
+                    smsGet.setBackgroundResource(R.color.mall_main_blue_text_un_enable);
                 }
 
             }
@@ -267,7 +267,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
 
     private void startTimer() {
         smsGet.setEnabled(false);
-        smsGet.setBackgroundResource(R.color.main_blue_text_un_enable);
+        smsGet.setBackgroundResource(R.color.mall_main_blue_text_un_enable);
         if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
@@ -284,10 +284,10 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
                 smsGet.setText(getActivity().getString(R.string.sns_code_get));
                 if (isMobileNO(phoneEdit.getText().toString())) {
                     smsGet.setEnabled(true);
-                    smsGet.setBackgroundResource(R.color.main_blue_text);
+                    smsGet.setBackgroundResource(R.color.mall_main_blue_text);
                 } else {
                     smsGet.setEnabled(false);
-                    smsGet.setBackgroundResource(R.color.main_blue_text_un_enable);
+                    smsGet.setBackgroundResource(R.color.mall_main_blue_text_un_enable);
                 }
             }
         };

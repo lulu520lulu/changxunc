@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.c.hangxunc.R;
-import com.c.hangxunc.pages.home.ui.MessageHome;
+import com.c.hangxunc.message.MessageHome;
 import com.google.android.material.tabs.TabLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,7 +31,7 @@ public class HomeTabListener extends TabLayout.ViewPagerOnTabSelectedListener {
             img.setEnabled(true);
         }
         if (text != null) {
-            text.setTextColor(view.getContext().getResources().getColor(R.color.main_red_text));
+            text.setTextColor(view.getContext().getResources().getColor(R.color.mall_main_red_text));
         }
     }
 
@@ -45,7 +45,7 @@ public class HomeTabListener extends TabLayout.ViewPagerOnTabSelectedListener {
             img.setEnabled(false);
         }
         if (text != null) {
-            text.setTextColor(view.getContext().getResources().getColor(R.color.home_tab_text_un_select));
+            text.setTextColor(view.getContext().getResources().getColor(R.color.mall_home_tab_text_un_select));
         }
     }
 

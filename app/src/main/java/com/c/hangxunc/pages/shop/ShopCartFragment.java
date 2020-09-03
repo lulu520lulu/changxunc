@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.c.hangxunc.MessageGoHome;
+import com.c.hangxunc.message.MessageGoHome;
 import com.c.hangxunc.R;
 import com.c.hangxunc.http.ApiConstants;
+import com.c.hangxunc.message.MessageLocal;
+import com.c.hangxunc.message.MessageShop;
 import com.c.hangxunc.mvp.BaseFragment;
 import com.c.hangxunc.pages.MainActivity;
-import com.c.hangxunc.pages.login.MessageLogin;
+import com.c.hangxunc.message.MessageLogin;
 import com.c.hangxunc.utils.CurrencySp;
 import com.c.hangxunc.utils.LanguageSp;
 import com.c.hangxunc.utils.LoginUtils;

@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <stroke
         android:width="0.5dp"
-        android:color="@color/home_tab_item_line" />
+        android:color="@color/mall_home_tab_item_line" />
 </shape>

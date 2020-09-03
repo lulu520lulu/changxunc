@@ -16,13 +16,13 @@
         android:layout_marginRight="10dp"
         android:drawableRight="@mipmap/general_icon_tiao"
         android:gravity="center_vertical"
-        android:textColor="@color/main_text"
+        android:textColor="@color/mall_main_text"
         android:textSize="15sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line" />
+        android:background="@color/mall_line" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gradview"

@@ -33,7 +33,7 @@
             android:name=".web.HybridActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name=".pages.home.AllPostActivity"
+            android:name=".pages.home.MallAllPostActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
             android:name=".change.ChangeLanguageActivity"
