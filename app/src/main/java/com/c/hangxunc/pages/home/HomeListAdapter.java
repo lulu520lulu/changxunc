@@ -26,6 +26,7 @@ import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.TabsBean;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -207,7 +208,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             }
         });
         holder.product_text.setText(bean.getTitle());
-        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext,
+        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext,2,
                 RecyclerView.VERTICAL, false));
         SpecialAdapter recycleAdapter = new SpecialAdapter(mContext, posts);
         holder.product_recycle.setAdapter(recycleAdapter);
@@ -293,6 +294,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         if (viewHolder == null || !(viewHolder instanceof BannerTopViewHolder)) {
             return;
         }
+
         ArrayList<String> imageTitle = new ArrayList<>();
         ArrayList<String> imagePath = new ArrayList<>();
         for (int i = 0; i < banners.size(); i++) {
@@ -301,6 +303,10 @@ public class HomeListAdapter extends RecyclerView.Adapter {
             imagePath.add(bannersBean.getImage());
         }
         BannerTopViewHolder holder = (BannerTopViewHolder) viewHolder;
+        ViewGroup.LayoutParams params = holder.banner.getLayoutParams();
+        if (bean.getModule_id() == 93) {
+            params.height = DimenUtils.dip2px(120);
+        }
 
         LocalImageLoader imageLoader = new LocalImageLoader();
         //样式

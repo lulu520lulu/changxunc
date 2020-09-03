@@ -449,6 +449,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> {
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         lp.alpha = 0.3f;
         getActivity().getWindow().setAttributes(lp);
-        mHomePopupWindow.showAsDropDown(login_person, 0, 0, Gravity.BOTTOM | Gravity.RIGHT);
+        mHomePopupWindow.showAsDropDown(login_person, -20, 0, Gravity.BOTTOM | Gravity.RIGHT);
     }
 }

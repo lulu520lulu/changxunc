@@ -2,12 +2,15 @@ package com.c.hangxunc.pages.home;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +29,7 @@ import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
 import com.c.hangxunc.utils.LoginUtils;
 import com.c.hangxunc.utils.ToastUtils;
+import com.c.hangxunc.utils.WindowUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,7 +47,7 @@ public class SpecialAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.list_product_keji_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.list_product_xian_item, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
@@ -52,7 +56,18 @@ public class SpecialAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ProductBean item = mData.get(position);
         MyViewHolder viewHolder = (MyViewHolder) holder;
-        viewHolder.content.setText(item.getName());
+
+        int windowWidth = WindowUtils.getWindowWidth((Activity) mContext);
+        int parentPadding = DimenUtils.dip2px(12);
+        int margin = DimenUtils.dip2px(8);
+        int marginSelf = DimenUtils.dip2px(10);
+
+
+        int width = windowWidth / 2 - parentPadding - margin - 2 * marginSelf;
+
+        LinearLayout.LayoutParams imageParams = (LinearLayout.LayoutParams) viewHolder.image.getLayoutParams();
+        imageParams.width = width;
+        imageParams.height = width;
 
 
         RequestOptions options = new RequestOptions()
@@ -64,7 +79,10 @@ public class SpecialAdapter extends RecyclerView.Adapter {
                 .apply(options)
                 .into(viewHolder.image);
 
-        viewHolder.price_text.setText(item.getPrice());
+        viewHolder.price_text.setText(item.getGroup_price());
+        viewHolder.old_price.setText(item.getPrice() + "");
+        viewHolder.old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
         if (item.getSales() == 0) {
             viewHolder.sale_num.setVisibility(View.GONE);
         } else {
@@ -72,14 +90,9 @@ public class SpecialAdapter extends RecyclerView.Adapter {
             String format = String.format(mContext.getString(R.string.saled), item.getSales() + "");
             viewHolder.sale_num.setText(format);
         }
-        if (viewHolder.itemView != null) {
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    JumpUtils.goWeb(item.getHref());
-                }
-            });
-        }
+
+        viewHolder.title.setText(item.getName());
+
         expandTouchArea(viewHolder.add_shop, DimenUtils.dip2px(20));
 
         viewHolder.add_shop.setOnClickListener(new View.OnClickListener() {
@@ -105,12 +118,25 @@ public class SpecialAdapter extends RecyclerView.Adapter {
             }
         });
 
-        if (position == mData.size() - 1) {
-            viewHolder.line.setVisibility(View.GONE);
-            viewHolder.space.setVisibility(View.VISIBLE);
+        if (viewHolder.itemView != null) {
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JumpUtils.goWeb(item.getHref());
+                }
+            });
+        }
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) viewHolder.container.getLayoutParams();
+        if (position % 2 == 0) {
+            layoutParams.rightMargin = DimenUtils.dip2px(8);
         } else {
-            viewHolder.line.setVisibility(View.VISIBLE);
-            viewHolder.space.setVisibility(View.GONE);
+            layoutParams.leftMargin = DimenUtils.dip2px(0);
+        }
+        if (mData.size() % 2 == 0 && (position + 2) == mData.size()) {
+            layoutParams.bottomMargin = 0;
+        }
+        if ((position + 1) == mData.size()) {
+            layoutParams.bottomMargin = 0;
         }
     }
 
@@ -143,23 +169,23 @@ public class SpecialAdapter extends RecyclerView.Adapter {
 
     private class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView image;
-        private TextView content;
         private TextView price_text;
+        private TextView title;
+        private TextView old_price;
         private TextView sale_num;
         private ImageView add_shop;
-        private View line;
-        private View space;
+        private LinearLayout container;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
-            content = itemView.findViewById(R.id.content);
+            title = itemView.findViewById(R.id.title);
             price_text = itemView.findViewById(R.id.price_text);
+            old_price = itemView.findViewById(R.id.old_price);
             sale_num = itemView.findViewById(R.id.sale_num);
             add_shop = itemView.findViewById(R.id.add_shop);
-            line = itemView.findViewById(R.id.line);
-            space = itemView.findViewById(R.id.space);
+            container = itemView.findViewById(R.id.container);
 
         }
     }

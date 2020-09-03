@@ -20,8 +20,10 @@ import com.c.hangxunc.R;
 import com.bumptech.glide.Glide;
 import com.c.hangxunc.bean.home.ProductBean;
 import com.c.hangxunc.bean.home.TabsBean;
+import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.http.HangXunBiz;
 import com.c.hangxunc.http.ResponseListener;
+import com.c.hangxunc.utils.Constants;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.JumpUtils;
 import com.c.hangxunc.utils.ToastUtils;
@@ -79,15 +81,23 @@ class TabRecycleAdapter extends RecyclerView.Adapter {
                         .error(R.mipmap.place_image)
                         .placeholder(R.mipmap.place_image)
                         .bitmapTransform(new RoundedCorners(30));
+                String thumb = bean.getThumb();
+                if (!thumb.contains(ApiConstants.IMAGE_BASE_URL)) {
+                    thumb = ApiConstants.IMAGE_BASE_URL +"/"+ thumb;
+                }
                 Glide.with(mContext)
-                        .load(bean.getThumb())
+                        .load(thumb)
                         .apply(options)
                         .into(imageView);
 
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        JumpUtils.goWeb(bean.getHref());
+                        String href = bean.getHref();
+                        if (!href.contains(ApiConstants.BASE_URL)) {
+                            href = ApiConstants.BASE_URL +"/"+ href;
+                        }
+                        JumpUtils.goWeb(href);
                     }
                 });
                 viewHolder.image_container.addView(imageView, params);
