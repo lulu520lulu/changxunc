@@ -3,6 +3,7 @@ package com.c.hangxunc.pages.home.widget;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,6 +14,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.c.hangxunc.R;
+import com.c.hangxunc.pages.street.StreetHomeActivity;
 
 public class MallHomePopupWindow extends PopupWindow implements View.OnClickListener {
 
@@ -88,6 +90,7 @@ public class MallHomePopupWindow extends PopupWindow implements View.OnClickList
                 goCenter();
                 break;
         }
+        dismiss();
     }
 
     private void goPerson() {
@@ -95,7 +98,11 @@ public class MallHomePopupWindow extends PopupWindow implements View.OnClickList
     }
 
     private void goCenter() {
-
+        if (mActivity == null) {
+            return;
+        }
+        Intent intent = new Intent(mActivity, StreetHomeActivity.class);
+        mActivity.startActivity(intent);
     }
 
 

@@ -18,6 +18,25 @@ public class ModulesBean {
     private List<TabsBean> tabs;
     private List<ProductBean> products;
     private List<ProductBean> bottomProducts;
+    private String heading_title;
+
+    private List<PostsBean> posts;
+
+    public String getHeading_title() {
+        return heading_title;
+    }
+
+    public void setHeading_title(String heading_title) {
+        this.heading_title = heading_title;
+    }
+
+    public List<PostsBean> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostsBean> posts) {
+        this.posts = posts;
+    }
 
     public String getModule_type() {
         return module_type;

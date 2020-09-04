@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/products_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="12dp">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_home_bottom_banner" />
+
+        <TextView
+            android:id="@+id/product_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:textColor="@color/street_main_text"
+            android:textSize="@dimen/street_main_tab_text_size" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/street_line" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/product_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
+
+</LinearLayout>

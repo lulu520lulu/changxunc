@@ -4,6 +4,11 @@
     <dimen name="mall_title_text_size">18sp</dimen>
     <dimen name="mall_start_search_text">16sp</dimen>
 
-
     <dimen name="mall_home_top_tab_height">48dp</dimen>
+
+    <dimen name="street_main_tab_text_size">14sp</dimen>
+    <dimen name="street_title_text_size">18sp</dimen>
+    <dimen name="street_start_search_text">16sp</dimen>
+
+    <dimen name="street_home_top_tab_height">48dp</dimen>
 </resources>
