@@ -1,10 +1,12 @@
 package com.c.hangxunc.pages.home;
 
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -102,6 +104,24 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
         setSelectedMe();
     }
 
+    private void expandTouchArea(View view, int size) {
+        View parentView = (View) view.getParent();
+        parentView.post(new Runnable() {
+            @Override
+            public void run() {
+                Rect rect = new Rect();
+                view.getHitRect(rect);
+
+                rect.top -= size;
+                rect.bottom += size;
+                rect.left -= size;
+                rect.right += size;
+
+                parentView.setTouchDelegate(new TouchDelegate(rect, view));
+            }
+        });
+    }
+
     @Override
     protected View onCreateViewImpl(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mall_fragment_home, null);
@@ -122,12 +142,14 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
                 goPerson();
             }
         });
+        expandTouchArea(start_change, DimenUtils.dip2px(20));
         start_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showChangeDialog();
             }
         });
+        expandTouchArea(start_change, DimenUtils.dip2px(20));
         login_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

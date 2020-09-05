@@ -11,6 +11,7 @@ import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.IsLoginBean;
 import com.c.hangxunc.bean.home.ProductListBean;
 import com.c.hangxunc.bean.home.SearchResultData;
+import com.c.hangxunc.bean.guide.CustomStyleData;
 import com.c.hangxunc.bean.login.LoginData;
 import com.c.hangxunc.bean.login.RegistInfo;
 import com.c.hangxunc.bean.login.SmsCodeData;
@@ -72,6 +73,19 @@ public class HangXunBiz {
 
     public static HangXunBiz getInstance() {
         return Singleton.instance;
+    }
+
+
+    public void getCustomerStyle(ResponseListener listener) {
+        HangXunCService service = getRetrofit().create(HangXunCService.class);
+        Call<CustomStyleData> call = service.getCustomerStyle();
+        call.enqueue(listener);
+    }
+
+    public void setCustomerStyle(String sex, String age, String interest, ResponseListener listener) {
+        HangXunCService service = getRetrofit().create(HangXunCService.class);
+        Call<BaseBean> call = service.setCustomerStyle("1", sex, age, interest);
+        call.enqueue(listener);
     }
 
 
@@ -161,6 +175,7 @@ public class HangXunBiz {
 
     /**
      * 品牌
+     *
      * @param listener
      */
     public void getManufacturer(ResponseListener listener) {

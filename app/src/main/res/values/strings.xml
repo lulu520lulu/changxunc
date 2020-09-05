@@ -115,4 +115,5 @@
     <string name="mall_identity_personal">个人用户</string>
     <string name="change_company_identity">切换为企业用户</string>
     <string name="back">返回</string>
+    <string name="mall_jump">跳过</string>
 </resources>

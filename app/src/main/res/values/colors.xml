@@ -3,6 +3,7 @@
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="black_60">#99000000</color>
     <color name="transparent">#00ffffff</color>
 
     <color name="mall_main_bg">#f6f7fc</color>
@@ -46,9 +47,6 @@
     <color name="mall_pin_text_color">#DC7C80</color>
     <color name="mall_pin_bg_color">#FFEFF5</color>
     <color name="mall_home_popup_text">#8F8F8F</color>
-
-
-
 
 
     <color name="street_main_bg">#F7F4F8</color>

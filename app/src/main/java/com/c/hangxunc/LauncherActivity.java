@@ -28,7 +28,7 @@ public class LauncherActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                JumpUtils.goMain(LauncherActivity.this);
+                JumpUtils.goGuideActivity(LauncherActivity.this);
                 finish();
             }
         };

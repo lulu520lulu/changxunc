@@ -10,6 +10,7 @@ import com.c.hangxunc.bean.home.ModulesListData;
 import com.c.hangxunc.bean.home.IsLoginBean;
 import com.c.hangxunc.bean.home.ProductListBean;
 import com.c.hangxunc.bean.home.SearchResultData;
+import com.c.hangxunc.bean.guide.CustomStyleData;
 import com.c.hangxunc.bean.login.LoginData;
 import com.c.hangxunc.bean.login.RegistInfo;
 import com.c.hangxunc.bean.login.SmsCodeData;
@@ -22,6 +23,14 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface HangXunCService {
+
+
+    @GET(ApiConstants.GET_CUSTOMER_STYLE)
+    Call<CustomStyleData> getCustomerStyle();
+
+
+    @GET(ApiConstants.SET_CUSTOMER_STYLE)
+    Call<BaseBean> setCustomerStyle(@Query("sco") String custom_id, @Query("sex") String sex, @Query("age") String age, @Query("interest") String interest);
 
 
     @GET(ApiConstants.GET_HOME_TOP_PATH)
@@ -79,10 +88,10 @@ public interface HangXunCService {
                                      @Query("sort") String sort, @Query("order") String order, @Query("language") String language, @Query("currency") String currency);
 
     /**
-//     * 搜索页数据
-//     *
-//     * @return
-//     */
+     //     * 搜索页数据
+     //     *
+     //     * @return
+     //     */
 //    @GET(ApiConstants.SEARCH_PRO_PATH)
 //    Call<BreadCrumbsBean> searchPro(@Query("sco") String sco, @Query("search") String keyWord, @Query("language") String language, @Query("currency") String currency);
 

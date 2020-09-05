@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.c.hangxunc.bean.home.PostsBean;
 import com.c.hangxunc.http.ApiConstants;
 import com.c.hangxunc.pages.MainActivity;
+import com.c.hangxunc.pages.guide.GuideActivity;
 import com.c.hangxunc.pages.home.MallAllPostActivity;
 import com.c.hangxunc.web.HybridActivity;
 
@@ -57,5 +58,12 @@ public class JumpUtils {
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    /**
+     * 跳转引导页
+     */
+    public static void goGuideActivity(Context context){
+        context.startActivity(new Intent(context, GuideActivity.class));
     }
 }

@@ -46,6 +46,9 @@
             android:name=".pages.street.StreetAllPostActivity"
             android:configChanges="orientation|screenSize|locale" />
 
+        <activity
+            android:name=".pages.guide.GuideActivity"
+            android:configChanges="orientation|screenSize|locale" />
     </application>
 
 </manifest>
