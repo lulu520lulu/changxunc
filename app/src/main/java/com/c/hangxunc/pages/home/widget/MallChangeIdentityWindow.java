@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.c.hangxunc.R;
 import com.c.hangxunc.pages.street.StreetHomeActivity;
 
-public class MallHomePopupWindow extends PopupWindow implements View.OnClickListener {
+public class MallChangeIdentityWindow extends PopupWindow implements View.OnClickListener {
 
     private View mPopView;
     private TextView mName;
@@ -24,7 +24,7 @@ public class MallHomePopupWindow extends PopupWindow implements View.OnClickList
     private Activity mActivity;
     private View mContainer;
 
-    public MallHomePopupWindow(Activity context) {
+    public MallChangeIdentityWindow(Activity context) {
         super(context);
         this.mActivity = context;
         init(context);
@@ -33,7 +33,7 @@ public class MallHomePopupWindow extends PopupWindow implements View.OnClickList
 
     private void init(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        mPopView = inflater.inflate(R.layout.mall_person_center_popup_window, null);
+        mPopView = inflater.inflate(R.layout.mall_change_identity_popup_layout, null);
         mContainer = mPopView.findViewById(R.id.container);
 
         mName = (TextView) mPopView.findViewById(R.id.name);

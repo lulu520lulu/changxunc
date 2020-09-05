@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mall_write_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="20dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:id="@+id/person_photo"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/mall_change_identity_dialog_icon" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="@string/mall_identity_message"
+                android:textColor="@color/mall_home_popup_text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="22dp"
+                android:text="@string/mall_identity_personal"
+                android:textColor="@color/mall_main_red_text"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/change_company_identity"
+            android:layout_width="168dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/mall_red_bg"
+            android:gravity="center"
+            android:text="@string/change_company_identity"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="168dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/mall_write_red_line_bg"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="@color/mall_home_popup_text"
+            android:textSize="16sp" />
+    </LinearLayout>
+</RelativeLayout>

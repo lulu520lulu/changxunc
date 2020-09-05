@@ -13,6 +13,7 @@
     <color name="mall_main_blue_text">#0C83B8</color>
     <color name="mall_main_orange_text">#FF9238</color>
     <color name="mall_main_red_text">#E93D3D</color>
+    <color name="mall_main_red_bg">#DE4A55</color>
     <color name="mall_button_bg_color">#014788</color>
     <color name="mall_home_item_title_text">#DEB977</color>
     <color name="mall_home_item_title_line">#BFBFBF</color>

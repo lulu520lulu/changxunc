@@ -34,10 +34,12 @@ import com.c.hangxunc.pages.MainActivity;
 import com.c.hangxunc.pages.home.adapter.MallHomeCategoryAdapter;
 import com.c.hangxunc.pages.home.adapter.MallHomeListAdapter;
 import com.c.hangxunc.pages.home.listener.MallCategoryClickListener;
-import com.c.hangxunc.pages.home.widget.MallHomePopupWindow;
+import com.c.hangxunc.pages.home.widget.MallChangeIdentityDialog;
+import com.c.hangxunc.pages.home.widget.MallChangeIdentityWindow;
 import com.c.hangxunc.message.MessageLogin;
 import com.c.hangxunc.message.MessageLocal;
 import com.c.hangxunc.message.MessageHome;
+import com.c.hangxunc.pages.login.CellCodeDialog;
 import com.c.hangxunc.pages.widget.BottomView;
 import com.c.hangxunc.utils.DimenUtils;
 import com.c.hangxunc.utils.HangLog;
@@ -81,6 +83,8 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
     RelativeLayout login_person;
     @BindView(R.id.name)
     TextView name;
+    @BindView(R.id.start_change)
+    ImageView start_change;
 
     private MallHomePresenter mMallHomePresenter;
     private MallHomeListAdapter mListAdapter;
@@ -118,6 +122,12 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
                 goPerson();
             }
         });
+        start_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChangeDialog();
+            }
+        });
         login_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,15 +159,18 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
         getData();
     }
 
+
     private void loginChangeView(boolean isLogin) {
         if (isLogin) {
             start_person.setVisibility(View.GONE);
-            login_person.setVisibility(View.VISIBLE);
+            login_person.setVisibility(View.GONE);
+            start_change.setVisibility(View.VISIBLE);
             // TODO: 2020/9/2
             name.setText("a*");
         } else {
             start_person.setVisibility(View.VISIBLE);
             login_person.setVisibility(View.GONE);
+            start_change.setVisibility(View.GONE);
         }
     }
 
@@ -402,6 +415,12 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if (mMallChangeIdentityWindow != null) {
+            mMallChangeIdentityWindow.dismiss();
+        }
+        if (mMallChangeIdentityDialog != null) {
+            mMallChangeIdentityDialog.cancel();
+        }
     }
 
 
@@ -441,15 +460,25 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
         return false;
     }
 
-    private MallHomePopupWindow mMallHomePopupWindow;
+    private MallChangeIdentityWindow mMallChangeIdentityWindow;
 
     private void showPopupWindow() {
-        if (mMallHomePopupWindow == null) {
-            mMallHomePopupWindow = new MallHomePopupWindow(getActivity());
+        if (mMallChangeIdentityWindow == null) {
+            mMallChangeIdentityWindow = new MallChangeIdentityWindow(getActivity());
         }
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         lp.alpha = 0.3f;
         getActivity().getWindow().setAttributes(lp);
-        mMallHomePopupWindow.showAsDropDown(login_person, -20, 0, Gravity.BOTTOM | Gravity.RIGHT);
+        mMallChangeIdentityWindow.showAsDropDown(login_person, -20, 0, Gravity.BOTTOM | Gravity.RIGHT);
     }
+
+    private MallChangeIdentityDialog mMallChangeIdentityDialog;
+
+    private void showChangeDialog() {
+        if (mMallChangeIdentityDialog == null) {
+            mMallChangeIdentityDialog = new MallChangeIdentityDialog(getActivity());
+        }
+        mMallChangeIdentityDialog.show();
+    }
+
 }

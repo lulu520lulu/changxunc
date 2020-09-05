@@ -111,4 +111,8 @@
     <string name="chinese">中文</string>
     <string name="english">英语</string>
     <string name="thailand">泰语</string>
+    <string name="mall_identity_message">您当前的身份为</string>
+    <string name="mall_identity_personal">个人用户</string>
+    <string name="change_company_identity">切换为企业用户</string>
+    <string name="back">返回</string>
 </resources>
