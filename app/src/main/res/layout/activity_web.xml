@@ -41,7 +41,7 @@
         android:layout_height="1px"
         android:background="@color/mall_title_line_bg" />
 
-    <com.c.hangxunc.web.HangXunWebView
+    <com.mall.hangxunc.web.HangXunWebView
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

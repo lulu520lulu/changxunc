@@ -81,7 +81,7 @@
                 android:layout_alignBottom="@+id/price_text"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="6dp"
-                android:background="@drawable/gray_bg"
+                android:background="@drawable/mall_gray_bg"
                 android:scaleType="center"
                 android:src="@mipmap/icon_shop_cart" />
         </RelativeLayout>

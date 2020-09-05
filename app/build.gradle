@@ -10,11 +10,11 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.c.hangxunc"
+        applicationId "com.mall.hangxunc"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

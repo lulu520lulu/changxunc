@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.c.hangxunc">
+    package="com.mall.hangxunc">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".HangXunApplication"
+        android:name="com.mall.hangxunc.HangXunApplication"
         android:allowBackup="true"
         android:configChanges="locale"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +17,7 @@
         android:theme="@style/HangXunTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".LauncherActivity"
+            android:name="com.mall.hangxunc.LauncherActivity"
             android:configChanges="orientation|screenSize|locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,28 +26,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".pages.MainActivity"
+            android:name="com.mall.hangxunc.pages.MainActivity"
             android:configChanges="orientation|screenSize|locale"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".web.HybridActivity"
+            android:name="com.mall.hangxunc.web.HybridActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name=".pages.home.MallAllPostActivity"
+            android:name="com.mall.hangxunc.pages.home.MallAllPostActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name=".change.ChangeLanguageActivity"
+            android:name="com.mall.hangxunc.change.ChangeLanguageActivity"
             android:theme="@style/Transparent" />
         <activity
-            android:name=".pages.street.StreetHomeActivity"
+            android:name="com.mall.hangxunc.pages.street.StreetHomeActivity"
             android:configChanges="orientation|screenSize|locale" />
 
         <activity
-            android:name=".pages.street.StreetAllPostActivity"
+            android:name="com.mall.hangxunc.pages.street.StreetAllPostActivity"
             android:configChanges="orientation|screenSize|locale" />
 
         <activity
-            android:name=".pages.guide.GuideActivity"
+            android:name="com.mall.hangxunc.pages.guide.GuideActivity"
             android:configChanges="orientation|screenSize|locale" />
     </application>
 

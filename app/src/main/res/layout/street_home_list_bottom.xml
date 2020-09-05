@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.c.hangxunc.pages.widget.BottomView
+    <com.mall.hangxunc.pages.widget.BottomView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </FrameLayout>

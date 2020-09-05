@@ -24,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/home_search_bg"
+                android:background="@drawable/mall_home_search_bg"
                 android:clickable="true">
 
                 <TextView
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|right"
-                    android:background="@drawable/top_search_btn_bg"
+                    android:background="@drawable/mall_top_search_btn_bg"
                     android:clickable="false"
                     android:gravity="center_vertical"
                     android:paddingLeft="12dp"
@@ -161,20 +161,20 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <com.c.hangxunc.pages.widget.BottomView
+        <com.mall.hangxunc.pages.widget.BottomView
             android:id="@+id/bottom_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom" />
     </LinearLayout>
 
-    <com.c.hangxunc.loading.LoadingView
+    <com.mall.hangxunc.loading.LoadingView
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <com.c.hangxunc.web.HangXunWebView
+    <com.mall.hangxunc.web.HangXunWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -11,6 +11,6 @@
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textColor="@color/home_top_tab_color"
+        android:textColor="@color/mall_home_top_tab_color"
         android:textSize="16sp" />
 </FrameLayout>

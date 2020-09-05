@@ -16,7 +16,7 @@
     <color name="transparent_background">#20000000</color>
 
     <style name="DetailAnimation">
-        <item name="android:windowEnterAnimation">@anim/pop_in</item>
-        <item name="android:windowExitAnimation">@anim/pop_out</item>
+        <item name="android:windowEnterAnimation">@anim/mall_pop_in</item>
+        <item name="android:windowExitAnimation">@anim/mall_pop_out</item>
     </style>
 </resources>

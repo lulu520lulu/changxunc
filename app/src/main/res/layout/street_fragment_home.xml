@@ -78,14 +78,14 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <com.c.hangxunc.pages.widget.BottomView
+        <com.mall.hangxunc.pages.widget.BottomView
             android:id="@+id/bottom_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom" />
     </LinearLayout>
 
-    <com.c.hangxunc.loading.LoadingView
+    <com.mall.hangxunc.loading.LoadingView
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.c.hangxunc.web.HangXunWebView
+    <com.mall.hangxunc.web.HangXunWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

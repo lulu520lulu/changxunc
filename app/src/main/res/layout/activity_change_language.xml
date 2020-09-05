@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:background="@drawable/bottom_dialog_bg"
+            android:background="@drawable/mall_bottom_dialog_bg"
             android:orientation="vertical" />
     </LinearLayout>
 </FrameLayout>

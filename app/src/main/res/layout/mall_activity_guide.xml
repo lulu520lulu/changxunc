@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.c.hangxunc.widget.NoScrollViewPager
+    <com.mall.hangxunc.widget.NoScrollViewPager
         android:id="@+id/guide_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -31,7 +31,7 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <com.c.hangxunc.loading.LoadingView
+    <com.mall.hangxunc.loading.LoadingView
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
