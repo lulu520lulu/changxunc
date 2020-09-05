@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.c.hangxunc.utils.CommSharedUtil;
 import com.c.hangxunc.utils.JumpUtils;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -28,7 +29,13 @@ public class LauncherActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                JumpUtils.goGuideActivity(LauncherActivity.this);
+                boolean isFirst = CommSharedUtil.getInstance(LauncherActivity.this).getBoolean(CommSharedUtil.FIRST_ENTER_KEY, true);
+                if (isFirst) {
+                    JumpUtils.goGuideActivity(LauncherActivity.this);
+                    CommSharedUtil.getInstance(LauncherActivity.this).putBoolean(CommSharedUtil.FIRST_ENTER_KEY, false);
+                } else {
+                    JumpUtils.goMain(LauncherActivity.this);
+                }
                 finish();
             }
         };

@@ -12,6 +12,9 @@ public class CommSharedUtil {
     private static CommSharedUtil helper;
     private SharedPreferences sharedPreferences;
 
+    public static final String FIRST_ENTER_KEY = "first_enter_key";
+
+
 
     private CommSharedUtil(Context context) {
         sharedPreferences = context.getSharedPreferences(SHARED_PATH, Context.MODE_PRIVATE);
