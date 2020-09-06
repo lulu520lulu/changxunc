@@ -11,4 +11,14 @@
     <dimen name="street_start_search_text">16sp</dimen>
 
     <dimen name="street_home_top_tab_height">48dp</dimen>
+
+    <dimen name="center_main_tab_text_size">16sp</dimen>
+    <dimen name="center_title_text_size">18sp</dimen>
+    <dimen name="center_start_search_text">16sp</dimen>
+
+    <dimen name="center_home_top_tab_height">48dp</dimen>
+    <dimen name="center_home_padding">15dp</dimen>
+    <dimen name="center_home_title_icon_width">20dp</dimen>
+    <dimen name="center_home_title_text">16sp</dimen>
+
 </resources>

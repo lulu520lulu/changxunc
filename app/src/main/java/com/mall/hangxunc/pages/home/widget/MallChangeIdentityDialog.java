@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.pages.street.StreetHomeActivity;
+import com.mall.hangxunc.utils.JumpUtils;
 
 public class MallChangeIdentityDialog extends Dialog implements View.OnClickListener {
 
@@ -48,18 +49,9 @@ public class MallChangeIdentityDialog extends Dialog implements View.OnClickList
                 dismiss();
                 break;
             case R.id.change_company_identity:
-                goCenter();
+                JumpUtils.goCenter(mActivity);
                 break;
         }
         dismiss();
     }
-
-    private void goCenter() {
-        if (mActivity == null) {
-            return;
-        }
-        Intent intent = new Intent(mActivity, StreetHomeActivity.class);
-        mActivity.startActivity(intent);
-    }
-
 }

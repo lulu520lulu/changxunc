@@ -1,12 +1,10 @@
 package com.mall.hangxunc.pages.home.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,10 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.mall.hangxunc.R;
-import com.bumptech.glide.Glide;
 import com.mall.hangxunc.bean.home.BannersBean;
 import com.mall.hangxunc.bean.home.ItemsBean;
 import com.mall.hangxunc.bean.home.ModulesBean;
@@ -26,13 +21,15 @@ import com.mall.hangxunc.bean.home.ProductBean;
 import com.mall.hangxunc.bean.home.TabsBean;
 import com.mall.hangxunc.http.ApiConstants;
 import com.mall.hangxunc.pages.MainActivity;
+import com.mall.hangxunc.pages.banner.ImageAdapter;
 import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.JumpUtils;
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
+import com.youth.banner.config.BannerConfig;
+import com.youth.banner.config.IndicatorConfig;
+import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.loader.ImageLoader;
+import com.youth.banner.util.BannerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -208,7 +205,7 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
             }
         });
         holder.product_text.setText(bean.getTitle());
-        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext,2,
+        holder.product_recycle.setLayoutManager(new GridLayoutManager(mContext, 2,
                 RecyclerView.VERTICAL, false));
         MallSpecialAdapter recycleAdapter = new MallSpecialAdapter(mContext, posts);
         holder.product_recycle.setAdapter(recycleAdapter);
@@ -308,53 +305,31 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
             params.height = DimenUtils.dip2px(120);
         }
 
-        LocalImageLoader imageLoader = new LocalImageLoader();
-        //样式
-        holder.banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //加载器
-        holder.banner.setImageLoader(imageLoader);
-        //动画效果
-        holder.banner.setBannerAnimation(Transformer.ZoomOutSlide);
-        //图片标题
-        holder.banner.setBannerTitles(imageTitle);
-        //间隔时间
-        holder.banner.setDelayTime(5000);
-        //是否为自动轮播
-        holder.banner.isAutoPlay(true);
-        //图片小点显示所在位置
-        holder.banner.setIndicatorGravity(BannerConfig.CENTER);
-        //图片加载地址
-        holder.banner.setImages(imagePath);
-        //启动轮播图。
-        holder.banner.start();
+        holder.banner.setAdapter(new ImageAdapter(mContext, banners));
+        holder.banner.setIndicator(new CircleIndicator(mContext));
+        holder.banner.isAutoLoop(true);
+        holder.banner.setIndicatorSelectedColorRes(R.color.white);
+        holder.banner.setIndicatorNormalColorRes(R.color.white_40);
+        holder.banner.setIndicatorGravity(IndicatorConfig.Direction.CENTER);
+        holder.banner.setIndicatorMargins(new IndicatorConfig.Margins(0, 0,
+                BannerConfig.INDICATOR_MARGIN, (int) BannerUtils.dp2px(12)));
+
+
         //监听轮播图
         holder.banner.setOnBannerListener(new OnBannerListener() {
             @Override
-            public void OnBannerClick(int position) {
+            public void OnBannerClick(Object data, int position) {
                 if ((position + 1) > banners.size() || position < 0) {
                     return;
                 }
                 BannersBean bannersBean = banners.get(position);
                 JumpUtils.goWeb(ApiConstants.BASE_URL + bannersBean.getLink());
             }
+
         });
 
     }
 
-    private class LocalImageLoader extends ImageLoader {
-        @Override
-        public void displayImage(Context context, Object path, ImageView imageView) {
-
-            RequestOptions options = new RequestOptions()
-                    .error(R.mipmap.new_banner)
-                    .placeholder(R.mipmap.new_banner)
-                    .bitmapTransform(new RoundedCorners(30));
-            Glide.with(mContext)
-                    .load((String) path)
-                    .apply(options)
-                    .into(imageView);
-        }
-    }
 
     private class ProductKeJiViewHolder extends RecyclerView.ViewHolder {
         private TextView see_more;

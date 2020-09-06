@@ -7,8 +7,11 @@ import android.text.TextUtils;
 import com.mall.hangxunc.bean.home.PostsBean;
 import com.mall.hangxunc.http.ApiConstants;
 import com.mall.hangxunc.pages.MainActivity;
+import com.mall.hangxunc.pages.center.CenterAllPostActivity;
+import com.mall.hangxunc.pages.center.CenterHomeActivity;
 import com.mall.hangxunc.pages.guide.GuideActivity;
 import com.mall.hangxunc.pages.home.MallAllPostActivity;
+import com.mall.hangxunc.pages.street.StreetHomeActivity;
 import com.mall.hangxunc.web.HybridActivity;
 
 import java.util.ArrayList;
@@ -59,8 +62,7 @@ public class JumpUtils {
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
-
-    public static void goCenter(Context context) {
+    public static void goMall(Context context) {
         if (context == null) {
             return;
         }
@@ -69,10 +71,28 @@ public class JumpUtils {
         context.startActivity(intent);
     }
 
+    public static void goStreet(Context context) {
+        if (context == null) {
+            return;
+        }
+        Intent intent = new Intent(context, StreetHomeActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void goCenter(Context context) {
+        if (context == null) {
+            return;
+        }
+        Intent intent = new Intent(context, CenterHomeActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
     /**
      * 跳转引导页
      */
-    public static void goGuideActivity(Context context){
+    public static void goGuideActivity(Context context) {
         Intent intent = new Intent(context, GuideActivity.class);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingTop="15dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="110dp"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/center_cheng_place_icon"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/image"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/image"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:text="00000"
+        android:textColor="@color/center_main_text"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/image"
+        android:layout_toLeftOf="@+id/image"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/area_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="guonei"
+            android:textColor="@color/center_home_content_text"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="12dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/center_line" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="111"
+            android:textColor="@color/center_home_content_text"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/text_container"
+        android:layout_marginTop="15dp"
+        android:background="@color/center_line" />
+</RelativeLayout>

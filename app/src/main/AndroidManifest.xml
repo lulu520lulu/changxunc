@@ -27,8 +27,8 @@
         </activity>
         <activity
             android:name="com.mall.hangxunc.pages.MainActivity"
-            android:launchMode="singleTask"
             android:configChanges="orientation|screenSize|locale"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.mall.hangxunc.web.HybridActivity"
@@ -49,6 +49,13 @@
 
         <activity
             android:name="com.mall.hangxunc.pages.guide.GuideActivity"
+            android:configChanges="orientation|screenSize|locale" />
+
+        <activity
+            android:name="com.mall.hangxunc.pages.center.CenterHomeActivity"
+            android:configChanges="orientation|screenSize|locale" />
+        <activity
+            android:name="com.mall.hangxunc.pages.center.CenterAllPostActivity"
             android:configChanges="orientation|screenSize|locale" />
     </application>
 

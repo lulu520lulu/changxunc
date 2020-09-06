@@ -27,6 +27,7 @@ import com.mall.hangxunc.message.MessageLogin;
 import com.mall.hangxunc.pages.login.WebLoginInterface;
 import com.mall.hangxunc.utils.CurrencySp;
 import com.mall.hangxunc.utils.CurrencyType;
+import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LoginUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -140,6 +141,10 @@ public class HangXunWebView extends LinearLayout {
                         EventBus.getDefault().post(new MessageGoLogin(MessageGoLogin.GO_LOGIN));
                         return true;
                     }
+                } else if (TextUtils.equals(url, "http://b.hangxunc.com/")) {
+                    JumpUtils.goStreet(getContext());
+                } else if (TextUtils.equals(url, "http://d.hangxunc.com:8081/scocenter/#/")) {
+                    JumpUtils.goCenter(getContext());
                 }
 
                 return false;

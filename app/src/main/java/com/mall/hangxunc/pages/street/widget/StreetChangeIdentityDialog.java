@@ -95,13 +95,4 @@ public class StreetChangeIdentityDialog extends Dialog implements View.OnClickLi
         dismiss();
     }
 
-
-    private void goCenter() {
-        if (mActivity == null) {
-            return;
-        }
-        Intent intent = new Intent(mActivity, StreetHomeActivity.class);
-        mActivity.startActivity(intent);
-    }
-
 }
