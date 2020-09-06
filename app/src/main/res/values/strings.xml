@@ -116,4 +116,10 @@
     <string name="change_company_identity">切换为企业用户</string>
     <string name="back">返回</string>
     <string name="mall_jump">跳过</string>
+    <string name="commany_identity">企业用户</string>
+    <string name="person_identity">个人用户</string>
+    <string name="commany_certification">企业认证</string>
+    <string name="change_person_identity">切换为个人用户</string>
+
+
 </resources>

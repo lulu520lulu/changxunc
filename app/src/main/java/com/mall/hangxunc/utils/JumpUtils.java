@@ -60,10 +60,21 @@ public class JumpUtils {
         context.startActivity(intent);
     }
 
+    public static void goCenter(Context context) {
+        if (context == null) {
+            return;
+        }
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
     /**
      * 跳转引导页
      */
     public static void goGuideActivity(Context context){
-        context.startActivity(new Intent(context, GuideActivity.class));
+        Intent intent = new Intent(context, GuideActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }

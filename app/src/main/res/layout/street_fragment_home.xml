@@ -1,53 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/street_main_bg"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:background="@color/street_main_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
 
-        <FrameLayout
-            android:id="@+id/search"
-            android:layout_width="0dp"
+            <FrameLayout
+                android:id="@+id/search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/street_home_search_bg"
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:drawableLeft="@mipmap/icon_home_top_search"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="@string/tab_search"
+                    android:textColor="@color/street_home_top_search_text"
+                    android:textSize="@dimen/street_start_search_text" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/change_identity"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/street_change_indentity_icon" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/type_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.mall.hangxunc.web.HangXunWebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/street_home_search_bg"
-            android:clickable="true">
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:clickable="false"
-                android:drawableLeft="@mipmap/icon_home_top_search"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="8dp"
-                android:text="@string/tab_search"
-                android:textColor="@color/street_home_top_search_text"
-                android:textSize="@dimen/street_start_search_text" />
-        </FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/street_main_bg" />
 
-        <ImageView
-            android:id="@+id/start_search"
-            android:layout_width="24dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/icon_home_top_shop_cart" />
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/empty_view"
@@ -85,28 +108,9 @@
             android:layout_gravity="bottom" />
     </LinearLayout>
 
-    <com.mall.hangxunc.loading.LoadingView
+    <com.mall.hangxunc.pages.street.loading.StreetLoadingView
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/type_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.mall.hangxunc.web.HangXunWebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/street_main_bg" />
-
-</LinearLayout>
+</FrameLayout>

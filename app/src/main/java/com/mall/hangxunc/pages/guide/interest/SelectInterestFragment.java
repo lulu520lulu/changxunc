@@ -163,7 +163,8 @@ public class SelectInterestFragment extends BaseFragment<SelectInterestPresenter
     }
 
     private void startEvent() {
-        showLoading();
+        loading.setVisibility(View.VISIBLE);
+
         List<InterestBean> data = mAdapter.getData();
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < data.size(); i++) {
@@ -202,7 +203,8 @@ public class SelectInterestFragment extends BaseFragment<SelectInterestPresenter
     }
 
     private void handleResult() {
-        hideLoading();
+        loading.setVisibility(View.GONE);
+
         EventBus.getDefault().post(new GuideJumpEvent());
     }
 

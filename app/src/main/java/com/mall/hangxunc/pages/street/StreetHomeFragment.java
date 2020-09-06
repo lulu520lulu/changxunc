@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.bean.home.CategoryBean;
 import com.mall.hangxunc.bean.home.HomeCategoryData;
+import com.mall.hangxunc.bean.home.IsLoginBean;
+import com.mall.hangxunc.bean.home.IsLoginData;
 import com.mall.hangxunc.bean.home.ModulesBean;
 import com.mall.hangxunc.bean.home.ModulesListBean;
 import com.mall.hangxunc.bean.home.ModulesListData;
@@ -28,12 +30,15 @@ import com.mall.hangxunc.message.MessageHome;
 import com.mall.hangxunc.message.MessageLocal;
 import com.mall.hangxunc.mvp.BaseFragment;
 import com.mall.hangxunc.pages.MainActivity;
+import com.mall.hangxunc.pages.home.widget.MallChangeIdentityDialog;
 import com.mall.hangxunc.pages.street.adapter.StreetHomeCategoryAdapter;
 import com.mall.hangxunc.pages.street.adapter.StreetHomeListAdapter;
 import com.mall.hangxunc.pages.street.http.StreetApiConstants;
 import com.mall.hangxunc.pages.street.http.StreetHangXunBiz;
 import com.mall.hangxunc.pages.street.http.StreetResponseListener;
 import com.mall.hangxunc.pages.street.listener.StreetHomeCategoryClickListener;
+import com.mall.hangxunc.pages.street.loading.StreetLoadingView;
+import com.mall.hangxunc.pages.street.widget.StreetChangeIdentityDialog;
 import com.mall.hangxunc.pages.widget.BottomView;
 import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.HangLog;
@@ -55,8 +60,8 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private static final String TAG = StreetHomeFragment.class.getSimpleName();
     @BindView(R.id.search)
     FrameLayout search;
-    @BindView(R.id.start_search)
-    ImageView startSearch;
+    @BindView(R.id.change_identity)
+    ImageView changeIdentity;
     @BindView(R.id.recycleView)
     RecyclerView recycleView;
     @BindView(R.id.type_list)
@@ -66,11 +71,13 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     @BindView(R.id.empty_view)
     LinearLayout empty_view;
     @BindView(R.id.loading)
-    LoadingView loadingView;
+    StreetLoadingView loadingView;
     @BindView(R.id.tv_search)
     TextView tv_search;
     @BindView(R.id.webview)
     HangXunWebView webContainer;
+    @BindView(R.id.container)
+    LinearLayout container;
 
     private StreetHomePresenter mStreetHomePresenter;
     private StreetHomeListAdapter mListAdapter;
@@ -102,10 +109,10 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
         drawable.setBounds(0, 0, DimenUtils.dip2px(20), DimenUtils.dip2px(20));
         tv_search.setCompoundDrawables(drawable, null, null, null);
 
-        startSearch.setOnClickListener(new View.OnClickListener() {
+        changeIdentity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goShop();
+                getLoginState();
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
@@ -126,12 +133,9 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     }
 
     private void goSearch() {
-        ((MainActivity) getActivity()).setSelect(1);
+//        ((MainActivity) getActivity()).setSelect(1);
     }
 
-    private void goShop() {
-        ((MainActivity) getActivity()).setSelect(3);
-    }
 
     private void getData() {
         showLoading();
@@ -251,25 +255,24 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private void showLoading() {
         HangLog.d(TAG, "showLoading ");
         loadingView.setVisibility(View.VISIBLE);
-        type_list.setVisibility(View.GONE);
-        recycleView.setVisibility(View.GONE);
+        container.setVisibility(View.GONE);
         empty_view.setVisibility(View.GONE);
-        bottomView.setVisibility(View.GONE);
     }
 
     private void hideLoading() {
-        HangLog.d(TAG, "showLoading ");
+        HangLog.d(TAG, "hideLoading ");
         loadingView.setVisibility(View.GONE);
+        empty_view.setVisibility(View.GONE);
+        container.setVisibility(View.VISIBLE);
         bottomView.setVisibility(View.VISIBLE);
         type_list.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.VISIBLE);
     }
 
     private void showEmpty() {
-        HangLog.d(TAG, "showLoading ");
+        HangLog.d(TAG, "showEmpty ");
         loadingView.setVisibility(View.GONE);
-        type_list.setVisibility(View.GONE);
-        recycleView.setVisibility(View.GONE);
+        container.setVisibility(View.GONE);
         empty_view.setVisibility(View.VISIBLE);
         bottomView.setVisibility(View.VISIBLE);
     }
@@ -386,4 +389,42 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
         }
         return false;
     }
+
+    private void getLoginState() {
+        loadingView.setVisibility(View.VISIBLE);
+
+        StreetHangXunBiz.getInstance().isCustomerLogin(new StreetResponseListener<IsLoginBean>() {
+            @Override
+            public void onFail(int code, String message) {
+                loadingView.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onSuccess(IsLoginBean bean) {
+                loadingView.setVisibility(View.GONE);
+
+                if (bean == null && bean.getData() == null) {
+                    return;
+                }
+                if (bean.getCode() == 0) {
+                    IsLoginData data = bean.getData();
+                    showChangeDialog(data);
+                }
+            }
+        });
+    }
+
+    private StreetChangeIdentityDialog mStreetChangeIdentityDialog;
+
+    private void showChangeDialog(IsLoginData data) {
+        if (data == null) {
+            return;
+        }
+        if (mStreetChangeIdentityDialog == null) {
+            mStreetChangeIdentityDialog = new StreetChangeIdentityDialog(getActivity(), data);
+        }
+        mStreetChangeIdentityDialog.show();
+    }
+
 }

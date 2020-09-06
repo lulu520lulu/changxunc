@@ -248,7 +248,7 @@ public class StreetHangXunBiz {
 
     public void isCustomerLogin(StreetResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
-        Call<IsLoginBean> call = service.isCustomerLogin(LoginUtils.getInstance().getScoId(), LoginUtils.getInstance().getSession());
+        Call<IsLoginBean> call = service.isCustomerLogin(LoginUtils.getInstance().getScoId());
         call.enqueue(listener);
     }
 

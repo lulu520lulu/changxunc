@@ -9,7 +9,6 @@ public interface StreetApiConstants {
 
     int LIMIT = 6;
 
-
     String IS_CUSTOMER_LOGIN = "/index.php?route=api/ioslink/isCustomerLogin";
 
     String BASE_URL = "http://b.hangxunc.com";

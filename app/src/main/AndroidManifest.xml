@@ -27,6 +27,7 @@
         </activity>
         <activity
             android:name="com.mall.hangxunc.pages.MainActivity"
+            android:launchMode="singleTask"
             android:configChanges="orientation|screenSize|locale"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
