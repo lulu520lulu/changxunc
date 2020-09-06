@@ -51,7 +51,7 @@ public class LanguageSp {
         if (mLanguageListBean != null) {
             return mLanguageListBean.getCode();
         }
-        return "";
+        return LanguageType.CHINESE.getLanguage();
     }
 
     public void saveLanguageList(LanguageListBean data) {

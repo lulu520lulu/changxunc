@@ -6,6 +6,7 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -48,4 +49,10 @@
             android:background="@drawable/mall_bottom_dialog_bg"
             android:orientation="vertical" />
     </LinearLayout>
+
+    <com.mall.hangxunc.pages.center.widget.CenterLoadingView
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </FrameLayout>

@@ -82,7 +82,6 @@ public class StreetChangeIdentityDialog extends Dialog implements View.OnClickLi
             JumpUtils.goMain(getContext());
 
         }
-        dismiss();
     }
 
     private void changeIdentity() {
@@ -92,7 +91,6 @@ public class StreetChangeIdentityDialog extends Dialog implements View.OnClickLi
             JumpUtils.goWeb(mData.getCompanyUrl());
 
         }
-        dismiss();
     }
 
 }

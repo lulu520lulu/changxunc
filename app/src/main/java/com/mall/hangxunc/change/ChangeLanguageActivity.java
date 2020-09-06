@@ -21,6 +21,7 @@ import com.mall.hangxunc.bean.home.LanguageListData;
 import com.mall.hangxunc.http.HangXunBiz;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.message.MessageLocal;
+import com.mall.hangxunc.pages.center.widget.CenterLoadingView;
 import com.mall.hangxunc.utils.CurrencySp;
 import com.mall.hangxunc.utils.CurrencyType;
 import com.mall.hangxunc.utils.DimenUtils;
@@ -34,6 +35,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ChangeLanguageActivity extends BaseActivity {
 
     private static final String FROM_FRAGMENT = "from_fragment";
@@ -41,6 +45,10 @@ public class ChangeLanguageActivity extends BaseActivity {
     public static final int LANGUAGE_FLAG = 0;
     public static final int CURRENCY_FLAG = 1;
     public static final String CHANGE = "change";
+    @BindView(R.id.loading)
+    CenterLoadingView loading;
+    @BindView(R.id.container)
+    LinearLayout container;
     private TextView title;
     private LinearLayout itemContainer;
 
@@ -63,6 +71,7 @@ public class ChangeLanguageActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_language);
+        ButterKnife.bind(this);
         init();
     }
 
@@ -94,24 +103,39 @@ public class ChangeLanguageActivity extends BaseActivity {
         if (languageList != null && languageList.getLanguages() != null && languageList.getLanguages().size() > 0) {
             updateLanguage(languageList);
         } else {
+            showLoading();
             HangXunBiz.getInstance().getLanguage(new ResponseListener<LanguageListData>() {
                 @Override
                 public void onFail(int code, String message) {
                     HangLog.d(TAG, "onFail getLanguage code: " + code + ",message:" + message);
-
+                    hindLoading();
+                    finish();
                 }
 
                 @Override
                 public void onSuccess(LanguageListData data) {
+                    hindLoading();
                     if (data != null && data.getData() != null) {
                         LanguageListBean bean = data.getData();
                         HangLog.d(TAG, "onSuccess getLanguage bean: " + bean.toString());
                         LanguageSp.getInstance().saveLanguageList(bean);
                         updateLanguage(bean);
+                    } else {
+                        finish();
                     }
                 }
             });
         }
+    }
+
+    private void showLoading() {
+        loading.setVisibility(View.VISIBLE);
+        container.setVisibility(View.GONE);
+    }
+
+    private void hindLoading() {
+        loading.setVisibility(View.GONE);
+        container.setVisibility(View.VISIBLE);
     }
 
     private void showCurrencyView() {

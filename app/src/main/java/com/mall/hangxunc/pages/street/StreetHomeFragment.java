@@ -25,17 +25,14 @@ import com.mall.hangxunc.bean.home.ModulesListBean;
 import com.mall.hangxunc.bean.home.ModulesListData;
 import com.mall.hangxunc.bean.home.ProductBean;
 import com.mall.hangxunc.bean.home.ProductListBean;
-import com.mall.hangxunc.loading.LoadingView;
+import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.message.MessageHome;
 import com.mall.hangxunc.message.MessageLocal;
 import com.mall.hangxunc.mvp.BaseFragment;
-import com.mall.hangxunc.pages.MainActivity;
-import com.mall.hangxunc.pages.home.widget.MallChangeIdentityDialog;
 import com.mall.hangxunc.pages.street.adapter.StreetHomeCategoryAdapter;
 import com.mall.hangxunc.pages.street.adapter.StreetHomeListAdapter;
 import com.mall.hangxunc.pages.street.http.StreetApiConstants;
 import com.mall.hangxunc.pages.street.http.StreetHangXunBiz;
-import com.mall.hangxunc.pages.street.http.StreetResponseListener;
 import com.mall.hangxunc.pages.street.listener.StreetHomeCategoryClickListener;
 import com.mall.hangxunc.pages.street.loading.StreetLoadingView;
 import com.mall.hangxunc.pages.street.widget.StreetChangeIdentityDialog;
@@ -139,7 +136,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
 
     private void getData() {
         showLoading();
-        StreetHangXunBiz.getInstance().getCategory(new StreetResponseListener<HomeCategoryData>() {
+        StreetHangXunBiz.getInstance().getCategory(new ResponseListener<HomeCategoryData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getCategory code: " + code + ",message:" + message);
@@ -162,7 +159,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     }
 
     private void getTopData() {
-        StreetHangXunBiz.getInstance().getHomeTop(new StreetResponseListener<ModulesListData>() {
+        StreetHangXunBiz.getInstance().getHomeTop(new ResponseListener<ModulesListData>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getHomeTop code: " + code + ",message:" + message);
@@ -191,7 +188,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private int mProductCount = 0;
 
     private void getBottomData(List<ModulesBean> modules) {
-        StreetHangXunBiz.getInstance().getAllProduct(mProductCount, new StreetResponseListener<ProductListBean>() {
+        StreetHangXunBiz.getInstance().getAllProduct(mProductCount, new ResponseListener<ProductListBean>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getBottomData code: " + code + ",message:" + message);
@@ -219,7 +216,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private void getMoreBottomData() {
         mProductCount++;
 //        showLoading();
-        StreetHangXunBiz.getInstance().getAllProduct(mProductCount, new StreetResponseListener<ProductListBean>() {
+        StreetHangXunBiz.getInstance().getAllProduct(mProductCount, new ResponseListener<ProductListBean>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getMoreBottomData code: " + code + ",message:" + message);
@@ -393,7 +390,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private void getLoginState() {
         loadingView.setVisibility(View.VISIBLE);
 
-        StreetHangXunBiz.getInstance().isCustomerLogin(new StreetResponseListener<IsLoginBean>() {
+        StreetHangXunBiz.getInstance().isCustomerLogin(new ResponseListener<IsLoginBean>() {
             @Override
             public void onFail(int code, String message) {
                 loadingView.setVisibility(View.GONE);

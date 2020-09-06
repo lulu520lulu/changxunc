@@ -17,10 +17,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.bean.home.ProductBean;
+import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.message.MessageShop;
 import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.street.http.StreetHangXunBiz;
-import com.mall.hangxunc.pages.street.http.StreetResponseListener;
 import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LoginUtils;
@@ -83,7 +83,7 @@ class StreetTabRecycleAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 if (LoginUtils.getInstance().isLogin()) {
-                    StreetHangXunBiz.getInstance().addShopCart(beanX.getProduct_id(), beanX.getQuantity(), new StreetResponseListener() {
+                    StreetHangXunBiz.getInstance().addShopCart(beanX.getProduct_id(), beanX.getQuantity(), new ResponseListener() {
                         @Override
                         public void onFail(int code, String message) {
                             ToastUtils.showToast(mContext, mContext.getString(R.string.shop_cart_add_fail));

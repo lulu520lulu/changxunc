@@ -46,7 +46,6 @@ public class MallChangeIdentityDialog extends Dialog implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                dismiss();
                 break;
             case R.id.change_company_identity:
                 JumpUtils.goCenter(mActivity);

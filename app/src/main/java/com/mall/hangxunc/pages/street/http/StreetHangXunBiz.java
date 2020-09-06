@@ -14,6 +14,9 @@ import com.mall.hangxunc.bean.home.SearchResultData;
 import com.mall.hangxunc.bean.login.LoginData;
 import com.mall.hangxunc.bean.login.RegistInfo;
 import com.mall.hangxunc.bean.login.SmsCodeData;
+import com.mall.hangxunc.http.LocalCookieJar;
+import com.mall.hangxunc.http.ParamInterceptor;
+import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.utils.CurrencySp;
 import com.mall.hangxunc.utils.LanguageSp;
 import com.mall.hangxunc.utils.LoginUtils;
@@ -29,9 +32,7 @@ public class StreetHangXunBiz {
 
     private Retrofit getRetrofit() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .cookieJar(new StreetLocalCookieJar())
-//                .connectTimeout(20, TimeUnit.SECONDS)//设置连接超时时间
-//                .readTimeout(20, TimeUnit.SECONDS)//设置读取超时时间
+                .cookieJar(new LocalCookieJar())
                 .build();
 
         Retrofit retrofit = new Retrofit
@@ -46,8 +47,8 @@ public class StreetHangXunBiz {
 
     private Retrofit getPostRetrofit() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new StreetParamInterceptor())
-                .cookieJar(new StreetLocalCookieJar())
+                .addInterceptor(new ParamInterceptor())
+                .cookieJar(new LocalCookieJar())
                 .build();
 
         Retrofit retrofit = new Retrofit
@@ -71,19 +72,12 @@ public class StreetHangXunBiz {
     }
 
 
-    public void getHomeTop(StreetResponseListener listener) {
+    public void getHomeTop(ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<ModulesListData> call = service.getHomeTop(LoginUtils.getInstance().getScoId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
-
-//    public void getHomeBottom(ResponseListener listener) {
-//        HangXunCService service = getRetrofit().create(HangXunCService.class);
-//        Call<ProductListBean> call = service.getHomeBottom(LoginUtils.getInstance().getScoId(), LanguageSp.getInstance().getCode()
-//                , CurrencySp.getInstance().getCode());
-//        call.enqueue(listener);
-//    }
 
     /**
      * 全部商品模块
@@ -91,14 +85,14 @@ public class StreetHangXunBiz {
      * @param count
      * @return
      */
-    public void getAllProduct(int count, StreetResponseListener listener) {
+    public void getAllProduct(int count, ResponseListener listener) {
         StreetHangXunCService service = getPostRetrofit().create(StreetHangXunCService.class);
         Call<ProductListBean> call = service.getAllProduct(LoginUtils.getInstance().getScoId(), count, StreetApiConstants.LIMIT,
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
 
-    public void addShopCart(int product_id, int quantity, StreetResponseListener listener) {
+    public void addShopCart(int product_id, int quantity, ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<BaseBean> call = service.addShopCart(
                 LoginUtils.getInstance().getScoId(),
@@ -111,31 +105,19 @@ public class StreetHangXunBiz {
      *
      * @return
      */
-    public void getCategory(StreetResponseListener listener) {
+    public void getCategory(ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<HomeCategoryData> call = service.getCategory(LoginUtils.getInstance().getScoId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }
 
-//    /**
-//     * 根据id获得产品信息
-//     *
-//     * @param listener
-//     */
-//    public void getProduct(int id, ResponseListener listener) {
-//        HangXunCService service = getRetrofit().create(HangXunCService.class);
-//        Call<ProductBean> call = service.getProduct(LoginUtils.getInstance().getScoId(), id,
-//                LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
-//        call.enqueue(listener);
-//    }
-
     /**
      * 搜索
      *
      * @param listener
      */
-    public void searchPro(String keyWord, String sorts, String order, StreetResponseListener listener) {
+    public void searchPro(String keyWord, String sorts, String order, ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<SearchResultData> call = service.searchPro(LoginUtils.getInstance().getScoId(),
                 keyWord, sorts, order, LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
@@ -148,7 +130,7 @@ public class StreetHangXunBiz {
      *
      * @param listener
      */
-    public void getCategoryPage(StreetResponseListener listener) {
+    public void getCategoryPage(ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<CategoryListData> call = service.getCategoryPage(LoginUtils.getInstance().getScoId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
@@ -159,7 +141,7 @@ public class StreetHangXunBiz {
      * 品牌
      * @param listener
      */
-    public void getManufacturer(StreetResponseListener listener) {
+    public void getManufacturer(ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<CategoryListData> call = service.getManufacturer(LoginUtils.getInstance().getScoId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
@@ -171,7 +153,7 @@ public class StreetHangXunBiz {
      *
      * @param listener
      */
-    public void getLanguage(StreetResponseListener listener) {
+    public void getLanguage(ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<LanguageListData> call = service.getLanguage(LoginUtils.getInstance().getScoId());
         call.enqueue(listener);
@@ -180,7 +162,7 @@ public class StreetHangXunBiz {
     /**
      * 货币切换
      */
-    public void getCurrency(StreetResponseListener listener) {
+    public void getCurrency(ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<CurrencyListBean> call = service.getCurrency(LoginUtils.getInstance().getScoId());
         call.enqueue(listener);
@@ -192,7 +174,7 @@ public class StreetHangXunBiz {
      *
      * @param listener
      */
-    public void setLanguage(String language, StreetResponseListener listener) {
+    public void setLanguage(String language, ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<LanguageListData> call = service.getLanguage(LoginUtils.getInstance().getScoId(), language);
         call.enqueue(listener);
@@ -201,7 +183,7 @@ public class StreetHangXunBiz {
     /**
      * 货币切换
      */
-    public void setCurrency(String currency, StreetResponseListener listener) {
+    public void setCurrency(String currency, ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<CurrencyListBean> call = service.getCurrency(LoginUtils.getInstance().getScoId(), currency);
         call.enqueue(listener);
@@ -211,7 +193,7 @@ public class StreetHangXunBiz {
     /**
      * 支持国家
      */
-    public void getCountry(StreetResponseListener listener) {
+    public void getCountry(ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<CountryListData> call = service.getCountry(LoginUtils.getInstance().getScoId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
@@ -222,7 +204,7 @@ public class StreetHangXunBiz {
      * 登录
      */
     public void login(@StreetApiConstants.LOGIN_TYPE String loginType, String callingCode,
-                      String telephone, String email, String password, StreetResponseListener listener) {
+                      String telephone, String email, String password, ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<LoginData> call = service.login(loginType, callingCode, telephone, email, password, LoginUtils.getInstance().getSession());
         call.enqueue(listener);
@@ -233,20 +215,20 @@ public class StreetHangXunBiz {
      */
     public void regist(@StreetApiConstants.LOGIN_TYPE String registType, String email, String callingCode,
                        String telephone, String smsCode, String password, String confirm,
-                       String newsletter, String agree, StreetResponseListener listener) {
+                       String newsletter, String agree, ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<RegistInfo> call = service.regist(1, registType, email, callingCode,
                 telephone, smsCode, password, confirm, newsletter, agree);
         call.enqueue(listener);
     }
 
-    public void smsCode(String calling_code, String phone, StreetResponseListener listener) {
+    public void smsCode(String calling_code, String phone, ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<SmsCodeData> call = service.smsCode(calling_code, phone);
         call.enqueue(listener);
     }
 
-    public void isCustomerLogin(StreetResponseListener listener) {
+    public void isCustomerLogin(ResponseListener listener) {
         StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<IsLoginBean> call = service.isCustomerLogin(LoginUtils.getInstance().getScoId());
         call.enqueue(listener);

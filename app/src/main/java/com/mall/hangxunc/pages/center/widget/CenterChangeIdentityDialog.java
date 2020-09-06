@@ -46,12 +46,12 @@ public class CenterChangeIdentityDialog extends Dialog implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                dismiss();
                 break;
             case R.id.change_person_identity:
                 changeIdentity();
                 break;
         }
+        dismiss();
     }
 
 
