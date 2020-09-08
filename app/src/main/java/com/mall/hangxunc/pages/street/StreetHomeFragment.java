@@ -33,6 +33,8 @@ import com.mall.hangxunc.pages.street.adapter.StreetHomeCategoryAdapter;
 import com.mall.hangxunc.pages.street.adapter.StreetHomeListAdapter;
 import com.mall.hangxunc.pages.street.http.StreetApiConstants;
 import com.mall.hangxunc.pages.street.http.StreetHangXunBiz;
+import com.mall.hangxunc.pages.street.http.StreetIsLoginBean;
+import com.mall.hangxunc.pages.street.http.StreetIsLoginData;
 import com.mall.hangxunc.pages.street.listener.StreetHomeCategoryClickListener;
 import com.mall.hangxunc.pages.street.loading.StreetLoadingView;
 import com.mall.hangxunc.pages.street.widget.StreetChangeIdentityDialog;
@@ -390,7 +392,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private void getLoginState() {
         loadingView.setVisibility(View.VISIBLE);
 
-        StreetHangXunBiz.getInstance().isCustomerLogin(new ResponseListener<IsLoginBean>() {
+        StreetHangXunBiz.getInstance().isCustomerLogin(new ResponseListener<StreetIsLoginBean>() {
             @Override
             public void onFail(int code, String message) {
                 loadingView.setVisibility(View.GONE);
@@ -398,14 +400,14 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
             }
 
             @Override
-            public void onSuccess(IsLoginBean bean) {
+            public void onSuccess(StreetIsLoginBean bean) {
                 loadingView.setVisibility(View.GONE);
 
                 if (bean == null && bean.getData() == null) {
                     return;
                 }
                 if (bean.getCode() == 0) {
-                    IsLoginData data = bean.getData();
+                    StreetIsLoginData data = bean.getData();
                     showChangeDialog(data);
                 }
             }
@@ -414,7 +416,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
 
     private StreetChangeIdentityDialog mStreetChangeIdentityDialog;
 
-    private void showChangeDialog(IsLoginData data) {
+    private void showChangeDialog(StreetIsLoginData data) {
         if (data == null) {
             return;
         }

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.mall.hangxunc.R;
+import com.mall.hangxunc.bean.home.IsLoginData;
+import com.mall.hangxunc.pages.center.center.CenterIsLoginData;
 import com.mall.hangxunc.utils.JumpUtils;
 
 
@@ -17,10 +19,12 @@ public class CenterChangeIdentityDialog extends Dialog implements View.OnClickLi
 
     private Activity mActivity;
     private TextView mChangeIdentity;
+    private CenterIsLoginData mData;
 
-    public CenterChangeIdentityDialog(Activity context) {
+    public CenterChangeIdentityDialog(Activity context, CenterIsLoginData data) {
         super(context);
         this.mActivity = context;
+        this.mData = data;
         init(context);
     }
 

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.bean.home.IsLoginData;
 import com.mall.hangxunc.pages.street.StreetHomeActivity;
+import com.mall.hangxunc.pages.street.http.StreetIsLoginData;
 import com.mall.hangxunc.utils.JumpUtils;
 
 public class StreetChangeIdentityDialog extends Dialog implements View.OnClickListener {
@@ -20,9 +21,9 @@ public class StreetChangeIdentityDialog extends Dialog implements View.OnClickLi
     private Activity mActivity;
     private TextView mChangeIdentity;
     private TextView mCurrentIdentity;
-    private IsLoginData mData;
+    private StreetIsLoginData mData;
 
-    public StreetChangeIdentityDialog(Activity context, IsLoginData data) {
+    public StreetChangeIdentityDialog(Activity context, StreetIsLoginData data) {
         super(context);
         this.mActivity = context;
         this.mData = data;

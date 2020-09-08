@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mall.hangxunc.utils.CommSharedUtil;
 import com.mall.hangxunc.utils.JumpUtils;
+import com.mall.hangxunc.utils.LoginUtils;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -30,7 +31,7 @@ public class LauncherActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 boolean isFirst = CommSharedUtil.getInstance(LauncherActivity.this).getBoolean(CommSharedUtil.FIRST_ENTER_KEY, true);
-                if (isFirst) {
+                if (isFirst && LoginUtils.getInstance().isLogin()) {
                     JumpUtils.goGuideActivity(LauncherActivity.this);
                     CommSharedUtil.getInstance(LauncherActivity.this).putBoolean(CommSharedUtil.FIRST_ENTER_KEY, false);
                 } else {

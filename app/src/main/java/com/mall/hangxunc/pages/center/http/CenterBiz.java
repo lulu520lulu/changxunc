@@ -1,11 +1,15 @@
 package com.mall.hangxunc.pages.center.http;
 
+import com.mall.hangxunc.bean.home.IsLoginBean;
+import com.mall.hangxunc.http.HangXunCService;
 import com.mall.hangxunc.http.LocalCookieJar;
 import com.mall.hangxunc.http.ParamInterceptor;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.pages.center.center.CenterHomeBean;
+import com.mall.hangxunc.pages.center.center.CenterIsLoginBean;
 import com.mall.hangxunc.utils.LanguageSp;
 import com.mall.hangxunc.utils.LanguageUtil;
+import com.mall.hangxunc.utils.LoginUtils;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -61,6 +65,12 @@ public class CenterBiz {
     public void getIndex(ResponseListener listener) {
         CenterCService service = getRetrofit().create(CenterCService.class);
         Call<CenterHomeBean> call = service.getIndex(1, 4, LanguageSp.getInstance().getCode());
+        call.enqueue(listener);
+    }
+
+    public void isCustomerLogin(ResponseListener listener) {
+        CenterCService service = getRetrofit().create(CenterCService.class);
+        Call<CenterIsLoginBean> call = service.isCustomerLogin(LoginUtils.getInstance().getScoId(), "app");
         call.enqueue(listener);
     }
 

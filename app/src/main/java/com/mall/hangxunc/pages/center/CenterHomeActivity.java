@@ -8,27 +8,16 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.mall.hangxunc.BaseActivity;
 import com.mall.hangxunc.HangXunApplication;
 import com.mall.hangxunc.R;
-import com.mall.hangxunc.bean.home.IsLoginBean;
-import com.mall.hangxunc.message.MessageGoLogin;
 import com.mall.hangxunc.mvp.BaseFragment;
 import com.mall.hangxunc.pages.BackHandledInterface;
-import com.mall.hangxunc.pages.HomePagerAdapter;
-import com.mall.hangxunc.pages.HomeTabListener;
 import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.center.adapter.CenterPagerAdapter;
-import com.mall.hangxunc.pages.street.http.StreetHangXunBiz;
-import com.mall.hangxunc.utils.LoginUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

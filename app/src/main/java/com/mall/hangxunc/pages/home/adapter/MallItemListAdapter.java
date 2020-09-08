@@ -63,8 +63,7 @@ public class MallItemListAdapter extends RecyclerView.Adapter {
 
         RequestOptions options = new RequestOptions()
                 .error(R.mipmap.place_image)
-                .placeholder(R.mipmap.place_image)
-                .bitmapTransform(new RoundedCorners(30));
+                .placeholder(R.mipmap.place_image);
         Glide.with(mContext)
                 .load(item.getImage())
                 .apply(options)

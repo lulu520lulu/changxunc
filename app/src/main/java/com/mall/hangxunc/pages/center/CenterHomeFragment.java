@@ -25,7 +25,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mall.hangxunc.R;
+import com.mall.hangxunc.bean.home.IsLoginBean;
+import com.mall.hangxunc.bean.home.IsLoginData;
 import com.mall.hangxunc.change.ChangeLanguageActivity;
+import com.mall.hangxunc.http.HangXunBiz;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.message.MessageLocal;
 import com.mall.hangxunc.mvp.BaseFragment;
@@ -43,6 +46,8 @@ import com.mall.hangxunc.pages.center.center.AdvertisementBean;
 import com.mall.hangxunc.pages.center.center.BannerBean;
 import com.mall.hangxunc.pages.center.center.CenterHomeBean;
 import com.mall.hangxunc.pages.center.center.CenterHomeData;
+import com.mall.hangxunc.pages.center.center.CenterIsLoginBean;
+import com.mall.hangxunc.pages.center.center.CenterIsLoginData;
 import com.mall.hangxunc.pages.center.center.InstrumentBean;
 import com.mall.hangxunc.pages.center.center.InstrumentChildBean;
 import com.mall.hangxunc.pages.center.center.MessageBean;
@@ -59,6 +64,7 @@ import com.mall.hangxunc.pages.center.http.CenterBiz;
 import com.mall.hangxunc.pages.center.widget.CenterBottomView;
 import com.mall.hangxunc.pages.center.widget.CenterChangeIdentityDialog;
 import com.mall.hangxunc.pages.center.widget.CenterLoadingView;
+import com.mall.hangxunc.pages.street.http.StreetHangXunBiz;
 import com.mall.hangxunc.utils.HangLog;
 import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.WindowUtils;
@@ -152,7 +158,7 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         startChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showChangeDialog();
+                getLoginState();
             }
         });
     }
@@ -650,11 +656,37 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         });
     }
 
+    private void getLoginState() {
+        loading.setVisibility(View.VISIBLE);
+
+        CenterBiz.getInstance().isCustomerLogin(new ResponseListener<CenterIsLoginBean>() {
+            @Override
+            public void onFail(int code, String message) {
+                loading.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onSuccess(CenterIsLoginBean bean) {
+                loading.setVisibility(View.GONE);
+
+                if (bean == null && bean.getData() == null) {
+                    return;
+                }
+                if (bean.getCode() == 0) {
+                    CenterIsLoginData data = bean.getData();
+                    showChangeDialog(data);
+                }
+            }
+        });
+    }
+
+
     private CenterChangeIdentityDialog mCenterChangeIdentityDialog;
 
-    private void showChangeDialog() {
+    private void showChangeDialog(CenterIsLoginData data) {
         if (mCenterChangeIdentityDialog == null) {
-            mCenterChangeIdentityDialog = new CenterChangeIdentityDialog(getActivity());
+            mCenterChangeIdentityDialog = new CenterChangeIdentityDialog(getActivity(), data);
         }
         mCenterChangeIdentityDialog.show();
     }
