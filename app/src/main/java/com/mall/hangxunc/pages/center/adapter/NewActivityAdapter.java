@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.pages.center.center.ActivityChildBean;
 import com.mall.hangxunc.utils.DimenUtils;
+import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.WindowUtils;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class NewActivityAdapter extends RecyclerView.Adapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                JumpUtils.goWeb(bean.getDetailsLink());
             }
         });
     }

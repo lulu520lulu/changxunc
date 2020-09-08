@@ -130,6 +130,15 @@ public class ActivityChildBean {
         private Object megaSwzxId;
         private String languageCode;
         private List<String> picUrlList;
+        private String detailsLink;
+
+        public String getDetailsLink() {
+            return detailsLink;
+        }
+
+        public void setDetailsLink(String detailsLink) {
+            this.detailsLink = detailsLink;
+        }
 
         public String getId() {
             return id;

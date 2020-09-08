@@ -67,6 +67,15 @@ public class NewsChildBean {
         private Object createName;
         private String newsTypeName;
         private String languageCode;
+        private String detailsLink;
+
+        public String getDetailsLink() {
+            return detailsLink;
+        }
+
+        public void setDetailsLink(String detailsLink) {
+            this.detailsLink = detailsLink;
+        }
 
         public String getId() {
             return id;

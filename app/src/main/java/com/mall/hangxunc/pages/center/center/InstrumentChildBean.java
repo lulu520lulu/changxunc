@@ -134,6 +134,15 @@ public class InstrumentChildBean {
             private String instrumentSortName;
             private String languageCode;
             private List<String> imgUrlList;
+            private String detailsLink;
+
+            public String getDetailsLink() {
+                return detailsLink;
+            }
+
+            public void setDetailsLink(String detailsLink) {
+                this.detailsLink = detailsLink;
+            }
 
             public String getId() {
                 return id;

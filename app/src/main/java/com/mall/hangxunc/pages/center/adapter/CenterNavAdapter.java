@@ -54,9 +54,6 @@ public class CenterNavAdapter extends RecyclerView.Adapter {
         ViewGroup.LayoutParams params = viewHolder.container.getLayoutParams();
         params.width = width;
 
-//        if (position % 2 == 0) {
-//            viewHolder.container.setPadding(0, 0, 0, DimenUtils.dip2px(16));
-//        }
         viewHolder.text.setText(item.getName());
 
         RequestOptions options = new RequestOptions()
@@ -72,9 +69,7 @@ public class CenterNavAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(item.getUrlPath())) {
-                    JumpUtils.goWeb(item.getUrlPath());
-                }
+                JumpUtils.goWeb(item.getUrlPath());
             }
         });
     }

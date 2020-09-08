@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.pages.center.center.NewsChildBean;
+import com.mall.hangxunc.utils.JumpUtils;
 
 import java.util.List;
 
@@ -69,6 +70,7 @@ public class CenterNewsAdapter extends RecyclerView.Adapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                JumpUtils.goWeb(item.getDetailsLink());
             }
         });
 

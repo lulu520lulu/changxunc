@@ -8,6 +8,13 @@ public interface CenterApiConstants {
     String LANGUAGE_PATH = "&language=";
     String CURRENCY_PATH = "&currency=";
     String BASE_URL = "http://d.hangxunc.com:8081";
+    String APP = "&app=app";
+
+
+
+    String HOME_SEARCH = "/scocenter/#/pages/search/search";
+    String HOME_MESSAGE = "/scocenter/#/pages/message/message";
+    String HOME_ME = "/scocenter/#/pages/user/user";
 
     //首页数据
     String HOME_DATA = "/hx-pc/appIndex/getIndex?";
@@ -44,8 +51,6 @@ public interface CenterApiConstants {
     //上合热点详情页面链接:
     String HOME_LISTNEWS_DETAIL = "/scocenter/#/pages/details/details?id=";
 
-    //1.搜索搜索页面链接:
-    String HOME_SEARCH = "/scocenter/#/pages/search/search";
 
     String HOME_SEARCH_DETAIL = "/hx-pc/tech/qyyfb/list?page=1&limit=4&queryValue=q&languageCode=zh-CN";
 
@@ -60,8 +65,6 @@ public interface CenterApiConstants {
     //判断用户是否登录
     String IS_CUSTOMER_LOGIN = "http://192.168.1.119:8081/hx-pc/appUser/isCustomerLogin?sco=TnpjPQ==";
 
-    //个人中心
-    String PERSON_CENTER = "/scocenter/#/pages/user/user";
 
     //发布技术页面
     String PUBLISH_ACHIEVEMENT = "/scocenter/#/pages/achievement/publish-achievement";

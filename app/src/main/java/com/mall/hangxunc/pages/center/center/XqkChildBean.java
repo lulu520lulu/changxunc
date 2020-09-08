@@ -89,6 +89,15 @@ public class XqkChildBean {
         private Object tempCreatorId;
         private String languageCode;
         private String countryName;
+        private String detailsLink;
+
+        public String getDetailsLink() {
+            return detailsLink;
+        }
+
+        public void setDetailsLink(String detailsLink) {
+            this.detailsLink = detailsLink;
+        }
 
         public long getId() {
             return id;

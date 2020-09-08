@@ -196,7 +196,7 @@ public interface StreetHangXunCService {
      * 检查登录状态
      */
     @GET(StreetApiConstants.IS_CUSTOMER_LOGIN)
-    Call<IsLoginBean> isCustomerLogin(@Query("sco") String sco);
+    Call<IsLoginBean> isCustomerLogin(@Query("sco") String sco,@Query("app") String app);
 
 
 }

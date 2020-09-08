@@ -2,6 +2,7 @@ package com.mall.hangxunc.pages.home.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,8 +77,8 @@ class MallTabRecycleAdapter extends RecyclerView.Adapter {
                         .placeholder(R.mipmap.place_image)
                         .bitmapTransform(new RoundedCorners(30));
                 String thumb = bean.getThumb();
-                if (!thumb.contains(ApiConstants.IMAGE_BASE_URL)) {
-                    thumb = ApiConstants.IMAGE_BASE_URL +"/"+ thumb;
+                if (!TextUtils.isEmpty(thumb) && !thumb.contains(ApiConstants.IMAGE_BASE_URL)) {
+                    thumb = ApiConstants.IMAGE_BASE_URL + "/" + thumb;
                 }
                 Glide.with(mContext)
                         .load(thumb)
@@ -89,7 +90,7 @@ class MallTabRecycleAdapter extends RecyclerView.Adapter {
                     public void onClick(View v) {
                         String href = bean.getHref();
                         if (!href.contains(ApiConstants.BASE_URL)) {
-                            href = ApiConstants.BASE_URL +"/"+ href;
+                            href = ApiConstants.BASE_URL + "/" + href;
                         }
                         JumpUtils.goWeb(href);
                     }

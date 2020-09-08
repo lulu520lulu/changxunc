@@ -27,10 +27,10 @@ import com.mall.hangxunc.bean.login.SmsCodeBean;
 import com.mall.hangxunc.bean.login.RegistInfo;
 import com.mall.hangxunc.bean.login.SmsCodeData;
 import com.mall.hangxunc.http.ApiConstants;
-import com.mall.hangxunc.http.HangXunBiz;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.loading.LoadingView;
 import com.mall.hangxunc.mvp.BaseFragment;
+import com.mall.hangxunc.pages.street.http.StreetHangXunBiz;
 import com.mall.hangxunc.pages.widget.BottomView;
 import com.mall.hangxunc.utils.HangLog;
 import com.mall.hangxunc.utils.ToastUtils;
@@ -231,7 +231,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
 
     private void getSmsCode() {
         showLoading();
-        HangXunBiz.getInstance().smsCode(getCellCode(), phoneEdit.getText().toString(),
+        StreetHangXunBiz.getInstance().smsCode(getCellCode(), phoneEdit.getText().toString(),
                 new ResponseListener<SmsCodeData>() {
                     @Override
                     public void onFail(int code, String message) {
@@ -388,7 +388,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> {
         showLoading();
 
 
-        HangXunBiz.getInstance().regist(type, email, getCellCode(),
+        StreetHangXunBiz.getInstance().regist(type, email, getCellCode(),
                 telephone, smsCode, password, rePassword, newsletter, agree,
                 new ResponseListener<RegistInfo>() {
                     @Override

@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 public interface StreetApiConstants {
 
     int LIMIT = 6;
+    String APP = "&app=app";
 
     String IS_CUSTOMER_LOGIN = "/index.php?route=api/ioslink/isCustomerLogin";
 

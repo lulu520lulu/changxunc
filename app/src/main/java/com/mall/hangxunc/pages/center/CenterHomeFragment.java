@@ -162,7 +162,7 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
     }
 
     private void goSearch() {
-
+        ((CenterHomeActivity) getActivity()).setSelect(1);
     }
 
     private void showCity() {
@@ -273,9 +273,7 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(bean.getUrlPath())) {
-                    JumpUtils.goWeb(bean.getUrlPath());
-                }
+                JumpUtils.goWeb(bean.getUrlPath());
             }
         });
         dataContainer.addView(view, params);
@@ -570,11 +568,9 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         //在布局文件中使用指示器，这样更灵活
         banner.setIndicator(indicator, false);
 
-
         banner.isAutoLoop(true);
         banner.setIndicatorGravity(IndicatorConfig.Direction.LEFT);
         banner.setAdapter(new CenterBannerImageAdapter(getActivity(), data));
-//                banner.setIndicator(new RectangleIndicator(this));
 
         banner.setIndicatorSelectedWidth((int) BannerUtils.dp2px(12));
         banner.setIndicatorNormalWidth((int) BannerUtils.dp2px(6));
@@ -583,9 +579,7 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         banner.setIndicatorHeight((int) BannerUtils.dp2px(6));
         banner.setIndicatorSelectedColorRes(R.color.white);
         banner.setIndicatorNormalColorRes(R.color.white_40);
-//                banner.setIndicatorMargins(new IndicatorConfig.Margins(DimenUtils.px2dip(15), 0, 0, DimenUtils.px2dip(74)));
         banner.setIndicatorRadius(30);
-
 
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
@@ -595,7 +589,7 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
                 }
                 BannerBean bannersBean = data.get(position);
                 if (bannersBean != null && !TextUtils.isEmpty(bannersBean.getImgPath())) {
-                    JumpUtils.goWeb(CenterApiConstants.BASE_URL + bannersBean.getImgPath());
+                    JumpUtils.goWeb(bannersBean.getImgPath());
                 }
             }
         });

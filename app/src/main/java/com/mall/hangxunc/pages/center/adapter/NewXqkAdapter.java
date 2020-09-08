@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.pages.center.center.XqkChildBean;
 import com.mall.hangxunc.utils.DimenUtils;
+import com.mall.hangxunc.utils.JumpUtils;
 
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class NewXqkAdapter extends RecyclerView.Adapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                JumpUtils.goWeb(item.getDetailsLink());
             }
         });
         if ((position + 1) == mData.size()) {

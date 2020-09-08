@@ -87,10 +87,7 @@ public class CenterNavBarAdapter extends RecyclerView.Adapter {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String href = bean.getUrlPath();
-                        if (!TextUtils.isEmpty(href)) {
-                            JumpUtils.goWeb(href);
-                        }
+                        JumpUtils.goWeb(bean.getUrlPath());
                     }
                 });
                 viewHolder.image_container.addView(imageView, params);
