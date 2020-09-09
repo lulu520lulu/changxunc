@@ -10,9 +10,9 @@ public interface CenterApiConstants {
     String BASE_URL = "http://d.hangxunc.com:8081";
     String APP = "&app=app";
     //H5
-    String HOME_SEARCH = "/scocenter/#/pages/search/search";
-    String HOME_MESSAGE = "/scocenter/#/pages/message/message";
-    String HOME_ME = "/scocenter/#/pages/user/user";
+    String HOME_SEARCH = "/scocenter/#/pages/search/search?";
+    String HOME_MESSAGE = "/scocenter/#/pages/message/message?";
+    String HOME_ME = "/scocenter/#/pages/user/user?";
     //首页数据
     String HOME_DATA = "/hx-pc/appIndex/getIndex?";
 

@@ -51,7 +51,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/mall_gray_bg"
             android:scaleType="center"
-            android:src="@mipmap/icon_shop_cart" />
+            android:src="@mipmap/street_icon_shop_cart" />
 
 
         <ImageView

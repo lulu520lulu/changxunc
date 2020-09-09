@@ -143,4 +143,6 @@
     <string name="center_type">belongs to the type:</string>
     <string name="center_see_more_detail">view requirements</string>
     <string name="list_foot">loading...</string>
+    <string name="street_banner_title">Featured Supplier</string>
+
 </resources>

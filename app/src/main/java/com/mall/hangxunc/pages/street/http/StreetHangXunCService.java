@@ -10,6 +10,7 @@ import com.mall.hangxunc.bean.home.LanguageListData;
 import com.mall.hangxunc.bean.home.ModulesListData;
 import com.mall.hangxunc.bean.home.ProductListBean;
 import com.mall.hangxunc.bean.home.SearchResultData;
+import com.mall.hangxunc.bean.home.StreetAllProductBean;
 import com.mall.hangxunc.bean.login.LoginData;
 import com.mall.hangxunc.bean.login.RegistInfo;
 import com.mall.hangxunc.bean.login.SmsCodeData;
@@ -39,8 +40,8 @@ public interface StreetHangXunCService {
      */
     @POST(StreetApiConstants.GET_ALL_PRODUCT_MOBILE_PATH)
     @FormUrlEncoded
-    Call<ProductListBean> getAllProduct(@Field("sco") String custom_id, @Field("count") int count,
-                                        @Field("limit") int limit, @Field("language") String language, @Field("currency") String currency);
+    Call<StreetAllProductBean> getAllProduct(@Field("sco") String custom_id, @Field("count") int count,
+                                             @Field("limit") int limit, @Field("language") String language, @Field("currency") String currency);
 
     /**
      * 首页添加购物车

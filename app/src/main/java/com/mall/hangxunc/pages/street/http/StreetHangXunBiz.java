@@ -11,6 +11,7 @@ import com.mall.hangxunc.bean.home.LanguageListData;
 import com.mall.hangxunc.bean.home.ModulesListData;
 import com.mall.hangxunc.bean.home.ProductListBean;
 import com.mall.hangxunc.bean.home.SearchResultData;
+import com.mall.hangxunc.bean.home.StreetAllProductBean;
 import com.mall.hangxunc.bean.login.LoginData;
 import com.mall.hangxunc.bean.login.RegistInfo;
 import com.mall.hangxunc.bean.login.SmsCodeData;
@@ -87,7 +88,7 @@ public class StreetHangXunBiz {
      */
     public void getAllProduct(int count, ResponseListener listener) {
         StreetHangXunCService service = getPostRetrofit().create(StreetHangXunCService.class);
-        Call<ProductListBean> call = service.getAllProduct(LoginUtils.getInstance().getScoId(), count, StreetApiConstants.LIMIT,
+        Call<StreetAllProductBean> call = service.getAllProduct(LoginUtils.getInstance().getScoId(), count, StreetApiConstants.LIMIT,
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }

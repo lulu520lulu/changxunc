@@ -142,4 +142,7 @@
     <string name="center_type">所属类型：</string>
     <string name="center_see_more_detail">查看需求</string>
     <string name="list_foot">加载中...</string>
+
+    <string name="street_banner_title">精选供应商</string>
+
 </resources>

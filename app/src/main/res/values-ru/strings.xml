@@ -142,5 +142,7 @@
     <string name="center_type">принадлежит к типу:</string>
     <string name="center_see_more_detail">просмотреть требования</string>
     <string name="list_foot">загрузка ...</string>
+    <string name="street_banner_title">Рекомендуемый поставщик</string>
+
 
 </resources>

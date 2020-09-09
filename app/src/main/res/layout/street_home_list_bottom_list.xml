@@ -22,7 +22,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/home_all_product" />
+            android:src="@mipmap/street_home_all_product" />
 
         <TextView
             android:id="@+id/product_text"

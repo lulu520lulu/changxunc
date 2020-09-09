@@ -28,6 +28,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
+            android:text="@string/street_banner_title"
             android:textColor="@color/street_main_text"
             android:textSize="@dimen/street_main_tab_text_size" />
 

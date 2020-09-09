@@ -196,7 +196,11 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
             return;
         }
         BannerViewHolder holder = (BannerViewHolder) viewHolder;
-        holder.product_text.setText(bean.getTitle());
+        if (TextUtils.isEmpty(bean.getTitle())) {
+            holder.product_text.setText(mContext.getResources().getText(R.string.street_banner_title));
+        } else {
+            holder.product_text.setText(bean.getTitle());
+        }
         holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
         StreetBannerAdapter adapter = new StreetBannerAdapter(mContext, list);
         holder.product_recycle.setAdapter(adapter);
@@ -359,7 +363,7 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
             }
         });
         holder.product_text.setText(bean.getHeading_title());
-        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
+        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         StreetPostRecycleAdapter recycleAdapter = new StreetPostRecycleAdapter(mContext, posts);
         holder.product_recycle.setAdapter(recycleAdapter);
     }

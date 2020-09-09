@@ -25,6 +25,8 @@ import com.mall.hangxunc.bean.home.ModulesListBean;
 import com.mall.hangxunc.bean.home.ModulesListData;
 import com.mall.hangxunc.bean.home.ProductBean;
 import com.mall.hangxunc.bean.home.ProductListBean;
+import com.mall.hangxunc.bean.home.StreetAllProductBean;
+import com.mall.hangxunc.bean.home.StreetAllProductData;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.message.MessageHome;
 import com.mall.hangxunc.message.MessageLocal;
@@ -190,7 +192,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private int mProductCount = 0;
 
     private void getBottomData(List<ModulesBean> modules) {
-        StreetHangXunBiz.getInstance().getAllProduct(mProductCount, new ResponseListener<ProductListBean>() {
+        StreetHangXunBiz.getInstance().getAllProduct(mProductCount, new ResponseListener<StreetAllProductBean>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getBottomData code: " + code + ",message:" + message);
@@ -198,12 +200,13 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
             }
 
             @Override
-            public void onSuccess(ProductListBean bean) {
+            public void onSuccess(StreetAllProductBean data) {
                 HangLog.d(TAG, "onSuccess getBottomData ");
-                if (bean == null) {
+                if (data == null || data.getData() == null) {
                     setData(modules);
                     return;
                 }
+                StreetAllProductData bean = data.getData();
                 List<ProductBean> list = bean.getProducts();
                 if (list == null || list.size() == 0) {
                     setData(modules);
@@ -218,7 +221,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private void getMoreBottomData() {
         mProductCount++;
 //        showLoading();
-        StreetHangXunBiz.getInstance().getAllProduct(mProductCount, new ResponseListener<ProductListBean>() {
+        StreetHangXunBiz.getInstance().getAllProduct(mProductCount, new ResponseListener<StreetAllProductBean>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getMoreBottomData code: " + code + ",message:" + message);
@@ -226,12 +229,13 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
             }
 
             @Override
-            public void onSuccess(ProductListBean bean) {
+            public void onSuccess(StreetAllProductBean data) {
                 HangLog.d(TAG, "onSuccess getMoreBottomData ");
 //                hideLoading();
-                if (bean == null) {
+                if (data == null || data.getData() == null) {
                     return;
                 }
+                StreetAllProductData bean = data.getData();
                 List<ProductBean> list = bean.getProducts();
                 if (list == null || list.size() == 0) {
                     return;
