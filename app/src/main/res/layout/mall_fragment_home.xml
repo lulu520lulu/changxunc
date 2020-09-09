@@ -1,135 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mall_main_bg"
-    android:orientation="vertical">
+    android:background="@color/mall_main_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/mall_main_bg"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/top_view"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/mall_home_search_bg"
-                android:clickable="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
 
-                <TextView
-                    android:id="@+id/tv_search"
+                <FrameLayout
+                    android:id="@+id/search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/mall_home_search_bg"
+                    android:clickable="true">
+
+                    <TextView
+                        android:id="@+id/tv_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:clickable="false"
+                        android:drawableLeft="@mipmap/icon_home_top_search"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="@string/home_top_search_hint"
+                        android:textColor="@color/mall_home_top_search_text"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/search_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical|right"
+                        android:background="@drawable/mall_top_search_btn_bg"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="@string/tab_search"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/start_person"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_home_person"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/start_change"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/mall_change_identity_home_icon"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:id="@+id/login_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:clickable="false"
-                    android:drawableLeft="@mipmap/icon_home_top_search"
-                    android:drawablePadding="8dp"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="@string/home_top_search_hint"
-                    android:textColor="@color/mall_home_top_search_text"
-                    android:textSize="14sp" />
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/search_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|right"
-                    android:background="@drawable/mall_top_search_btn_bg"
-                    android:clickable="false"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:text="@string/tab_search"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-            </FrameLayout>
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="false"
+                        android:includeFontPadding="false"
+                        android:text="a*"
+                        android:textColor="@color/mall_main_text"
+                        android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/start_person"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/icon_home_person"
-                android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/more"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="4dp"
+                        android:layout_toRightOf="@+id/name"
+                        android:scaleType="center"
+                        android:src="@mipmap/person_center_more" />
+                </RelativeLayout>
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/start_change"
-                android:layout_width="40dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/mall_change_identity_home_icon"
-                android:visibility="visible" />
-
-            <RelativeLayout
-                android:id="@+id/login_person"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/type_list"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="false"
-                    android:includeFontPadding="false"
-                    android:text="a*"
-                    android:textColor="@color/mall_main_text"
-                    android:textSize="14sp" />
+                    android:layout_weight="1" />
 
                 <ImageView
-                    android:id="@+id/more"
-                    android:layout_width="8dp"
-                    android:layout_height="5dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="4dp"
-                    android:layout_toRightOf="@+id/name"
-                    android:scaleType="center"
-                    android:src="@mipmap/person_center_more" />
-            </RelativeLayout>
+                    android:id="@+id/go_type"
+                    android:layout_width="20dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_home_type" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <com.mall.hangxunc.web.HangXunWebView
+            android:id="@+id/webview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/type_list"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
 
-            <ImageView
-                android:id="@+id/go_type"
-                android:layout_width="20dp"
-                android:layout_height="14dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/icon_home_type" />
-        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/mall_main_bg" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -173,18 +194,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-
-    <com.mall.hangxunc.web.HangXunWebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/mall_main_bg" />
-
-</LinearLayout>
+</FrameLayout>

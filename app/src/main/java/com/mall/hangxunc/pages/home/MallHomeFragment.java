@@ -86,6 +86,8 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
     TextView name;
     @BindView(R.id.start_change)
     ImageView start_change;
+    @BindView(R.id.top_view)
+    LinearLayout top_view;
 
     private MallHomePresenter mMallHomePresenter;
     private MallHomeListAdapter mListAdapter;
@@ -287,18 +289,18 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
 
     private void getMoreBottomData() {
         mProductCount++;
-//        showLoading();
+//        loadingView.setVisibility(View.VISIBLE);
         HangXunBiz.getInstance().getAllProduct(mProductCount, new ResponseListener<ProductListBean>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getMoreBottomData code: " + code + ",message:" + message);
-//                hideLoading();
+//                loadingView.setVisibility(View.GONE);
             }
 
             @Override
             public void onSuccess(ProductListBean bean) {
                 HangLog.d(TAG, "onSuccess getMoreBottomData ");
-//                hideLoading();
+//                loadingView.setVisibility(View.GONE);
                 if (bean == null) {
                     return;
                 }
@@ -312,12 +314,12 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
     }
 
     private void setData(List<ModulesBean> modules) {
-        hideLoading();
+        showSuccess();
         mListAdapter.setTopData(modules);
     }
 
     private void setData(List<ModulesBean> modules, List<ProductBean> list) {
-        hideLoading();
+        showSuccess();
         mListAdapter.setAllData(modules, list);
     }
 
@@ -329,15 +331,17 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
         empty_view.setVisibility(View.GONE);
         bottomView.setVisibility(View.GONE);
         go_type.setVisibility(View.GONE);
+        top_view.setVisibility(View.GONE);
     }
 
-    private void hideLoading() {
+    private void showSuccess() {
         HangLog.d(TAG, "showLoading ");
         loadingView.setVisibility(View.GONE);
         bottomView.setVisibility(View.VISIBLE);
         type_list.setVisibility(View.VISIBLE);
         recycleView.setVisibility(View.VISIBLE);
         go_type.setVisibility(View.VISIBLE);
+        top_view.setVisibility(View.VISIBLE);
 
     }
 
@@ -349,6 +353,7 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
         empty_view.setVisibility(View.VISIBLE);
         bottomView.setVisibility(View.VISIBLE);
         go_type.setVisibility(View.GONE);
+        top_view.setVisibility(View.GONE);
     }
 
 

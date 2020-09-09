@@ -23,6 +23,7 @@ import com.mall.hangxunc.http.ApiConstants;
 import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.banner.ImageAdapter;
 import com.mall.hangxunc.utils.DimenUtils;
+import com.mall.hangxunc.utils.HangLog;
 import com.mall.hangxunc.utils.JumpUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.config.BannerConfig;
@@ -42,10 +43,12 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
     private static final String ITEM_MODULE_TYPE = "category_module";
     private static final String TABS_MODULE_TYPE = "tab_product_advertising";
     private static final String SPECIAL_MODULE_TYPE = "special";
+    private static final String LOADING_FOOT_MODULE_TYPE = "loading_foot";
+
     private static final String BOTTOM_MODULE_TYPE = "bottom";
     private static final String PRODUCT_MODULE_TYPE = "product";
 
-    private static final int ITEM_TYPE_DEFAULT = 0;
+    private static final int ITEM_LOADING_FOOT = 10;
     private static final int ITEM_TYPE_BANNER = 1;
     private static final int ITEM_TYPE_ITEM = 2;
     private static final int ITEM_TYPE_SPECIAL = 3;
@@ -77,9 +80,11 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
                 return ITEM_TYPE_BOTTOM;
             } else if (TextUtils.equals(bean.getModule_type(), PRODUCT_MODULE_TYPE)) {
                 return ITEM_TYPE_PRODUCT;
+            } else if (TextUtils.equals(bean.getModule_type(), LOADING_FOOT_MODULE_TYPE)) {
+                return ITEM_LOADING_FOOT;
             }
         }
-        return ITEM_TYPE_DEFAULT;
+        return ITEM_TYPE_PRODUCT;
     }
 
     public MallHomeListAdapter(Activity mContext) {
@@ -89,9 +94,11 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
     public void setTopData(List<ModulesBean> data) {
         mData.clear();
         mData.addAll(data);
+
         ModulesBean bean = new ModulesBean();
         bean.setModule_type(BOTTOM_MODULE_TYPE);
         mData.add(bean);
+
         notifyDataSetChanged();
     }
 
@@ -101,14 +108,17 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
 
         ModulesBean product = new ModulesBean();
         product.setModule_type(PRODUCT_MODULE_TYPE);
-
         product.setBottomProducts(data);
         mData.add(product);
 
+        ModulesBean beanFoot = new ModulesBean();
+        beanFoot.setModule_type(LOADING_FOOT_MODULE_TYPE);
+        mData.add(beanFoot);
+
         ModulesBean bean = new ModulesBean();
         bean.setModule_type(BOTTOM_MODULE_TYPE);
-
         mData.add(bean);
+
         notifyDataSetChanged();
     }
 
@@ -117,8 +127,9 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
         product.setModule_type(PRODUCT_MODULE_TYPE);
         product.setSubtitle("more");
         product.setBottomProducts(data);
-        mData.add(mData.size() - 1, product);
+        mData.add(mData.size() - 2, product);
         notifyDataSetChanged();
+        isLoading = false;
     }
 
     @NonNull
@@ -144,6 +155,9 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
             case ITEM_TYPE_TAB:
                 view = LayoutInflater.from(mContext).inflate(R.layout.mall_home_list_tabs, parent, false);
                 return new MallHomeListAdapter.TabsViewHolder(view);
+            case ITEM_LOADING_FOOT:
+                view = LayoutInflater.from(mContext).inflate(R.layout.mall_home_list_foot, parent, false);
+                return new MallHomeListAdapter.FootViewHolder(view);
         }
         return null;
     }
@@ -171,6 +185,22 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
             case ITEM_TYPE_TAB:
                 handleTabs(holder, bean);
                 break;
+            case ITEM_LOADING_FOOT:
+                handleFoot(holder, bean);
+                break;
+        }
+    }
+
+    private void handleFoot(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
+        if (viewHolder == null || !(viewHolder instanceof FootViewHolder)) {
+            return;
+        }
+        FootViewHolder holder = (FootViewHolder) viewHolder;
+
+        if (isLoading) {
+            holder.itemView.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemView.setVisibility(View.GONE);
         }
     }
 
@@ -251,13 +281,12 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                loadMore(recyclerView);
             }
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                loadMore(recyclerView);
+                loadMore(recyclerView, bean.getBottomProducts());
             }
         });
     }
@@ -272,14 +301,38 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
         this.mLoadMoreListener = mLoadMoreListener;
     }
 
-    private void loadMore(RecyclerView recyclerView) {
-        boolean isLoadMore = recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
-                >= recyclerView.computeVerticalScrollRange();
-        if (isLoadMore) {
-            if (mLoadMoreListener != null) {
-                mLoadMoreListener.handleLoadMore();
+    private boolean isLoading = false;
+
+    private void loadMore(RecyclerView recyclerView, List<ProductBean> list) {
+        if (recyclerView == null) {
+            return;
+        }
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        if (linearLayoutManager == null) {
+            return;
+        }
+        HangLog.d("LULU", "linearLayoutManager.findLastCompletelyVisibleItemPosition():" + linearLayoutManager.findLastCompletelyVisibleItemPosition());
+        HangLog.d("LULU", "mData.size() - 1:" + (list.size() - 1));
+        if (!isLoading) {
+
+
+            if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == (list.size() - 1)) {
+                //bottom of list!
+                if (mLoadMoreListener != null) {
+                    mLoadMoreListener.handleLoadMore();
+                }
+                isLoading = true;
             }
         }
+
+
+//        boolean isLoadMore = recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+//                >= recyclerView.computeVerticalScrollRange();
+//        if (isLoadMore) {
+//            if (mLoadMoreListener != null) {
+//                mLoadMoreListener.handleLoadMore();
+//            }
+//        }
 
     }
 
@@ -397,6 +450,15 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
         public TabsViewHolder(View view) {
             super(view);
             recycleView = view.findViewById(R.id.recycleView);
+        }
+    }
+
+    public class FootViewHolder extends RecyclerView.ViewHolder {
+        private TextView footView;
+
+        public FootViewHolder(View view) {
+            super(view);
+            footView = view.findViewById(R.id.foot_view);
         }
     }
 }
