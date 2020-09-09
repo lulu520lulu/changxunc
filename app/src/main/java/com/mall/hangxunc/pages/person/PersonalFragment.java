@@ -83,7 +83,6 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
             @Override
             public void showPersion(String customId) {
-//                startSendLoginMessage();
                 initWebData(customId);
             }
         });
@@ -146,10 +145,14 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         if (mWebContainer.getVisibility() == View.GONE) {
             mWebContainer.setVisibility(View.VISIBLE);
         }
-        String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId +
-                ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
+        showWeb(customId);
+    }
+
+    private void showWeb(String customId) {
+        String url = ApiConstants.BASE_URL + ApiConstants.ACCOUNT_PAGE_PATH + customId
+                + ApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
                 + ApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode();
-        if (TextUtils.isEmpty(url)) {
+        if (mWebContainer == null) {
             return;
         }
         mWebContainer.loadUrl(url);
@@ -243,7 +246,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
         } else if (TextUtils.equals(message.message, MessageLocal.LANGUAGE_CHANGE)) {
             if (LoginUtils.getInstance().isLogin()) {
-                mWebContainer.reload();
+                showWeb(LoginUtils.getInstance().getScoId());
             }
         }
     }

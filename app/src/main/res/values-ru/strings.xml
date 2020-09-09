@@ -18,6 +18,13 @@
         <item>Членский центр</item>
     </string-array>
 
+
+    <string-array name="center_main_tab">
+        <item>Первая страница</item>
+        <item>Поиск</item>
+        <item>Новости</item>
+        <item>Членский центр</item>
+    </string-array>
     <string name="tryagainBack">Нажмите еще раз для выхода из программы</string>
 
 
@@ -111,5 +118,29 @@
     <string name="english">อังกฤษ</string>
     <string name="thailand">ประเทศไทย</string>
     <string name="change_language">เปลี่ยนภาษา</string>
+
+
+    <string name="mall_identity_message">ваша текущая личность</string>
+    <string name="mall_identity_personal">отдельные пользователи</string>
+    <string name="change_company_identity">переключиться на корпоративных пользователей</string>
+    <string name="back">return</string>
+    <string name="mall_jump">пропустить</string>
+    <string name="commany_identity">корпоративные пользователи</string>
+    <string name="person_identity">отдельные пользователи</string>
+    <string name="commany_certification">сертификация предприятия</string>
+    <string name="change_person_identity">переключиться на отдельных пользователей</string>
+
+    <string name="center_home_waring">Влияют вместе, детали политики въезда для стран и регионов</string>
+    <string name="home_cheng_guo">Продвижение достижений</string>
+    <string name="home_big_share">совместное использование большого инструмента</string>
+    <string name="center_home_big_check">контрольно-испытательное оборудование</string>
+    <string name="center_home_big_yan">Оборудование для исследований и разработок</string>
+    <string name="center_icon_home_new_ji">последние технические требования</string>
+    <string name="center_icon_home_active">последнее действие</string>
+    <string name="center_icon_home_hot">Горячая точка SCO</string>
+    <string name="center_ying">Поле приложения:</string>
+    <string name="center_type">принадлежит к типу:</string>
+    <string name="center_see_more_detail">просмотреть требования</string>
+    <string name="list_foot">загрузка ...</string>
 
 </resources>

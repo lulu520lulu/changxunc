@@ -27,6 +27,7 @@ import com.mall.hangxunc.message.MessageLogin;
 import com.mall.hangxunc.pages.login.WebLoginInterface;
 import com.mall.hangxunc.utils.CurrencySp;
 import com.mall.hangxunc.utils.CurrencyType;
+import com.mall.hangxunc.utils.HangLog;
 import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LoginUtils;
 
@@ -120,6 +121,7 @@ public class HangXunWebView extends LinearLayout {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                HangLog.e("lulu", "url:" + url);
                 if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=account/logout")) {
                     LoginUtils.getInstance().loginOut();
                     EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_OUT));
@@ -141,10 +143,6 @@ public class HangXunWebView extends LinearLayout {
                         EventBus.getDefault().post(new MessageGoLogin(MessageGoLogin.GO_LOGIN));
                         return true;
                     }
-                } else if (TextUtils.equals(url, "http://b.hangxunc.com/")) {
-                    JumpUtils.goStreet(getContext());
-                } else if (TextUtils.equals(url, "http://d.hangxunc.com:8081/scocenter/#/")) {
-                    JumpUtils.goCenter(getContext());
                 }
 
                 return false;
@@ -152,6 +150,8 @@ public class HangXunWebView extends LinearLayout {
 
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                HangLog.e("lulu", "url:" + url);
+
                 view.loadUrl("javascript:bottomTabMenu()");
                 if (!url.contains(ApiConstants.CART_PAGE_PATH)
                         && !url.contains(ApiConstants.ACCOUNT_PAGE_PATH)) {

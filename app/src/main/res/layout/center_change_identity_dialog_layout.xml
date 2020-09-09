@@ -51,11 +51,13 @@
         <TextView
             android:id="@+id/change_person_identity"
             android:layout_width="168dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/street_blue_bg"
             android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:text="@string/change_person_identity"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -63,11 +65,13 @@
         <TextView
             android:id="@+id/back"
             android:layout_width="168dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:background="@drawable/street_write_gray_line_bg"
             android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:text="@string/back"
             android:textColor="@color/center_content_text"
             android:textSize="16sp" />

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.mvp.BaseFragment;
-import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.center.http.CenterApiConstants;
 import com.mall.hangxunc.utils.HangLog;
 import com.mall.hangxunc.utils.LanguageSp;
@@ -19,7 +18,7 @@ import com.mall.hangxunc.web.HangXunWebView;
 public class CenterSearchFragment extends BaseFragment<CenterSearchPresenter> {
 
     private static final String TAG = CenterSearchFragment.class.getSimpleName();
-    private CountDownTimer mTimer;
+//    private CountDownTimer mTimer;
 
     private CenterSearchPresenter mShopCarPresenter;
     private HangXunWebView mWebContainer;
@@ -39,12 +38,8 @@ public class CenterSearchFragment extends BaseFragment<CenterSearchPresenter> {
 
     private void initView(View view) {
         mWebContainer = view.findViewById(R.id.web_container);
-        if (!LoginUtils.getInstance().isLogin()) {
-            mWebContainer.setVisibility(View.GONE);
-        } else {
-            mWebContainer.setVisibility(View.VISIBLE);
-            showWeb();
-        }
+        mWebContainer.setVisibility(View.VISIBLE);
+        showWeb();
 
     }
 
@@ -62,32 +57,32 @@ public class CenterSearchFragment extends BaseFragment<CenterSearchPresenter> {
         super.onDestroyViewImpl();
     }
 
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            if (!LoginUtils.getInstance().isLogin()) {
-                mTimer = new CountDownTimer(300, 100) {
-
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        ((MainActivity) getActivity()).setSelect(4);
-                    }
-                };
-                mTimer.start();
-            }
-        } else {
-            if (mTimer != null) {
-                mTimer.cancel();
-                mTimer = null;
-            }
-        }
-    }
+//
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (getUserVisibleHint()) {
+//            if (!LoginUtils.getInstance().isLogin()) {
+//                mTimer = new CountDownTimer(300, 100) {
+//
+//                    @Override
+//                    public void onTick(long millisUntilFinished) {
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        ((MainActivity) getActivity()).setSelect(4);
+//                    }
+//                };
+//                mTimer.start();
+//            }
+//        } else {
+//            if (mTimer != null) {
+//                mTimer.cancel();
+//                mTimer = null;
+//            }
+//        }
+//    }
 
 
     @Override

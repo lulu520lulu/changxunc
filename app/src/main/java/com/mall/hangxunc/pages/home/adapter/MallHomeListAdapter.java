@@ -311,29 +311,14 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
         if (linearLayoutManager == null) {
             return;
         }
-        HangLog.d("LULU", "linearLayoutManager.findLastCompletelyVisibleItemPosition():" + linearLayoutManager.findLastCompletelyVisibleItemPosition());
-        HangLog.d("LULU", "mData.size() - 1:" + (list.size() - 1));
         if (!isLoading) {
-
-
             if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == (list.size() - 1)) {
-                //bottom of list!
                 if (mLoadMoreListener != null) {
                     mLoadMoreListener.handleLoadMore();
                 }
                 isLoading = true;
             }
         }
-
-
-//        boolean isLoadMore = recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
-//                >= recyclerView.computeVerticalScrollRange();
-//        if (isLoadMore) {
-//            if (mLoadMoreListener != null) {
-//                mLoadMoreListener.handleLoadMore();
-//            }
-//        }
-
     }
 
     private void handleBannerTop(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {

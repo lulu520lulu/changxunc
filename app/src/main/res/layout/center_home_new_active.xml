@@ -54,7 +54,6 @@
         android:id="@+id/product_recycle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/center_home_padding"
-        android:paddingRight="@dimen/center_home_padding" />
+        android:paddingLeft="@dimen/center_home_padding" />
 
 </LinearLayout>

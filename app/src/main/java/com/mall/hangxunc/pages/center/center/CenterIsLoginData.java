@@ -81,7 +81,7 @@ public class CenterIsLoginData {
         private long createDate;
         private String customerId;
         private String username;
-        private Object enterpriseName;
+        private String enterpriseName;
         private String password;
         private String realName;
         private String headUrl;
@@ -139,11 +139,11 @@ public class CenterIsLoginData {
             this.username = username;
         }
 
-        public Object getEnterpriseName() {
+        public String getEnterpriseName() {
             return enterpriseName;
         }
 
-        public void setEnterpriseName(Object enterpriseName) {
+        public void setEnterpriseName(String enterpriseName) {
             this.enterpriseName = enterpriseName;
         }
 

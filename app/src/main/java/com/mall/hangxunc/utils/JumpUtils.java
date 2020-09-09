@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.mall.hangxunc.HangXunApplication;
 import com.mall.hangxunc.bean.home.PostsBean;
 import com.mall.hangxunc.http.ApiConstants;
 import com.mall.hangxunc.pages.MainActivity;
@@ -25,7 +26,18 @@ public class JumpUtils {
     public static void goWeb(String url) {
         if (TextUtils.isEmpty(url)) {
             return;
+        } else if (TextUtils.equals(url, "http://b.hangxunc.com/")) {
+            JumpUtils.goStreet(HangXunApplication.getInstance());
+            return;
+        } else if (TextUtils.equals(url, "http://d.hangxunc.com:8081/scocenter/#/")) {
+            JumpUtils.goCenter(HangXunApplication.getInstance());
+            return;
+        } else if (TextUtils.equals(url, "http://c.hangxunc.com/")) {
+            JumpUtils.goMall(HangXunApplication.getInstance());
+            return;
         }
+
+
         if (url.indexOf("amp;") > -1) {
             url = url.replace("amp;", "");
         }
@@ -62,6 +74,7 @@ public class JumpUtils {
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
     public static void goMall(Context context) {
         if (context == null) {
             return;

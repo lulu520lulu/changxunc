@@ -29,7 +29,7 @@ public class CenterMessageFragment extends BaseFragment<CenterMessagePresenter> 
 
     private static final String TAG = CenterMessageFragment.class.getSimpleName();
 
-    private CountDownTimer mTimer;
+//    private CountDownTimer mTimer;
 
     private CenterMessagePresenter mShopCarPresenter;
     private HangXunWebView mWebContainer;
@@ -49,12 +49,12 @@ public class CenterMessageFragment extends BaseFragment<CenterMessagePresenter> 
 
     private void initView(View view) {
         mWebContainer = view.findViewById(R.id.web_container);
-        if (!LoginUtils.getInstance().isLogin()) {
-            mWebContainer.setVisibility(View.GONE);
-        } else {
-            mWebContainer.setVisibility(View.VISIBLE);
-            showWeb();
-        }
+//        if (!LoginUtils.getInstance().isLogin()) {
+//            mWebContainer.setVisibility(View.GONE);
+//        } else {
+        mWebContainer.setVisibility(View.VISIBLE);
+        showWeb();
+//        }
 
     }
 
@@ -74,31 +74,31 @@ public class CenterMessageFragment extends BaseFragment<CenterMessagePresenter> 
     }
 
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            if (!LoginUtils.getInstance().isLogin()) {
-                mTimer = new CountDownTimer(300, 100) {
-
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        ((MainActivity) getActivity()).setSelect(4);
-                    }
-                };
-                mTimer.start();
-            }
-        } else {
-            if (mTimer != null) {
-                mTimer.cancel();
-                mTimer = null;
-            }
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (getUserVisibleHint()) {
+//            if (!LoginUtils.getInstance().isLogin()) {
+//                mTimer = new CountDownTimer(300, 100) {
+//
+//                    @Override
+//                    public void onTick(long millisUntilFinished) {
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        ((MainActivity) getActivity()).setSelect(4);
+//                    }
+//                };
+//                mTimer.start();
+//            }
+//        } else {
+//            if (mTimer != null) {
+//                mTimer.cancel();
+//                mTimer = null;
+//            }
+//        }
+//    }
 
 
     @Override

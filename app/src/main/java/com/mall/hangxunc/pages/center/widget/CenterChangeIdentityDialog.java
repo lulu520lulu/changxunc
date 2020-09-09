@@ -35,6 +35,28 @@ public class CenterChangeIdentityDialog extends Dialog implements View.OnClickLi
 
         TextView back = (TextView) rootView.findViewById(R.id.back);
         mChangeIdentity = (TextView) rootView.findViewById(R.id.change_person_identity);
+        TextView identity_text = rootView.findViewById(R.id.identity_text);
+
+        if (mData == null || mData.getUser() == null) {
+            dismiss();
+            return;
+        }
+        CenterIsLoginData.UserBean user = mData.getUser();
+        if (user.getEnterpriseStatus() == 1) {
+            //企业
+            identity_text.setText(user.getEnterpriseName());
+            mChangeIdentity.setText(R.string.change_person_identity);
+
+            back.setText(R.string.back);
+        } else {
+            //个人
+            identity_text.setText(user.getUsername());
+
+            mChangeIdentity.setText(R.string.commany_certification);
+
+            back.setText(R.string.commany_certification);
+        }
+
 
         back.setOnClickListener(this);
         mChangeIdentity.setOnClickListener(this);
@@ -50,6 +72,15 @@ public class CenterChangeIdentityDialog extends Dialog implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
+
+                CenterIsLoginData.UserBean user = mData.getUser();
+                if (user.getEnterpriseStatus() == 1) {
+                    //企业
+                } else {
+                    //个人
+                    JumpUtils.goWeb(mData.getEnterpriseLink());
+                }
+
                 break;
             case R.id.change_person_identity:
                 changeIdentity();
@@ -60,6 +91,6 @@ public class CenterChangeIdentityDialog extends Dialog implements View.OnClickLi
 
 
     private void changeIdentity() {
-        JumpUtils.goStreet(getContext());
+        JumpUtils.goMall(getContext());
     }
 }

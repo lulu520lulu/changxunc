@@ -32,7 +32,7 @@ public class NewActivityAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.center_new_active_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.center_home_new_active_item, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
@@ -47,6 +47,8 @@ public class NewActivityAdapter extends RecyclerView.Adapter {
         if (picUrlList != null && picUrlList.size() > 0) {
             imageUrl = picUrlList.get(0);
         }
+
+        viewHolder.itemView.setPadding(0, 0, DimenUtils.dip2px(15), 0);
 
         viewHolder.title.setText(bean.getName());
         viewHolder.date.setText(bean.getStartTime());

@@ -18,6 +18,14 @@
         <item>Account</item>
     </string-array>
 
+
+    <string-array name="center_main_tab">
+        <item>Home</item>
+        <item>Search</item>
+        <item>Message</item>
+        <item>Account</item>
+    </string-array>
+
     <string name="tryagainBack">Press again to exit the program</string>
 
 
@@ -28,7 +36,7 @@
     <string name="tab_person">Member center</string>
 
     <string name="currency">currency</string>
-    <string name="language">language </string>
+    <string name="language">language</string>
     <string name="tab_type_brand">brand</string>
     <string name="login_title">member login</string>
     <string name="login_email_type">mailbox login</string>
@@ -38,8 +46,8 @@
     <string name="login_phone">mobile phone number</string>
     <string name="login_phone_china">Mainland China</string>
     <string name="login">login</string>
-    <string name="user_register">user registration </string>
-    <string name="forget_password">Forgot your password? </string>
+    <string name="user_register">user registration</string>
+    <string name="forget_password">Forgot your password?</string>
     <string name="register_title">user registration</string>
     <string name="register_email_type">mailbox registration</string>
     <string name="register_phone_type">mobile phone registration</string>
@@ -47,7 +55,7 @@
     <string name="register_password">enter the password*</string>
     <string name="register_re_password">confirm the password*</string>
     <string name="book_email">subscribe mail</string>
-    <string name="yes">yes </string>
+    <string name="yes">yes</string>
     <string name="no">No</string>
     <string name="readed">"I have read and agree"</string>
     <string name="register_rule">Privacy Policy</string>
@@ -81,8 +89,8 @@
     <string name="register_fail">registration failed</string>
     <string name="register_success">Successful registration</string>
     <string name="please_edit_content">please enter the content</string>
-    <string name="get_sms_code_fail">failed to obtain the verification code </string>
-    <string name="get_sms_code_success">successful acquisition of the verification code </string>
+    <string name="get_sms_code_fail">failed to obtain the verification code</string>
+    <string name="get_sms_code_success">successful acquisition of the verification code</string>
     <string name="select_cell_code">telephone area code</string>
     <string name="type_empty_text">no eligible products</string>
     <string name="brand_empty_text">no brand at the moment</string>
@@ -113,4 +121,26 @@
 
     <string name="change_language">change language</string>
 
+    <string name="mall_identity_message">your current identity is</string>
+    <string name="mall_identity_personal">individual users</string>
+    <string name="change_company_identity">switch to corporate users</string>
+    <string name="back">return</string>
+    <string name="mall_jump">skip</string>
+    <string name="commany_identity">enterprise users</string>
+    <string name="person_identity">individual users</string>
+    <string name="commany_certification">enterprise certification</string>
+    <string name="change_person_identity">switch to individual users</string>
+
+    <string name="center_home_waring">Affected together, the entry policy details of countries and regions</string>
+    <string name="home_cheng_guo">Achievement promotion</string>
+    <string name="home_big_share">large instrument sharing</string>
+    <string name="center_home_big_check">inspection and testing equipment</string>
+    <string name="center_home_big_yan">RD equipment</string>
+    <string name="center_icon_home_new_ji">the latest technical requirements</string>
+    <string name="center_icon_home_active">the latest activity</string>
+    <string name="center_icon_home_hot">SCO hot spot</string>
+    <string name="center_ying">Application field:</string>
+    <string name="center_type">belongs to the type:</string>
+    <string name="center_see_more_detail">view requirements</string>
+    <string name="list_foot">loading...</string>
 </resources>
