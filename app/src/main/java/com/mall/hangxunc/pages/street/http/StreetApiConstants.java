@@ -128,4 +128,5 @@ public interface StreetApiConstants {
     String FORGOTTEN_PAGE_PATH = "/index.php?route=account/forgotten";
 
 
+    String HOME_SEARCH = "/index.php?route=product/search?";
 }

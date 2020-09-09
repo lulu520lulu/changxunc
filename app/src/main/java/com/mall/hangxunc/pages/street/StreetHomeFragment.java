@@ -43,6 +43,7 @@ import com.mall.hangxunc.pages.street.widget.StreetChangeIdentityDialog;
 import com.mall.hangxunc.pages.widget.BottomView;
 import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.HangLog;
+import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LoginUtils;
 import com.mall.hangxunc.web.HangXunWebView;
 
@@ -107,7 +108,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
 
     private void init(View view) {
         Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.tabbar_search_un_select);
-        drawable.setBounds(0, 0, DimenUtils.dip2px(20), DimenUtils.dip2px(20));
+        drawable.setBounds(0, 0, DimenUtils.dip2px(16), DimenUtils.dip2px(16));
         tv_search.setCompoundDrawables(drawable, null, null, null);
 
         changeIdentity.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +135,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     }
 
     private void goSearch() {
+        JumpUtils.goWeb(StreetApiConstants.BASE_URL + StreetApiConstants.HOME_SEARCH);
 //        ((MainActivity) getActivity()).setSelect(1);
     }
 

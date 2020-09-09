@@ -76,8 +76,14 @@ public class ChangeLanguageActivity extends BaseActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        initData();
     }
 
 
@@ -90,6 +96,10 @@ public class ChangeLanguageActivity extends BaseActivity {
             }
         });
         itemContainer = findViewById(R.id.item_container);
+        initData();
+    }
+
+    private void initData() {
         int intExtra = getIntent().getIntExtra(CHANGE, LANGUAGE_FLAG);
         if (intExtra == LANGUAGE_FLAG) {
             showLanguageView();
