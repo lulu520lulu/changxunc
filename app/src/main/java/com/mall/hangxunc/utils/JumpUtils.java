@@ -126,6 +126,7 @@ public class JumpUtils {
         if (topActivity2 == null) {
             return;
         }
+        HangActivityManager.getInstance().finishTopActivity();
         Intent intent = new Intent(HangXunApplication.getInstance(), topActivity2.getClass());
         if (TextUtils.equals(topActivity1.getClass().getSimpleName(), HybridActivity.class.getSimpleName())) {
             HybridActivity.openWeb(HangXunApplication.getInstance().mHybridUrl);

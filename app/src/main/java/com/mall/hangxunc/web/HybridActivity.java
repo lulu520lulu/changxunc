@@ -50,6 +50,12 @@ public class HybridActivity extends BaseActivity {
         initData();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        initData();
+    }
+
     public static void openWeb(String urlPath) {
         if (TextUtils.isEmpty(urlPath)) {
             return;
