@@ -18,6 +18,7 @@ import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.street.StreetHomeActivity;
 import com.mall.hangxunc.pages.street.http.StreetApiConstants;
 import com.mall.hangxunc.utils.CurrencySp;
+import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LanguageSp;
 import com.mall.hangxunc.utils.LoginUtils;
 import com.mall.hangxunc.web.HangXunWebView;
@@ -107,17 +108,17 @@ public class StreetShopCartFragment extends BaseFragment<StreetShopCarPresenter>
         return false;
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleLogin(MessageLogin message) {
-        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
-            if (mWebContainer.getVisibility() == View.GONE) {
-                mWebContainer.setVisibility(View.VISIBLE);
-            }
-            showWeb();
-        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
-            mWebContainer.clearHistory();
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void handleLogin(MessageLogin message) {
+//        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+//            if (mWebContainer.getVisibility() == View.GONE) {
+//                mWebContainer.setVisibility(View.VISIBLE);
+//            }
+//            showWeb();
+//        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+//            mWebContainer.clearHistory();
+//        }
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(MessageLocal message) {
@@ -142,6 +143,21 @@ public class StreetShopCartFragment extends BaseFragment<StreetShopCarPresenter>
     public void goHome(MessageGoHome message) {
         if (TextUtils.equals(message.message, MessageGoHome.GO_HOME)) {
             ((StreetHomeActivity) getActivity()).setSelect(0);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLogin(MessageLogin message) {
+        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+            loginChangeView(true);
+        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            loginChangeView(false);
+        }
+    }
+
+    private void loginChangeView(boolean b) {
+        if (!b) {
+            JumpUtils.goMall(getActivity());
         }
     }
 }

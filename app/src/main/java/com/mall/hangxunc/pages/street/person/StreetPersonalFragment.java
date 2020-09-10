@@ -21,6 +21,7 @@ import com.mall.hangxunc.pages.login.LoginFragment;
 import com.mall.hangxunc.pages.login.RegisterFragment;
 import com.mall.hangxunc.pages.street.http.StreetApiConstants;
 import com.mall.hangxunc.utils.CurrencySp;
+import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LanguageSp;
 import com.mall.hangxunc.utils.LoginUtils;
 import com.mall.hangxunc.web.HangXunWebView;
@@ -228,14 +229,29 @@ public class StreetPersonalFragment extends BaseFragment<StreetPersonalPresenter
     }
 
 
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void handleLogin(MessageLogin message) {
+//        if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+//            if (mWebContainer.getVisibility() == View.VISIBLE) {
+//                mWebContainer.setVisibility(View.GONE);
+//                mWebContainer.clearHistory();
+//            }
+//            showLoginFragment();
+//        }
+//    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleLogin(MessageLogin message) {
-        if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
-            if (mWebContainer.getVisibility() == View.VISIBLE) {
-                mWebContainer.setVisibility(View.GONE);
-                mWebContainer.clearHistory();
-            }
-            showLoginFragment();
+        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+            loginChangeView(true);
+        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            loginChangeView(false);
+        }
+    }
+
+    private void loginChangeView(boolean b) {
+        if (!b) {
+            JumpUtils.goMall(getActivity());
         }
     }
 

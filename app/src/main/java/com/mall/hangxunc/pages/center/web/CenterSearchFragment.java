@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.message.MessageLocal;
+import com.mall.hangxunc.message.MessageLogin;
 import com.mall.hangxunc.mvp.BaseFragment;
 import com.mall.hangxunc.pages.center.http.CenterApiConstants;
 import com.mall.hangxunc.utils.HangLog;
+import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LanguageSp;
 import com.mall.hangxunc.utils.LoginUtils;
 import com.mall.hangxunc.web.HangXunWebView;
@@ -80,6 +82,21 @@ public class CenterSearchFragment extends BaseFragment<CenterSearchPresenter> {
             showWeb();
         } else if (TextUtils.equals(message.message, MessageLocal.LANGUAGE_CHANGE)) {
             showWeb();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLogin(MessageLogin message) {
+        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+            loginChangeView(true);
+        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            loginChangeView(false);
+        }
+    }
+
+    private void loginChangeView(boolean b) {
+        if (!b) {
+            JumpUtils.goMall(getActivity());
         }
     }
 }

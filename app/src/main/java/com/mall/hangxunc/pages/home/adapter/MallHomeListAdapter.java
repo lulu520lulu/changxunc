@@ -301,7 +301,7 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
         this.mLoadMoreListener = mLoadMoreListener;
     }
 
-    private boolean isLoading = false;
+    private volatile boolean isLoading = false;
 
     private void loadMore(RecyclerView recyclerView, List<ProductBean> list) {
         if (recyclerView == null) {
@@ -311,6 +311,7 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
         if (linearLayoutManager == null) {
             return;
         }
+        HangLog.e("LULU", "linearLayoutManager.findLastCompletelyVisibleItemPosition():" + linearLayoutManager.findLastCompletelyVisibleItemPosition());
         if (!isLoading) {
             if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == (list.size() - 1)) {
                 if (mLoadMoreListener != null) {

@@ -27,6 +27,7 @@ import com.mall.hangxunc.bean.home.ProductBean;
 import com.mall.hangxunc.bean.home.TabsBean;
 import com.mall.hangxunc.http.ApiConstants;
 import com.mall.hangxunc.pages.banner.StreetImageTitleAdapter;
+import com.mall.hangxunc.pages.home.adapter.MallHomeListAdapter;
 import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.JumpUtils;
 import com.youth.banner.Banner;
@@ -51,6 +52,10 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
     private static final int ITEM_TYPE_BOTTOM_LIST = 5;
     private static final int ITEM_TYPE_BOTTOM = 6;
     private static final int ITEM_TYPE_BANNER_TOP = 7;
+    private static final int ITEM_LOADING_FOOT = 10;
+
+    private static final String LOADING_FOOT_MODULE_TYPE = "loading_foot";
+
 
     @Override
     public int getItemCount() {
@@ -80,6 +85,8 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
                 return ITEM_TYPE_BOTTOM;
             } else if (TextUtils.equals(bean.getTitle(), "product")) {
                 return ITEM_TYPE_BOTTOM_LIST;
+            } else if (TextUtils.equals(bean.getTitle(), LOADING_FOOT_MODULE_TYPE)) {
+                return ITEM_LOADING_FOOT;
             }
         }
         return super.getItemViewType(position);
@@ -108,6 +115,11 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
         product.setBottomProducts(data);
         mData.add(product);
 
+        ModulesBean beanFoot = new ModulesBean();
+        beanFoot.setTitle(LOADING_FOOT_MODULE_TYPE);
+        mData.add(beanFoot);
+
+
         ModulesBean bean = new ModulesBean();
         bean.setTitle("bottom");
         mData.add(bean);
@@ -115,14 +127,13 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
     }
 
     public void setMoreData(List<ProductBean> data) {
-
         ModulesBean product = new ModulesBean();
         product.setTitle("product");
         product.setSubtitle("more");
         product.setBottomProducts(data);
-        mData.add(mData.size() - 1, product);
-
+        mData.add(mData.size() - 2, product);
         notifyDataSetChanged();
+        isLoading = false;
     }
 
 
@@ -152,9 +163,20 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
             case ITEM_TYPE_BANNER:
                 view = LayoutInflater.from(mContext).inflate(R.layout.street_home_list_banner, parent, false);
                 return new StreetHomeListAdapter.BannerViewHolder(view);
+            case ITEM_LOADING_FOOT:
+                view = LayoutInflater.from(mContext).inflate(R.layout.mall_home_list_foot, parent, false);
+                return new StreetHomeListAdapter.FootViewHolder(view);
         }
         return null;
+    }
 
+    public class FootViewHolder extends RecyclerView.ViewHolder {
+        private TextView footView;
+
+        public FootViewHolder(View view) {
+            super(view);
+            footView = view.findViewById(R.id.foot_view);
+        }
     }
 
     @Override
@@ -183,7 +205,22 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
             case ITEM_TYPE_BANNER:
                 handleBanner(holder, bean);
                 break;
+            case ITEM_LOADING_FOOT:
+                handleFoot(holder, bean);
+                break;
+        }
+    }
 
+    private void handleFoot(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
+        if (viewHolder == null || !(viewHolder instanceof MallHomeListAdapter.FootViewHolder)) {
+            return;
+        }
+        MallHomeListAdapter.FootViewHolder holder = (MallHomeListAdapter.FootViewHolder) viewHolder;
+
+        if (isLoading) {
+            holder.itemView.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemView.setVisibility(View.GONE);
         }
     }
 
@@ -315,13 +352,13 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                loadMore(recyclerView);
             }
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                loadMore(recyclerView);
+                loadMore(recyclerView, bean.getBottomProducts());
+
             }
         });
     }
@@ -336,15 +373,24 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
         this.mLoadMoreListener = mLoadMoreListener;
     }
 
-    private void loadMore(RecyclerView recyclerView) {
-        boolean isLoadMore = recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
-                >= recyclerView.computeVerticalScrollRange();
-        if (isLoadMore) {
-            if (mLoadMoreListener != null) {
-                mLoadMoreListener.handleLoadMore();
+    private boolean isLoading = false;
+
+    private void loadMore(RecyclerView recyclerView, List<ProductBean> list) {
+        if (recyclerView == null) {
+            return;
+        }
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        if (linearLayoutManager == null) {
+            return;
+        }
+        if (!isLoading) {
+            if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == (list.size() - 1)) {
+                if (mLoadMoreListener != null) {
+                    mLoadMoreListener.handleLoadMore();
+                }
+                isLoading = true;
             }
         }
-
     }
 
     private void handlePost(RecyclerView.ViewHolder viewHolder, ModulesBean bean) {
@@ -496,7 +542,9 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
                     return;
                 }
                 BannersBean bannersBean = banners.get(position);
-                JumpUtils.goWeb(ApiConstants.BASE_URL + bannersBean.getLink());
+                if (!TextUtils.isEmpty(bannersBean.getLink())) {
+                    JumpUtils.goWeb(bannersBean.getLink());
+                }
             }
 
         });

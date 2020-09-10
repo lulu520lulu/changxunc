@@ -30,6 +30,7 @@ import com.mall.hangxunc.bean.home.StreetAllProductData;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.message.MessageHome;
 import com.mall.hangxunc.message.MessageLocal;
+import com.mall.hangxunc.message.MessageLogin;
 import com.mall.hangxunc.mvp.BaseFragment;
 import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.street.adapter.StreetHomeCategoryAdapter;
@@ -430,6 +431,22 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
             mStreetChangeIdentityDialog = new StreetChangeIdentityDialog(getActivity(), data);
         }
         mStreetChangeIdentityDialog.show();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLogin(MessageLogin message) {
+        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+            loginChangeView(true);
+        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            loginChangeView(false);
+        }
+    }
+
+    private void loginChangeView(boolean b) {
+        if (!b) {
+            JumpUtils.goMall(getActivity());
+        }
     }
 
 }

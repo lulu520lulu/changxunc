@@ -31,6 +31,7 @@ import com.mall.hangxunc.change.ChangeLanguageActivity;
 import com.mall.hangxunc.http.HangXunBiz;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.message.MessageLocal;
+import com.mall.hangxunc.message.MessageLogin;
 import com.mall.hangxunc.mvp.BaseFragment;
 import com.mall.hangxunc.pages.banner.CenterBannerImageAdapter;
 import com.mall.hangxunc.pages.center.adapter.CenterInstrumentAdapter;
@@ -691,4 +692,18 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         mCenterChangeIdentityDialog.show();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLogin(MessageLogin message) {
+        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+            loginChangeView(true);
+        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+            loginChangeView(false);
+        }
+    }
+
+    private void loginChangeView(boolean b) {
+        if (!b) {
+            JumpUtils.goMall(getActivity());
+        }
+    }
 }
