@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.mall.hangxunc.HangActivityManager;
+import com.mall.hangxunc.HangXunApplication;
 import com.mall.hangxunc.message.MessageGoHome;
 import com.mall.hangxunc.message.MessageGoLogin;
 import com.mall.hangxunc.R;
@@ -153,6 +154,15 @@ public class HangXunWebView extends LinearLayout {
                         EventBus.getDefault().post(new MessageGoLogin(MessageGoLogin.GO_LOGIN));
                         return true;
                     }
+                } else if (TextUtils.equals(url, "http://b.hangxunc.com/")) {
+                    JumpUtils.goStreet(HangXunApplication.getInstance());
+                    return  true;
+                } else if (TextUtils.equals(url, "http://d.hangxunc.com:8081/scocenter/#/")) {
+                    JumpUtils.goCenter(HangXunApplication.getInstance());
+                    return true;
+                } else if (TextUtils.equals(url, "http://c.hangxunc.com/")) {
+                    JumpUtils.goMall(HangXunApplication.getInstance());
+                    return true;
                 }
 
                 return false;
