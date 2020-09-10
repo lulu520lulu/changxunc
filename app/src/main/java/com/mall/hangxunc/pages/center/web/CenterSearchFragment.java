@@ -87,16 +87,16 @@ public class CenterSearchFragment extends BaseFragment<CenterSearchPresenter> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleLogin(MessageLogin message) {
-        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
-            loginChangeView(true);
-        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
-            loginChangeView(false);
-        }
+//        if (TextUtils.equals(message.message, MessageLogin.LOGIN_IN)) {
+//            loginChangeView(true);
+//        } else if (TextUtils.equals(message.message, MessageLogin.LOGIN_OUT)) {
+//            loginChangeView(false);
+//        }
     }
 
-    private void loginChangeView(boolean b) {
-        if (!b) {
-            JumpUtils.goMall(getActivity());
-        }
-    }
+//    private void loginChangeView(boolean b) {
+//        if (!b) {
+//            JumpUtils.goMallLogin(getActivity());
+//        }
+//    }
 }

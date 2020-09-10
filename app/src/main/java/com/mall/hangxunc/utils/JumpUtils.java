@@ -87,6 +87,17 @@ public class JumpUtils {
         context.startActivity(intent);
     }
 
+    public static void goMallLogin(Context context) {
+        if (context == null) {
+            return;
+        }
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("login_out_show_page", 4);
+        context.startActivity(intent);
+    }
+
+
     public static void goStreet(Context context) {
         if (context == null) {
             return;

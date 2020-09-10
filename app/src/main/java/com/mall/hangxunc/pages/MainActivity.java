@@ -1,5 +1,6 @@
 package com.mall.hangxunc.pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -52,9 +53,19 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
     }
 
     private void initData() {
-        getLoginState();
+        if (LoginUtils.getInstance().isLogin()) {
+            getLoginState();
+        }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int show_page = intent.getIntExtra("login_out_show_page", 0);
+        if (show_page == 4) {
+            setSelect(4);
+        }
+    }
 
     private void getLoginState() {
         HangXunBiz.getInstance().isCustomerLogin(new ResponseListener<IsLoginBean>() {
@@ -102,7 +113,13 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
         mSlidingTabs.setOnTabSelectedListener(new HomeTabListener(mViewpager));
         mViewpager.setOffscreenPageLimit(5);
 
-        setSelect( HangXunApplication.getInstance().MAIN_SELECT_ITEM);
+        Intent intent = getIntent();
+        int show_page = intent.getIntExtra("login_out_show_page", 0);
+        if (show_page == 4) {
+            setSelect(4);
+        } else {
+            setSelect(HangXunApplication.getInstance().MAIN_SELECT_ITEM);
+        }
     }
 
     public void setSelect(int position) {

@@ -1,5 +1,7 @@
 package com.mall.hangxunc.web;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -17,6 +19,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.mall.hangxunc.HangActivityManager;
 import com.mall.hangxunc.message.MessageGoHome;
 import com.mall.hangxunc.message.MessageGoLogin;
 import com.mall.hangxunc.R;
@@ -24,6 +27,7 @@ import com.mall.hangxunc.bean.home.CurrencyListBean;
 import com.mall.hangxunc.http.ApiConstants;
 import com.mall.hangxunc.message.MessageLocal;
 import com.mall.hangxunc.message.MessageLogin;
+import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.login.WebLoginInterface;
 import com.mall.hangxunc.utils.CurrencySp;
 import com.mall.hangxunc.utils.CurrencyType;
@@ -121,10 +125,16 @@ public class HangXunWebView extends LinearLayout {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                HangLog.e("lulu", "shouldOverrideUrlLoading : " + url);
 
                 if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=account/logout")) {
                     LoginUtils.getInstance().loginOut();
                     EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_OUT));
+                    Activity topActivity = HangActivityManager.getInstance().getTopActivity();
+                    if (!TextUtils.equals(topActivity.getClass().getSimpleName(), MainActivity.class.getSimpleName())) {
+//                        HangActivityManager.getInstance().finishTopActivity();
+                        JumpUtils.goMallLogin(getContext());
+                    }
                 } else if (url.contains(ApiConstants.LANGUAGE_PATH)) {
 //                    ChangeLanguageActivity.launch(getContext(), ChangeLanguageActivity.LANGUAGE_FLAG);
 
@@ -150,7 +160,7 @@ public class HangXunWebView extends LinearLayout {
 
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                HangLog.e("lulu", "url:" + url);
+                HangLog.e("lulu", "onPageFinished : " + url);
                 view.loadUrl("javascript:bottomTabMenu()");
                 if (!url.contains(ApiConstants.CART_PAGE_PATH)
                         && !url.contains(ApiConstants.ACCOUNT_PAGE_PATH)) {
