@@ -1,11 +1,14 @@
 package com.mall.hangxunc.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.mall.hangxunc.HangActivityManager;
 import com.mall.hangxunc.HangXunApplication;
 import com.mall.hangxunc.bean.home.PostsBean;
+import com.mall.hangxunc.change.ChangeLanguageActivity;
 import com.mall.hangxunc.http.ApiConstants;
 import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.center.CenterAllPostActivity;
@@ -109,5 +112,25 @@ public class JumpUtils {
         Intent intent = new Intent(context, GuideActivity.class);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    public static void goTopActivity() {
+        Activity topActivity1 = HangActivityManager.getInstance().getTopActivity();
+        if (topActivity1 == null) {
+            return;
+        }
+        if (TextUtils.equals(topActivity1.getClass().getSimpleName(), ChangeLanguageActivity.class.getSimpleName())) {
+            HangActivityManager.getInstance().finishTopActivity();
+        }
+        Activity topActivity2 = HangActivityManager.getInstance().getTopActivity();
+        if (topActivity2 == null) {
+            return;
+        }
+        Intent intent = new Intent(HangXunApplication.getInstance(), topActivity2.getClass());
+        if (TextUtils.equals(topActivity1.getClass().getSimpleName(), HybridActivity.class.getSimpleName())) {
+            HybridActivity.openWeb(HangXunApplication.getInstance().mHybridUrl);
+        }
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        HangXunApplication.getInstance().startActivity(intent);
     }
 }

@@ -363,7 +363,7 @@ public class StreetHomeListAdapter extends RecyclerView.Adapter {
             }
         });
         holder.product_text.setText(bean.getHeading_title());
-        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
+        holder.product_recycle.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
         StreetPostRecycleAdapter recycleAdapter = new StreetPostRecycleAdapter(mContext, posts);
         holder.product_recycle.setAdapter(recycleAdapter);
     }

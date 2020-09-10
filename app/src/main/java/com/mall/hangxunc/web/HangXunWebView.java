@@ -121,6 +121,7 @@ public class HangXunWebView extends LinearLayout {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
                 if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=account/logout")) {
                     LoginUtils.getInstance().loginOut();
                     EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_OUT));
@@ -149,6 +150,7 @@ public class HangXunWebView extends LinearLayout {
 
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                HangLog.e("lulu", "url:" + url);
                 view.loadUrl("javascript:bottomTabMenu()");
                 if (!url.contains(ApiConstants.CART_PAGE_PATH)
                         && !url.contains(ApiConstants.ACCOUNT_PAGE_PATH)) {
@@ -166,7 +168,6 @@ public class HangXunWebView extends LinearLayout {
         if (TextUtils.isEmpty(url)) {
             return;
         }
-        Log.e("lulu", "url:" + url);
         String oldCode = CurrencySp.getInstance().getCode();
         CurrencyListBean list = CurrencySp.getInstance().getCurrencyList();
 

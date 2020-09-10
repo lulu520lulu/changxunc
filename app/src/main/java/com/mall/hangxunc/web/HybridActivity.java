@@ -96,6 +96,7 @@ public class HybridActivity extends BaseActivity {
         if (TextUtils.isEmpty(mUrl)) {
             return;
         }
+        HangXunApplication.getInstance().mHybridUrl = mUrl;
         mUrl = mUrl + "&app=app";
         mWebContainer.setHangWebCallBack(new HangXunWebView.HangWebCallBack() {
             @Override

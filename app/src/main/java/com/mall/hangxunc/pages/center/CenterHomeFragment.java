@@ -594,8 +594,8 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
                     return;
                 }
                 BannerBean bannersBean = data.get(position);
-                if (bannersBean != null && !TextUtils.isEmpty(bannersBean.getImgPath())) {
-                    JumpUtils.goWeb(bannersBean.getImgPath());
+                if (bannersBean != null && !TextUtils.isEmpty(bannersBean.getUrlPath())) {
+                    JumpUtils.goWeb(bannersBean.getUrlPath());
                 }
             }
         });

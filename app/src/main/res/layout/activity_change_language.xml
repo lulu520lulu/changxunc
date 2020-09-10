@@ -13,8 +13,7 @@
         android:layout_marginLeft="68dp"
         android:layout_marginRight="68dp"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"

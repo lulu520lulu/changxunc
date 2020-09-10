@@ -122,8 +122,7 @@ public class LanguageUtil {
             LanguageUtil.changeAppLanguage(HangXunApplication.getInstance(), language.getCode());
         }
         LanguageSp.getInstance().saveLanguageList(language);
-        Intent intent = new Intent(HangXunApplication.getInstance(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        HangXunApplication.getInstance().startActivity(intent);
+
+        JumpUtils.goTopActivity();
     }
 }

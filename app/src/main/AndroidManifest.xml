@@ -38,10 +38,12 @@
             android:configChanges="orientation|screenSize|locale" />
         <activity
             android:name="com.mall.hangxunc.change.ChangeLanguageActivity"
+            android:launchMode="singleTask"
             android:theme="@style/Transparent" />
         <activity
             android:name="com.mall.hangxunc.pages.street.StreetHomeActivity"
-            android:configChanges="orientation|screenSize|locale" />
+            android:configChanges="orientation|screenSize|locale"
+            android:launchMode="singleTop" />
 
         <activity
             android:name="com.mall.hangxunc.pages.street.StreetAllPostActivity"
@@ -53,7 +55,8 @@
 
         <activity
             android:name="com.mall.hangxunc.pages.center.CenterHomeActivity"
-            android:configChanges="orientation|screenSize|locale" />
+            android:configChanges="orientation|screenSize|locale"
+            android:launchMode="singleTop" />
         <activity
             android:name="com.mall.hangxunc.pages.center.CenterAllPostActivity"
             android:configChanges="orientation|screenSize|locale" />

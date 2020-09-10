@@ -12,11 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.bean.home.PostsBean;
 import com.mall.hangxunc.pages.street.http.StreetApiConstants;
+import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.JumpUtils;
+import com.mall.hangxunc.utils.WindowUtils;
 
 import java.util.List;
 
@@ -42,21 +45,17 @@ class StreetPostRecycleAdapter extends RecyclerView.Adapter {
         PostsBean bean = mData.get(position);
 
         MyViewHolder viewHolder = (MyViewHolder) holder;
-        String date_added = bean.getDate_added();
-        String[] split = date_added.split(" ");
-        viewHolder.date.setText(split[0]);
-        viewHolder.content.setText(Html.fromHtml(bean.getContent()));
-        viewHolder.title.setText(bean.getName());
-
-
-
-//        int windowWidth = WindowUtils.getWindowWidth(mContext);
-//        int padding = DimenUtils.dip2px(5);
-//        int width = windowWidth / 2 - 2 * padding;
-//        ViewGroup.LayoutParams params = viewHolder.image.getLayoutParams();
-//        params.width = width;
-//        params.height = width;
-//        viewHolder.image.setLayoutParams(params);
+        String date_added = bean.getDate_modified();
+//        String[] split = date_added.split(" ");
+        viewHolder.date.setText(date_added);
+        viewHolder.content.setText(bean.getName());
+        int windowWidth = WindowUtils.getWindowWidth(mContext);
+        int padding = DimenUtils.dip2px(5);
+        int width = windowWidth / 2 - 2 * padding;
+        ViewGroup.LayoutParams params = viewHolder.image.getLayoutParams();
+        params.width = width;
+        params.height = (int) (3.3f * width / 5);
+        viewHolder.image.setLayoutParams(params);
 
         RequestOptions options = new RequestOptions()
                 .error(R.mipmap.place_image)
@@ -86,14 +85,12 @@ class StreetPostRecycleAdapter extends RecyclerView.Adapter {
         private ImageView image;
         private TextView date;
         private TextView content;
-        private TextView title;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.date);
             image = itemView.findViewById(R.id.image);
             content = itemView.findViewById(R.id.content);
-            title = itemView.findViewById(R.id.title);
         }
     }
 }

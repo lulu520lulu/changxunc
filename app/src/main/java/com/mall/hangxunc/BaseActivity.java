@@ -15,6 +15,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 此方法先于 onCreate()方法执行
+     *
      * @param newBase
      */
     @Override
@@ -31,6 +32,14 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setAndroidNativeLightStatusBar(this, true);
+        HangActivityManager.getInstance().addActivity(this); //添加到栈中
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HangActivityManager.getInstance().finishActivity(this); //添加到栈中
+
     }
 
     private static void setAndroidNativeLightStatusBar(Activity activity, boolean dark) {

@@ -14,6 +14,7 @@ import com.mall.hangxunc.utils.LanguageUtil;
 public class HangXunApplication extends Application {
 
     private static HangXunApplication mHangXunApplication;
+    public String mHybridUrl;
     public int MAIN_SELECT_ITEM = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)

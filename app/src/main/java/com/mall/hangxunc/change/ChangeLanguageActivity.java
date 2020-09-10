@@ -78,12 +78,13 @@ public class ChangeLanguageActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        initData();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        initData();
+
     }
 
 
@@ -153,15 +154,17 @@ public class ChangeLanguageActivity extends BaseActivity {
         if (currencyList != null && currencyList.getCurrencies() != null && currencyList.getCurrencies().size() > 0) {
             updateCurrency(currencyList);
         } else {
+            showLoading();
             HangXunBiz.getInstance().getCurrency(new ResponseListener<CurrencyListBean>() {
                 @Override
                 public void onFail(int code, String message) {
                     HangLog.d(TAG, "onFail getCurrency code: " + code + ",message:" + message);
-
+                    hindLoading();
                 }
 
                 @Override
                 public void onSuccess(CurrencyListBean bean) {
+                    hindLoading();
                     if (bean != null) {
                         HangLog.d(TAG, "onSuccess getCurrency bean: " + bean.toString());
                         CurrencySp.getInstance().saveCurrencyList(bean);
@@ -248,9 +251,8 @@ public class ChangeLanguageActivity extends BaseActivity {
                         instance.setCode(bean.getCode());
                         instance.setName(getLanguageName(bean.getCode()));
                         EventBus.getDefault().post(instance);
-                        LanguageUtil.changeLanguage(bean);
                         finish();
-
+                        LanguageUtil.changeLanguage(bean);
                     }
                 }
             }
