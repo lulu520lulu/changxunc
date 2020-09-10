@@ -1,21 +1,17 @@
-package com.mall.hangxunc.pages.center.web;
+package com.mall.hangxunc.pages.street.search;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mall.hangxunc.R;
-import com.mall.hangxunc.http.ApiConstants;
-import com.mall.hangxunc.message.MessageGoHome;
 import com.mall.hangxunc.message.MessageLocal;
-import com.mall.hangxunc.message.MessageLogin;
-import com.mall.hangxunc.message.MessageShop;
 import com.mall.hangxunc.mvp.BaseFragment;
-import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.center.http.CenterApiConstants;
+import com.mall.hangxunc.pages.center.web.CenterSearchFragment;
+import com.mall.hangxunc.pages.street.http.StreetApiConstants;
 import com.mall.hangxunc.utils.HangLog;
 import com.mall.hangxunc.utils.LanguageSp;
 import com.mall.hangxunc.utils.LoginUtils;
@@ -25,22 +21,23 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class CenterMessageFragment extends BaseFragment<CenterMessagePresenter> {
 
-    private static final String TAG = CenterMessageFragment.class.getSimpleName();
+public class StreetSearchFragment extends BaseFragment<StreetSearchPresenter> {
 
-    private CenterMessagePresenter mShopCarPresenter;
+    private static final String TAG = CenterSearchFragment.class.getSimpleName();
+
+    private StreetSearchPresenter mShopCarPresenter;
     private HangXunWebView mWebContainer;
 
     @Override
-    protected CenterMessagePresenter onCreateTopPresenter() {
-        mShopCarPresenter = new CenterMessagePresenter(getActivity());
+    protected StreetSearchPresenter onCreateTopPresenter() {
+        mShopCarPresenter = new StreetSearchPresenter(getActivity());
         return mShopCarPresenter;
     }
 
     @Override
     protected View onCreateViewImpl(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cneter_fragment_web, null);
+        View view = inflater.inflate(R.layout.street_fragment_web, null);
         EventBus.getDefault().register(this);
         initView(view);
         return view;
@@ -54,11 +51,11 @@ public class CenterMessageFragment extends BaseFragment<CenterMessagePresenter> 
     }
 
     private void showWeb() {
-        String url = CenterApiConstants.BASE_URL + CenterApiConstants.HOME_MESSAGE + LoginUtils.getInstance().getScoId()
-                + CenterApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
-                + CenterApiConstants.APP;
+        String url = StreetApiConstants.BASE_URL
+                + StreetApiConstants.HOME_SEARCH + LoginUtils.getInstance().getScoId()
+                + StreetApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
+                + StreetApiConstants.APP;
         HangLog.d(TAG, "url : " + url);
-
         mWebContainer.loadUrl(url);
     }
 
@@ -78,6 +75,7 @@ public class CenterMessageFragment extends BaseFragment<CenterMessagePresenter> 
         return false;
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeCurrency(MessageLocal message) {
         if (TextUtils.equals(message.message, MessageLocal.CURRENCY_CHANGE)) {
@@ -86,5 +84,4 @@ public class CenterMessageFragment extends BaseFragment<CenterMessagePresenter> 
             showWeb();
         }
     }
-
 }

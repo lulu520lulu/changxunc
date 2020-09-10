@@ -113,20 +113,19 @@ public interface StreetApiConstants {
     //--------------WebUrl--------------
     //商品详情页：（参数不要加引号等内容）
     String PRODUCT_PAGE_PATH = "/index.php?route=product/product&product_id=";
-    String CUSTOMER_ID_PATH = "&customer_id=";
+    String CUSTOMER_ID_PATH = "&sco=";
     String LANGUAGE_PATH = "&language=";
     String CURRENCY_PATH = "&currency=";
 
     //会员中心的页面跳转
 
-    String ACCOUNT_PAGE_PATH = "/index.php?route=account/account&customer_id=";
+    String ACCOUNT_PAGE_PATH = "/index.php?route=account/account&sco=";
 
     //购物车
-    String CART_PAGE_PATH = "/index.php?route=checkout/cart&customer_id=";
-
-    //忘记密码页面
-    String FORGOTTEN_PAGE_PATH = "/index.php?route=account/forgotten";
+    String CART_PAGE_PATH = "/index.php?route=checkout/cart&sco=";
 
 
-    String HOME_SEARCH = "/index.php?route=product/search?";
+    String HOME_SEARCH = "/index.php?route=product/search&sco=?";
+
+    String HOME_TYPE = "/index.php?route=mobile/categories&sco=?";
 }

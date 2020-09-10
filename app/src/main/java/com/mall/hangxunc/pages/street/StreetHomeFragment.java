@@ -31,6 +31,7 @@ import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.message.MessageHome;
 import com.mall.hangxunc.message.MessageLocal;
 import com.mall.hangxunc.mvp.BaseFragment;
+import com.mall.hangxunc.pages.MainActivity;
 import com.mall.hangxunc.pages.street.adapter.StreetHomeCategoryAdapter;
 import com.mall.hangxunc.pages.street.adapter.StreetHomeListAdapter;
 import com.mall.hangxunc.pages.street.http.StreetApiConstants;
@@ -135,8 +136,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     }
 
     private void goSearch() {
-        JumpUtils.goWeb(StreetApiConstants.BASE_URL + StreetApiConstants.HOME_SEARCH);
-//        ((MainActivity) getActivity()).setSelect(1);
+        ((StreetHomeActivity) getActivity()).setSelect(1);
     }
 
 

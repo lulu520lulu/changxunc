@@ -44,15 +44,15 @@ public class CenterChangeIdentityDialog extends Dialog implements View.OnClickLi
         CenterIsLoginData.UserBean user = mData.getUser();
         if (user.getEnterpriseStatus() == 1) {
             //企业
-            identity_text.setText(user.getEnterpriseName());
+            identity_text.setText(R.string.commany_identity);
             mChangeIdentity.setText(R.string.change_person_identity);
 
             back.setText(R.string.back);
         } else {
             //个人
-            identity_text.setText(user.getUsername());
+            identity_text.setText(R.string.person_identity);
 
-            mChangeIdentity.setText(R.string.commany_certification);
+            mChangeIdentity.setText(R.string.change_person_identity);
 
             back.setText(R.string.commany_certification);
         }

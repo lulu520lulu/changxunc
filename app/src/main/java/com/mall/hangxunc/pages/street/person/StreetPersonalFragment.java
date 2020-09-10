@@ -1,4 +1,4 @@
-package com.mall.hangxunc.pages.center.web;
+package com.mall.hangxunc.pages.street.person;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,14 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.message.MessageLocal;
 import com.mall.hangxunc.message.MessageLogin;
 import com.mall.hangxunc.mvp.BaseFragment;
-import com.mall.hangxunc.pages.center.http.CenterApiConstants;
 import com.mall.hangxunc.pages.login.ForgetPassFragmentWeb;
 import com.mall.hangxunc.pages.login.LoginFragment;
 import com.mall.hangxunc.pages.login.RegisterFragment;
+import com.mall.hangxunc.pages.street.http.StreetApiConstants;
 import com.mall.hangxunc.utils.CurrencySp;
 import com.mall.hangxunc.utils.LanguageSp;
 import com.mall.hangxunc.utils.LoginUtils;
@@ -28,9 +29,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class CenterMeFragment extends BaseFragment<CenterMePresenter> {
+public class StreetPersonalFragment extends BaseFragment<StreetPersonalPresenter> {
 
-    private CenterMePresenter mPersonalPresenter;
+    private StreetPersonalPresenter mPersonalPresenter;
     private HangXunWebView mWebContainer;
     private FrameLayout mFragmentContainer;
     private LoginFragment mLoginFragment;
@@ -38,8 +39,8 @@ public class CenterMeFragment extends BaseFragment<CenterMePresenter> {
     private FragmentManager mFragmentManager;
 
     @Override
-    protected CenterMePresenter onCreateTopPresenter() {
-        mPersonalPresenter = new CenterMePresenter(getActivity());
+    protected StreetPersonalPresenter onCreateTopPresenter() {
+        mPersonalPresenter = new StreetPersonalPresenter(getActivity());
         return mPersonalPresenter;
     }
 
@@ -83,6 +84,7 @@ public class CenterMeFragment extends BaseFragment<CenterMePresenter> {
 
             @Override
             public void showPersion(String customId) {
+//                startSendLoginMessage();
                 initWebData(customId);
             }
         });
@@ -149,9 +151,9 @@ public class CenterMeFragment extends BaseFragment<CenterMePresenter> {
     }
 
     private void showWeb(String customId) {
-        String url = CenterApiConstants.BASE_URL + CenterApiConstants.HOME_ME + customId +
-                CenterApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
-                + CenterApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode();
+        String url = StreetApiConstants.BASE_URL + StreetApiConstants.ACCOUNT_PAGE_PATH + customId +
+                StreetApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
+                + StreetApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode();
         mWebContainer.loadUrl(url);
     }
 
