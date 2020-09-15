@@ -48,7 +48,7 @@ public class StreetHangXunBiz {
 
     private Retrofit getPostRetrofit() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new ParamInterceptor())
+//                .addInterceptor(new ParamInterceptor())
                 .cookieJar(new LocalCookieJar())
                 .build();
 

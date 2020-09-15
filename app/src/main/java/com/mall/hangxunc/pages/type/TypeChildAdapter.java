@@ -2,6 +2,7 @@ package com.mall.hangxunc.pages.type;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,12 @@ public class TypeChildAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         TypeChildAdapter.VH vh = (TypeChildAdapter.VH) holder;
         CategoryChildBean.ChildrenBean categoryChildBean = mData.get(position);
-
-        vh.textView.setText(categoryChildBean.getName());
-
+        if (TextUtils.isEmpty(categoryChildBean.getName())) {
+            vh.textView.setVisibility(View.GONE);
+        } else {
+            vh.textView.setText(categoryChildBean.getName());
+            vh.textView.setVisibility(View.VISIBLE);
+        }
 
         int windowWidth = WindowUtils.getWindowWidth((Activity) mContext);
         int padding = DimenUtils.dip2px(6);
@@ -64,20 +68,18 @@ public class TypeChildAdapter extends RecyclerView.Adapter {
                 .apply(options)
                 .into(vh.imageView);
 
-
-        vh.textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpUtils.goWeb(categoryChildBean.getHref());
-            }
-        });
-        vh.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JumpUtils.goWeb(categoryChildBean.getHref());
-            }
-        });
-
+        if (!TextUtils.isEmpty(categoryChildBean.getHref())) {
+            vh.itemView.setClickable(true);
+            vh.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JumpUtils.goWeb(categoryChildBean.getHref());
+                }
+            });
+        } else {
+            vh.itemView.setClickable(false);
+            vh.imageView.setClickable(false);
+        }
     }
 
     @Override

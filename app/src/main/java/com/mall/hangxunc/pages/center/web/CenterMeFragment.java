@@ -150,9 +150,9 @@ public class CenterMeFragment extends BaseFragment<CenterMePresenter> {
     }
 
     private void showWeb(String customId) {
-        String url = CenterApiConstants.BASE_URL + CenterApiConstants.HOME_ME + customId +
-                CenterApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
-                + CenterApiConstants.CURRENCY_PATH + CurrencySp.getInstance().getCode();
+        String url = CenterApiConstants.BASE_URL + CenterApiConstants.HOME_ME + customId
+                + CenterApiConstants.LANGUAGE_PATH + LanguageSp.getInstance().getCode()
+                + CenterApiConstants.APP;
         mWebContainer.loadUrl(url);
     }
 

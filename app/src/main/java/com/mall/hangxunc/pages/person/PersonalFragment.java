@@ -11,14 +11,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.mall.hangxunc.LauncherActivity;
 import com.mall.hangxunc.R;
+import com.mall.hangxunc.bean.home.BaseBean;
 import com.mall.hangxunc.http.ApiConstants;
+import com.mall.hangxunc.http.CustomStyleBody;
+import com.mall.hangxunc.http.HangXunBiz;
+import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.mvp.BaseFragment;
 import com.mall.hangxunc.pages.login.ForgetPassFragmentWeb;
 import com.mall.hangxunc.pages.login.LoginFragment;
 import com.mall.hangxunc.message.MessageLogin;
 import com.mall.hangxunc.pages.login.RegisterFragment;
 import com.mall.hangxunc.message.MessageLocal;
+import com.mall.hangxunc.utils.CommSharedUtil;
 import com.mall.hangxunc.utils.CurrencySp;
 import com.mall.hangxunc.utils.LanguageSp;
 import com.mall.hangxunc.utils.LoginUtils;
@@ -146,6 +152,27 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
             mWebContainer.setVisibility(View.VISIBLE);
         }
         showWeb(customId);
+
+    }
+    private void ss(){
+        Object body = CommSharedUtil.getInstance(getActivity()).getBeanFromSp("CustomStyleBody");
+        if (body != null && (body instanceof CustomStyleBody)) {
+            CustomStyleBody styleBody = (CustomStyleBody) body;
+            if (styleBody != null) {
+                HangXunBiz.getInstance().setCustomerStyle(styleBody.getSex(), styleBody.getAge(), styleBody.getInterest(), new ResponseListener<BaseBean>() {
+                    @Override
+                    public void onFail(int code, String message) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(BaseBean baseBean) {
+                        CommSharedUtil.getInstance(getActivity()).saveBean2Sp("CustomStyleBody", null);
+
+                    }
+                });
+            }
+        }
     }
 
     private void showWeb(String customId) {

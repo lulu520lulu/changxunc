@@ -26,13 +26,16 @@ import com.mall.hangxunc.bean.event.GuideJumpEvent;
 import com.mall.hangxunc.bean.guide.CustomStyleBean;
 import com.mall.hangxunc.bean.guide.InterestBean;
 import com.mall.hangxunc.bean.home.BaseBean;
+import com.mall.hangxunc.http.CustomStyleBody;
 import com.mall.hangxunc.http.HangXunBiz;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.loading.LoadingView;
 import com.mall.hangxunc.mvp.BaseFragment;
 import com.mall.hangxunc.pages.guide.GuideActivity;
+import com.mall.hangxunc.utils.CommSharedUtil;
 import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.HangLog;
+import com.mall.hangxunc.utils.LoginUtils;
 import com.mall.hangxunc.utils.WindowUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -174,17 +177,24 @@ public class SelectInterestFragment extends BaseFragment<SelectInterestPresenter
             }
         }
         GuideActivity activity = (GuideActivity) getActivity();
-        HangXunBiz.getInstance().setCustomerStyle(activity.mSelectSex, activity.mSelectAge, buffer.toString(), new ResponseListener<BaseBean>() {
-            @Override
-            public void onFail(int code, String message) {
-                handleResult();
-            }
+        if (LoginUtils.getInstance().isLogin()) {
+            HangXunBiz.getInstance().setCustomerStyle(activity.mSelectSex, activity.mSelectAge, buffer.toString(), new ResponseListener<BaseBean>() {
+                @Override
+                public void onFail(int code, String message) {
+                    handleResult();
+                }
 
-            @Override
-            public void onSuccess(BaseBean baseBean) {
-                handleResult();
-            }
-        });
+                @Override
+                public void onSuccess(BaseBean baseBean) {
+                    handleResult();
+                }
+            });
+        } else {
+            CustomStyleBody body = new CustomStyleBody(activity.mSelectSex, activity.mSelectAge, buffer.toString());
+            CommSharedUtil.getInstance(getActivity()).saveBean2Sp("CustomStyleBody", body);
+            handleResult();
+        }
+
     }
 
 

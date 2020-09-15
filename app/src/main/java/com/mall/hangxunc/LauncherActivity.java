@@ -6,6 +6,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mall.hangxunc.bean.home.BaseBean;
+import com.mall.hangxunc.http.CustomStyleBody;
+import com.mall.hangxunc.http.HangXunBiz;
+import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.utils.CommSharedUtil;
 import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LoginUtils;

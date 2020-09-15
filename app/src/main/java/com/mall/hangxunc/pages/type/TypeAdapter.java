@@ -46,7 +46,12 @@ public class TypeAdapter extends RecyclerView.Adapter {
         CategoryChildBean item = mData.get(position);
         vh.textView.setText(item.getName());
         List<CategoryChildBean.ChildrenBean> childrenList = item.getChildren();
-
+        if (childrenList == null || childrenList.size() == 0) {
+            CategoryChildBean.ChildrenBean childrenBean = new CategoryChildBean.ChildrenBean();
+            childrenBean.setThumb(item.getThumb());
+            childrenList = new ArrayList<CategoryChildBean.ChildrenBean>();
+            childrenList.add(childrenBean);
+        }
         TypeChildAdapter childAdapter = new TypeChildAdapter(mContext, childrenList);
         vh.gradview.setLayoutManager(new GridLayoutManager(mContext, 3));
         vh.gradview.setAdapter(childAdapter);
