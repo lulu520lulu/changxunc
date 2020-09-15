@@ -142,7 +142,7 @@ public class HangXunWebView extends LinearLayout {
 //                    return true;
 
                 } else if (url.contains(ApiConstants.CURRENCY_PATH)) {
-                    handleChangeCurrency(url);
+//                    handleChangeCurrency(url);
                 } else if (TextUtils.equals(url, "http://c.hangxunc.com/")) {
                     EventBus.getDefault().post(new MessageGoHome(MessageGoHome.GO_HOME));
                     return true;
