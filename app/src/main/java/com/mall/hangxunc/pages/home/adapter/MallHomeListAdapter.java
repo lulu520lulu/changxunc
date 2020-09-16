@@ -342,6 +342,9 @@ public class MallHomeListAdapter extends RecyclerView.Adapter {
         ViewGroup.LayoutParams params = holder.banner.getLayoutParams();
         if (bean.getModule_id() == 93) {
             params.height = DimenUtils.dip2px(108);
+        }else {
+            params.height = DimenUtils.dip2px(144);
+
         }
 
         holder.banner.setAdapter(new ImageAdapter(mContext, banners));

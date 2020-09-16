@@ -139,7 +139,6 @@ public class HybridActivity extends BaseActivity {
             mWebContainer.destroyView();
         }
         EventBus.getDefault().unregister(this);
-        EventBus.getDefault().post(MessageShop.getInstance(MessageShop.ADD_SHOP_SUCCESS));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
