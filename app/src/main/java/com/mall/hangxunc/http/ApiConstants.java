@@ -20,7 +20,6 @@ public interface ApiConstants {
     String GET_CUSTOMER_STYLE = "/index.php?route=api/ioslink/getCustomerStyle";
     String SET_CUSTOMER_STYLE = "/index.php?route=api/ioslink/setCustomerStyle";
 
-
     // 首页模块以及信息：分两部分
     String GET_HOME_TOP_PATH = "/index.php?route=api/ioslink/getHomeTop";
 

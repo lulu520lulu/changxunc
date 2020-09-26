@@ -2,7 +2,9 @@ package com.mall.hangxunc.bean.guide;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SexBean {
+import java.io.Serializable;
+
+public class SexBean implements Serializable {
     /**
      * man : {"man":"男士","image":"http://c.hangxunc.com/image/catalog/app/user-style/man-img.png"}
      * woman : {"woman":"女士","image":"http://c.hangxunc.com/image/catalog/app/user-style/woman.png"}
@@ -27,7 +29,7 @@ public class SexBean {
         this.woman = woman;
     }
 
-    public static class ManBean {
+    public static class ManBean implements Serializable{
 
         /**
          * woman : 女士
@@ -65,7 +67,7 @@ public class SexBean {
         }
     }
 
-    public static class WomanBean {
+    public static class WomanBean implements Serializable{
 
         /**
          * woman : 女士

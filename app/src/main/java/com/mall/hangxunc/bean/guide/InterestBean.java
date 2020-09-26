@@ -1,6 +1,8 @@
 package com.mall.hangxunc.bean.guide;
 
-public class InterestBean {
+import java.io.Serializable;
+
+public class InterestBean implements Serializable {
     /**
      * name : 健康
      * image : http://c.hangxunc.com/image/catalog/app/user-style/jk.png

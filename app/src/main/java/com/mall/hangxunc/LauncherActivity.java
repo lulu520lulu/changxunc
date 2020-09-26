@@ -14,9 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.mall.hangxunc.utils.CommSharedUtil;
 import com.mall.hangxunc.utils.JumpUtils;
+import com.mall.hangxunc.utils.ToastUtils;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -41,8 +43,16 @@ public class LauncherActivity extends AppCompatActivity {
     private void requestPermission() {
         // 当API大于 23 时，才动态申请权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(LauncherActivity.this, VIDEO_PERMISSIONS, VIDEO_PERMISSIONS_CODE);
+            for (int i = 0; i < VIDEO_PERMISSIONS.length; i++) {
+                String permission = VIDEO_PERMISSIONS[i];
+                int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, permission);
+                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(LauncherActivity.this, new String[]{permission}, VIDEO_PERMISSIONS_CODE);
+                    return;
+                }
+            }
         }
+        timeStart();
     }
 
     @Override
@@ -55,12 +65,13 @@ public class LauncherActivity extends AppCompatActivity {
                     for (int result : grantResults) {
                         if (result != PackageManager.PERMISSION_GRANTED) {
                             //弹出对话框引导用户去设置
-                            Toast.makeText(LauncherActivity.this, "请求权限被拒绝", Toast.LENGTH_LONG).show();
+                            ToastUtils.showToast(LauncherActivity.this, "请求权限被拒绝");
                             break;
                         }
                     }
                 } else {
-                    Toast.makeText(LauncherActivity.this, "已授权", Toast.LENGTH_LONG).show();
+                    ToastUtils.showToast(LauncherActivity.this, "已授权");
+
                 }
                 break;
         }

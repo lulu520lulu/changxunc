@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.bean.event.GuideJumpEvent;
-import com.mall.hangxunc.bean.event.GuideNextEvent;
+import com.mall.hangxunc.bean.event.GuideSexNextEvent;
 import com.mall.hangxunc.bean.guide.CustomStyleBean;
 import com.mall.hangxunc.bean.guide.SexBean;
 import com.mall.hangxunc.bean.guide.TimeBean;
@@ -127,7 +127,7 @@ public class SelectSexFragment extends BaseFragment<SelectSexPresenter> {
         nextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new GuideNextEvent(mSelectSex, mSelectAge));
+                EventBus.getDefault().post(new GuideSexNextEvent(mSelectSex, mSelectAge));
             }
         });
         //选择性别男

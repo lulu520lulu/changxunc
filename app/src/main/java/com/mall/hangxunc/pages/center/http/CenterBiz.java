@@ -1,6 +1,6 @@
 package com.mall.hangxunc.pages.center.http;
 
-import com.mall.hangxunc.bean.home.IsLoginBean;
+import com.mall.hangxunc.bean.guide.IndustyModule;
 import com.mall.hangxunc.http.HangXunCService;
 import com.mall.hangxunc.http.LocalCookieJar;
 import com.mall.hangxunc.http.ParamInterceptor;
@@ -71,6 +71,13 @@ public class CenterBiz {
     public void isCustomerLogin(ResponseListener listener) {
         CenterCService service = getRetrofit().create(CenterCService.class);
         Call<CenterIsLoginBean> call = service.isCustomerLogin(LoginUtils.getInstance().getScoId(), "app");
+        call.enqueue(listener);
+    }
+
+
+    public void getAllIndusty(ResponseListener listener) {
+        CenterCService service = getRetrofit().create(CenterCService.class);
+        Call<IndustyModule> call = service.getAllIndusty();
         call.enqueue(listener);
     }
 

@@ -154,23 +154,25 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
         showWeb(customId);
 
     }
-    private void ss(){
+
+    private void ss() {
         Object body = CommSharedUtil.getInstance(getActivity()).getBeanFromSp("CustomStyleBody");
         if (body != null && (body instanceof CustomStyleBody)) {
             CustomStyleBody styleBody = (CustomStyleBody) body;
             if (styleBody != null) {
-                HangXunBiz.getInstance().setCustomerStyle(styleBody.getSex(), styleBody.getAge(), styleBody.getInterest(), new ResponseListener<BaseBean>() {
-                    @Override
-                    public void onFail(int code, String message) {
+                HangXunBiz.getInstance().setCustomerStyle(styleBody.getSex(), styleBody.getAge(), styleBody.getInterest(),
+                        styleBody.getIndustryId(), styleBody.getCompanyName(), new ResponseListener<BaseBean>() {
+                            @Override
+                            public void onFail(int code, String message) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onSuccess(BaseBean baseBean) {
-                        CommSharedUtil.getInstance(getActivity()).saveBean2Sp("CustomStyleBody", null);
+                            @Override
+                            public void onSuccess(BaseBean baseBean) {
+                                CommSharedUtil.getInstance(getActivity()).saveBean2Sp("CustomStyleBody", null);
 
-                    }
-                });
+                            }
+                        });
             }
         }
     }

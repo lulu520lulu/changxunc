@@ -1,6 +1,8 @@
 package com.mall.hangxunc.bean.guide;
 
-public class TimeBean {
+import java.io.Serializable;
+
+public class TimeBean implements Serializable {
     /**
      * stage : 10后
      */

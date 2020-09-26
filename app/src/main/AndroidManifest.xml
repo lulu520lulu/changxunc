@@ -53,7 +53,8 @@
 
         <activity
             android:name="com.mall.hangxunc.pages.guide.GuideActivity"
-            android:configChanges="orientation|screenSize|locale" />
+            android:configChanges="orientation|screenSize|locale"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
             android:name="com.mall.hangxunc.pages.center.CenterHomeActivity"

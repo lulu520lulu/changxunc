@@ -13,13 +13,15 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.mall.hangxunc.BaseActivity;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.bean.event.GuideBackEvent;
+import com.mall.hangxunc.bean.event.GuideInterestNextEvent;
 import com.mall.hangxunc.bean.event.GuideJumpEvent;
-import com.mall.hangxunc.bean.event.GuideNextEvent;
+import com.mall.hangxunc.bean.event.GuideSexNextEvent;
 import com.mall.hangxunc.bean.guide.CustomStyleBean;
 import com.mall.hangxunc.bean.guide.CustomStyleData;
 import com.mall.hangxunc.http.HangXunBiz;
 import com.mall.hangxunc.http.ResponseListener;
 import com.mall.hangxunc.loading.LoadingView;
+import com.mall.hangxunc.pages.guide.company.SelectCompanyFragment;
 import com.mall.hangxunc.pages.guide.interest.SelectInterestFragment;
 import com.mall.hangxunc.pages.guide.sex.SelectSexFragment;
 import com.mall.hangxunc.utils.HangLog;
@@ -116,20 +118,25 @@ public class GuideActivity extends BaseActivity {
         SelectInterestFragment fragment = new SelectInterestFragment();
         fragment.setArguments(bundle);
 
+        SelectCompanyFragment companyFragment = new SelectCompanyFragment();
+
+
         fragments.add(sexFragment);
         fragments.add(fragment);
+        fragments.add(companyFragment);
 
         mViewpager.setAdapter(new GuidePageAdapter(getSupportFragmentManager(), fragments));
     }
 
     public String mSelectAge;
     public String mSelectSex;
+    public String mInterest;
 
     @Subscribe
     public void onEvent(Object object) {
         //选择性别页面 点击下一步
-        if (object instanceof GuideNextEvent) {
-            GuideNextEvent nextEvent = (GuideNextEvent) object;
+        if (object instanceof GuideSexNextEvent) {
+            GuideSexNextEvent nextEvent = (GuideSexNextEvent) object;
             mSelectAge = nextEvent.getSelectAge();
             mSelectSex = nextEvent.getSelectSex();
             mViewpager.setCurrentItem(1);
@@ -138,7 +145,13 @@ public class GuideActivity extends BaseActivity {
             JumpUtils.goMain(this);
             finish();
         } else if (object instanceof GuideBackEvent) {
-            mViewpager.setCurrentItem(0);
+            GuideBackEvent backEvent = (GuideBackEvent) object;
+            int index = backEvent.getIndex();
+            mViewpager.setCurrentItem(index - 1);
+        } else if (object instanceof GuideInterestNextEvent) {
+            GuideInterestNextEvent interestEvent = (GuideInterestNextEvent) object;
+            mInterest = interestEvent.getInterest();
+            mViewpager.setCurrentItem(2);
         }
     }
 

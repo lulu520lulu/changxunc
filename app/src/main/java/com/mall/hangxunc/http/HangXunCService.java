@@ -30,7 +30,9 @@ public interface HangXunCService {
 
 
     @GET(ApiConstants.SET_CUSTOMER_STYLE)
-    Call<BaseBean> setCustomerStyle(@Query("sco") String custom_id, @Query("sex") String sex, @Query("age") String age, @Query("interest") String interest);
+    Call<BaseBean> setCustomerStyle(@Query("sco") String custom_id,
+                                    @Query("sex") String sex, @Query("age") String age, @Query("interest") String interest,
+                                    @Query("industryId") String industryId, @Query("companyName") String companyName);
 
 
     @GET(ApiConstants.GET_HOME_TOP_PATH)

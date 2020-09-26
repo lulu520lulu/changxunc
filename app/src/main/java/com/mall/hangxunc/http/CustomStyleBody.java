@@ -14,12 +14,34 @@ public class CustomStyleBody implements Serializable {
     @SerializedName("interest")
     String interest;
 
-    public CustomStyleBody( String sex, String age, String interest) {
+    @SerializedName("industryId")
+    String industryId;
+    @SerializedName("companyName")
+    String companyName;
+
+    public CustomStyleBody(String sex, String age, String interest, String industryId, String companyName) {
         this.sex = sex;
         this.age = age;
         this.interest = interest;
+        this.industryId = industryId;
+        this.companyName = companyName;
     }
 
+    public String getIndustryId() {
+        return industryId;
+    }
+
+    public void setIndustryId(String industryId) {
+        this.industryId = industryId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public String getSex() {
         return sex;

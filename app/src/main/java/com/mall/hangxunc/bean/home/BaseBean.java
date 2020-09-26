@@ -1,6 +1,8 @@
 package com.mall.hangxunc.bean.home;
 
-public class BaseBean {
+import java.io.Serializable;
+
+public class BaseBean implements Serializable {
     private String msg;
     private int code;
 

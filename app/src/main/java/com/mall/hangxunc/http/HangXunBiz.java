@@ -82,9 +82,9 @@ public class HangXunBiz {
         call.enqueue(listener);
     }
 
-    public void setCustomerStyle(String sex, String age, String interest, ResponseListener listener) {
+    public void setCustomerStyle(String sex, String age, String interest, String industryId, String companyName, ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<BaseBean> call = service.setCustomerStyle("1", sex, age, interest);
+        Call<BaseBean> call = service.setCustomerStyle("1", sex, age, interest, industryId, companyName);
         call.enqueue(listener);
     }
 

@@ -18,6 +18,7 @@ public interface CenterApiConstants {
 
     String IS_CUSTOMER_LOGIN = "/hx-pc/appUser/isCustomerLogin?";
 
+    String GET_ALL_INDUSTY = "/hx-pc/appIndusty/getAllIndusty?languageCode=zh-CN";
 
     int LIMIT = 6;
 
