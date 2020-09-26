@@ -90,6 +90,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
             @Override
             public void showPersion(String customId) {
                 initWebData(customId);
+                setCustomerStyle();
             }
         });
         mRegisterFragment = new RegisterFragment();
@@ -155,7 +156,7 @@ public class PersonalFragment extends BaseFragment<PersonalPresenter> {
 
     }
 
-    private void ss() {
+    private void setCustomerStyle() {
         Object body = CommSharedUtil.getInstance(getActivity()).getBeanFromSp("CustomStyleBody");
         if (body != null && (body instanceof CustomStyleBody)) {
             CustomStyleBody styleBody = (CustomStyleBody) body;

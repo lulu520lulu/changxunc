@@ -20,6 +20,9 @@ import com.mall.hangxunc.utils.CommSharedUtil;
 import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.ToastUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LauncherActivity extends AppCompatActivity {
 
     private CountDownTimer mTimer;
@@ -32,36 +35,36 @@ public class LauncherActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_launcher);
 
-        requestPermission();
+        initPermission();
     }
 
-    //录像需要的权限
-    private static final String[] VIDEO_PERMISSIONS = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    private static final int VIDEO_PERMISSIONS_CODE = 1;
+    private static final String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private List<String> mPermissionList = new ArrayList<>();
+    private final int mRequestCode = 100;
 
-    //申请权限
-    private void requestPermission() {
-        // 当API大于 23 时，才动态申请权限
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            for (int i = 0; i < VIDEO_PERMISSIONS.length; i++) {
-                String permission = VIDEO_PERMISSIONS[i];
-                int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, permission);
-                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(LauncherActivity.this, new String[]{permission}, VIDEO_PERMISSIONS_CODE);
-                    return;
-                }
+
+    private void initPermission() {
+        mPermissionList.clear();
+        for (int i = 0; i < permissions.length; i++) {
+            if (ContextCompat.checkSelfPermission(this, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
+                mPermissionList.add(permissions[i]);
             }
         }
-        timeStart();
+        if (mPermissionList.size() > 0) {
+            ActivityCompat.requestPermissions(this, permissions, mRequestCode);
+        }else{
+            timeStart();
+        }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case VIDEO_PERMISSIONS_CODE:
+            case mRequestCode:
                 //权限请求失败
-                if (grantResults.length == VIDEO_PERMISSIONS.length) {
+                if (grantResults.length == permissions.length) {
                     for (int result : grantResults) {
                         if (result != PackageManager.PERMISSION_GRANTED) {
                             //弹出对话框引导用户去设置
