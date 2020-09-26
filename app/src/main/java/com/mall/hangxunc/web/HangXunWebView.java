@@ -12,8 +12,11 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
@@ -277,6 +280,18 @@ public class HangXunWebView extends LinearLayout {
 
     public void destroyView() {
         clearHistory();
+        CookieSyncManager.createInstance(mContext.getApplicationContext());
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeSessionCookies(null);
+            cookieManager.removeAllCookie();
+            cookieManager.flush();
+        } else {
+            cookieManager.removeSessionCookies(null);
+            cookieManager.removeAllCookie();
+            CookieSyncManager.getInstance().sync();
+        }
+        WebStorage.getInstance().deleteAllData(); //清空WebView的localStorage
         mWebView = null;
     }
 
