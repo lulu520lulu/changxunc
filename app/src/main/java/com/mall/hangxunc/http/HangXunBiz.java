@@ -110,7 +110,7 @@ public class HangXunBiz {
      * @return
      */
     public void getAllProduct(int count, ResponseListener listener) {
-        HangXunCService service = getPostRetrofit().create(HangXunCService.class);
+        HangXunCService service = getRetrofit().create(HangXunCService.class);
         Call<ProductListBean> call = service.getAllProduct(LoginUtils.getInstance().getScoId(), count, ApiConstants.LIMIT,
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);

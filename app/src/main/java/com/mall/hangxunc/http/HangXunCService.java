@@ -48,10 +48,9 @@ public interface HangXunCService {
      * @param limit
      * @return
      */
-    @POST(ApiConstants.GET_ALL_PRODUCT_MOBILE_PATH)
-    @FormUrlEncoded
-    Call<ProductListBean> getAllProduct(@Field("sco") String custom_id, @Field("count") int count,
-                                        @Field("limit") int limit, @Field("language") String language, @Field("currency") String currency);
+    @GET(ApiConstants.GET_ALL_PRODUCT_MOBILE_PATH)
+    Call<ProductListBean> getAllProduct(@Query("sco") String custom_id, @Query("count") int count,
+                                        @Query("limit") int limit, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 首页添加购物车

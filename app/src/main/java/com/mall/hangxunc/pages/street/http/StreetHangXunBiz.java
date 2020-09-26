@@ -87,7 +87,7 @@ public class StreetHangXunBiz {
      * @return
      */
     public void getAllProduct(int count, ResponseListener listener) {
-        StreetHangXunCService service = getPostRetrofit().create(StreetHangXunCService.class);
+        StreetHangXunCService service = getRetrofit().create(StreetHangXunCService.class);
         Call<StreetAllProductBean> call = service.getAllProduct(LoginUtils.getInstance().getScoId(), count, StreetApiConstants.LIMIT,
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
