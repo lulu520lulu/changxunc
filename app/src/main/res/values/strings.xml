@@ -144,5 +144,7 @@
     <string name="list_foot">加载中...</string>
 
     <string name="street_banner_title">精选供应商</string>
+    <string name="mall_home_top_person">个人</string>
+    <string name="mall_home_top_company">企业</string>
 
 </resources>

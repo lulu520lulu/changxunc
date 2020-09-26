@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -65,7 +67,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     @BindView(R.id.search)
     FrameLayout search;
     @BindView(R.id.change_identity)
-    ImageView changeIdentity;
+    RadioGroup changeIdentity;
     @BindView(R.id.recycleView)
     RecyclerView recycleView;
     @BindView(R.id.type_list)
@@ -113,10 +115,17 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
         drawable.setBounds(0, 0, DimenUtils.dip2px(16), DimenUtils.dip2px(16));
         tv_search.setCompoundDrawables(drawable, null, null, null);
 
-        changeIdentity.setOnClickListener(new View.OnClickListener() {
+        changeIdentity.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                getLoginState();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.person:
+                        personIdentity();
+                        break;
+                    case R.id.company:
+                        companyIdentity();
+                        break;
+                }
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +143,7 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
         initTypeList();
         initList();
         getData();
+        getLoginState();
     }
 
     private void goSearch() {
@@ -396,6 +406,19 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
         return false;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mData==null){
+            return;
+        }
+        if (mData.getIs_company() == 1) {
+            ((RadioButton) (changeIdentity.getChildAt(1))).setChecked(true);
+        } else {
+            ((RadioButton) (changeIdentity.getChildAt(0))).setChecked(true);
+        }
+    }
+
     private void getLoginState() {
         loadingView.setVisibility(View.VISIBLE);
 
@@ -415,23 +438,51 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
                 }
                 if (bean.getCode() == 0) {
                     StreetIsLoginData data = bean.getData();
-                    showChangeDialog(data);
+                    mData = data;
+
+                    if (mData.getIs_company() == 1) {
+                        ((RadioButton) (changeIdentity.getChildAt(1))).setChecked(true);
+                    } else {
+                        ((RadioButton) (changeIdentity.getChildAt(1))).setChecked(false);
+                    }
+
                 }
             }
         });
     }
 
-    private StreetChangeIdentityDialog mStreetChangeIdentityDialog;
+    private StreetIsLoginData mData;
 
-    private void showChangeDialog(StreetIsLoginData data) {
-        if (data == null) {
-            return;
+
+    private void personIdentity() {
+        if (mData.getIs_company() == 1) {
+            JumpUtils.goMain(getContext());
+        } else {
+            JumpUtils.goMain(getContext());
+
         }
-        if (mStreetChangeIdentityDialog == null) {
-            mStreetChangeIdentityDialog = new StreetChangeIdentityDialog(getActivity(), data);
-        }
-        mStreetChangeIdentityDialog.show();
     }
+
+    private void companyIdentity() {
+        if (mData.getIs_company() == 1) {
+            JumpUtils.goCenter(getContext());
+        } else {
+            JumpUtils.goWeb(mData.getCompanyUrl());
+
+        }
+    }
+
+//    private StreetChangeIdentityDialog mStreetChangeIdentityDialog;
+//
+//    private void showChangeDialog(StreetIsLoginData data) {
+//        if (data == null) {
+//            return;
+//        }
+//        if (mStreetChangeIdentityDialog == null) {
+//            mStreetChangeIdentityDialog = new StreetChangeIdentityDialog(getActivity(), data);
+//        }
+//        mStreetChangeIdentityDialog.show();
+//    }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

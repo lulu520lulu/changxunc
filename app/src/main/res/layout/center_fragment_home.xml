@@ -44,14 +44,49 @@
                         android:textSize="16sp"
                         android:visibility="gone" />
 
-                    <ImageView
+
+                    <RadioGroup
                         android:id="@+id/start_change"
-                        android:layout_width="40dp"
-                        android:layout_height="20dp"
+                        android:layout_width="100dp"
+                        android:layout_height="24dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/center_home_change_id" />
+                        android:layout_marginRight="12dp"
+                        android:background="@drawable/mall_home_top_change_bg"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/person"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/street_home_top_change_check_bg"
+                            android:button="@null"
+                            android:checked="true"
+                            android:drawableLeft="@drawable/mall_home_top_person_icon"
+                            android:gravity="center"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:text="@string/mall_home_top_person"
+                            android:textColor="@color/mall_home_top_change_check_color"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/company"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/street_home_top_change_check_bg"
+                            android:button="@null"
+                            android:drawableLeft="@drawable/mall_home_top_company_icon"
+                            android:gravity="center"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:text="@string/mall_home_top_company"
+                            android:textColor="@color/mall_home_top_change_check_color"
+                            android:textSize="12sp" />
+                    </RadioGroup>
+
 
                     <ImageView
                         android:id="@+id/show_language"

@@ -93,7 +93,7 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
     @BindView(R.id.home_city)
     TextView homeCity;
     @BindView(R.id.start_change)
-    ImageView startChange;
+    RadioGroup startChange;
     @BindView(R.id.show_language)
     ImageView showLanguage;
     @BindView(R.id.start_search)
@@ -134,6 +134,7 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         EventBus.getDefault().register(this);
         init(view);
         getData();
+        getLoginState();
         return view;
     }
 
@@ -156,10 +157,23 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
                 showLanguageDialog();
             }
         });
-        startChange.setOnClickListener(new View.OnClickListener() {
+        startChange.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                getLoginState();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.person:
+                        JumpUtils.goMall(getContext());
+                        break;
+                    case R.id.company:
+                        CenterIsLoginData.UserBean user = mData.getUser();
+                        if (user.getEnterpriseStatus() == 1) {
+                            //企业
+                        } else {
+                            //个人
+                            JumpUtils.goWeb(mData.getEnterpriseLink());
+                        }
+                        break;
+                }
             }
         });
     }
@@ -657,6 +671,24 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mData == null) {
+            return;
+        }
+        CenterIsLoginData.UserBean user = mData.getUser();
+        if (user == null) {
+            return;
+        }
+        if (user.getEnterpriseStatus() == 1) {
+            ((RadioButton) (startChange.getChildAt(1))).setChecked(true);
+        } else {
+            ((RadioButton) (startChange.getChildAt(0))).setChecked(true);
+        }
+
+    }
+
     private void getLoginState() {
         loading.setVisibility(View.VISIBLE);
 
@@ -675,22 +707,33 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
                     return;
                 }
                 if (bean.getCode() == 0) {
-                    CenterIsLoginData data = bean.getData();
-                    showChangeDialog(data);
+                    mData = bean.getData();
+                    CenterIsLoginData.UserBean user = mData.getUser();
+                    if (user == null) {
+                        return;
+                    }
+                    if (user.getEnterpriseStatus() == 1) {
+                        ((RadioButton) (startChange.getChildAt(1))).setChecked(true);
+                    } else {
+                        ((RadioButton) (startChange.getChildAt(1))).setChecked(false);
+                    }
+
                 }
             }
         });
     }
 
+    private CenterIsLoginData mData;
 
-    private CenterChangeIdentityDialog mCenterChangeIdentityDialog;
-
-    private void showChangeDialog(CenterIsLoginData data) {
-        if (mCenterChangeIdentityDialog == null) {
-            mCenterChangeIdentityDialog = new CenterChangeIdentityDialog(getActivity(), data);
-        }
-        mCenterChangeIdentityDialog.show();
-    }
+//
+//    private CenterChangeIdentityDialog mCenterChangeIdentityDialog;
+//
+//    private void showChangeDialog(CenterIsLoginData data) {
+//        if (mCenterChangeIdentityDialog == null) {
+//            mCenterChangeIdentityDialog = new CenterChangeIdentityDialog(getActivity(), data);
+//        }
+//        mCenterChangeIdentityDialog.show();
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleLogin(MessageLogin message) {

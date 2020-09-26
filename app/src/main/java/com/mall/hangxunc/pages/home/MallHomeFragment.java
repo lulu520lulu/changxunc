@@ -13,6 +13,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,6 +46,7 @@ import com.mall.hangxunc.message.MessageHome;
 import com.mall.hangxunc.pages.widget.BottomView;
 import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.HangLog;
+import com.mall.hangxunc.utils.JumpUtils;
 import com.mall.hangxunc.utils.LoginUtils;
 import com.mall.hangxunc.web.HangXunWebView;
 
@@ -85,7 +88,7 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.start_change)
-    ImageView start_change;
+    RadioGroup start_change;
     @BindView(R.id.top_view)
     LinearLayout top_view;
 
@@ -132,6 +135,12 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((RadioButton) (start_change.getChildAt(0))).setChecked(true);
+    }
+
     private void init(View view) {
         Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.tabbar_search_un_select);
         drawable.setBounds(0, 0, DimenUtils.dip2px(16), DimenUtils.dip2px(16));
@@ -143,11 +152,17 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
                 goPerson();
             }
         });
-        expandTouchArea(start_change, DimenUtils.dip2px(20));
-        start_change.setOnClickListener(new View.OnClickListener() {
+        expandTouchArea(start_person, DimenUtils.dip2px(20));
+        start_change.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                showChangeDialog();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.person:
+                        break;
+                    case R.id.company:
+                        JumpUtils.goCenter(getActivity());
+                        break;
+                }
             }
         });
         expandTouchArea(start_change, DimenUtils.dip2px(20));
