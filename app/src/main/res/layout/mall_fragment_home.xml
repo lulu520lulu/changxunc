@@ -73,7 +73,7 @@
                     android:src="@mipmap/icon_home_person"
                     android:visibility="gone" />
 
-                <RadioGroup
+                <LinearLayout
                     android:id="@+id/start_change"
                     android:layout_width="100dp"
                     android:layout_height="24dp"
@@ -83,29 +83,27 @@
                     android:background="@drawable/mall_home_top_change_bg"
                     android:orientation="horizontal">
 
-                    <RadioButton
+                    <TextView
                         android:id="@+id/person"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@drawable/mall_home_top_change_check_bg"
-                        android:button="@null"
+                        android:background="@drawable/mall_home_top_change_checked_bg"
                         android:checked="true"
-                        android:drawableLeft="@drawable/mall_home_top_person_icon"
+                        android:drawableLeft="@mipmap/mall_home_top_person"
                         android:gravity="center"
                         android:paddingLeft="6dp"
                         android:paddingRight="6dp"
                         android:text="@string/mall_home_top_person"
-                        android:textColor="@color/mall_home_top_change_check_color"
+                        android:textColor="@color/white"
                         android:textSize="12sp" />
 
-                    <RadioButton
+                    <TextView
                         android:id="@+id/company"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/mall_home_top_change_check_bg"
-                        android:button="@null"
                         android:drawableLeft="@drawable/mall_home_top_company_icon"
                         android:gravity="center"
                         android:paddingLeft="6dp"
@@ -113,7 +111,7 @@
                         android:text="@string/mall_home_top_company"
                         android:textColor="@color/mall_home_top_change_check_color"
                         android:textSize="12sp" />
-                </RadioGroup>
+                </LinearLayout>
 
 
                 <RelativeLayout

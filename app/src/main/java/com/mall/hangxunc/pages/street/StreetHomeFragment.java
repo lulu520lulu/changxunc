@@ -66,8 +66,10 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
     private static final String TAG = StreetHomeFragment.class.getSimpleName();
     @BindView(R.id.search)
     FrameLayout search;
-    @BindView(R.id.change_identity)
-    RadioGroup changeIdentity;
+    @BindView(R.id.person)
+    TextView changeIdentityPerson;
+    @BindView(R.id.company)
+    TextView changeIdentityCompany;
     @BindView(R.id.recycleView)
     RecyclerView recycleView;
     @BindView(R.id.type_list)
@@ -114,18 +116,16 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
         Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.tabbar_search_un_select);
         drawable.setBounds(0, 0, DimenUtils.dip2px(16), DimenUtils.dip2px(16));
         tv_search.setCompoundDrawables(drawable, null, null, null);
-
-        changeIdentity.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        changeIdentityPerson.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.person:
-                        personIdentity();
-                        break;
-                    case R.id.company:
-                        companyIdentity();
-                        break;
-                }
+            public void onClick(View v) {
+                personIdentity();
+            }
+        });
+        changeIdentityCompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                companyIdentity();
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
@@ -406,18 +406,6 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
         return false;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mData==null){
-            return;
-        }
-        if (mData.getIs_company() == 1) {
-            ((RadioButton) (changeIdentity.getChildAt(1))).setChecked(true);
-        } else {
-            ((RadioButton) (changeIdentity.getChildAt(0))).setChecked(true);
-        }
-    }
 
     private void getLoginState() {
         loadingView.setVisibility(View.VISIBLE);
@@ -439,12 +427,6 @@ public class StreetHomeFragment extends BaseFragment<StreetHomePresenter> {
                 if (bean.getCode() == 0) {
                     StreetIsLoginData data = bean.getData();
                     mData = data;
-
-                    if (mData.getIs_company() == 1) {
-                        ((RadioButton) (changeIdentity.getChildAt(1))).setChecked(true);
-                    } else {
-                        ((RadioButton) (changeIdentity.getChildAt(1))).setChecked(false);
-                    }
 
                 }
             }

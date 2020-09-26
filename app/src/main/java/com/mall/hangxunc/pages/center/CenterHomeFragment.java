@@ -92,8 +92,10 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
     Banner banner;
     @BindView(R.id.home_city)
     TextView homeCity;
-    @BindView(R.id.start_change)
-    RadioGroup startChange;
+    @BindView(R.id.person)
+    TextView changeIdentityPerson;
+    @BindView(R.id.company)
+    TextView changeIdentityCompany;
     @BindView(R.id.show_language)
     ImageView showLanguage;
     @BindView(R.id.start_search)
@@ -157,25 +159,26 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
                 showLanguageDialog();
             }
         });
-        startChange.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+        changeIdentityPerson.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.person:
-                        JumpUtils.goMall(getContext());
-                        break;
-                    case R.id.company:
-                        CenterIsLoginData.UserBean user = mData.getUser();
-                        if (user.getEnterpriseStatus() == 1) {
-                            //企业
-                        } else {
-                            //个人
-                            JumpUtils.goWeb(mData.getEnterpriseLink());
-                        }
-                        break;
+            public void onClick(View v) {
+                JumpUtils.goMall(getContext());
+            }
+        });
+        changeIdentityCompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CenterIsLoginData.UserBean user = mData.getUser();
+                if (user.getEnterpriseStatus() == 1) {
+                    //企业
+                } else {
+                    //个人
+                    JumpUtils.goWeb(mData.getEnterpriseLink());
                 }
             }
         });
+
     }
 
     private void showLanguageDialog() {
@@ -671,24 +674,6 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mData == null) {
-            return;
-        }
-        CenterIsLoginData.UserBean user = mData.getUser();
-        if (user == null) {
-            return;
-        }
-        if (user.getEnterpriseStatus() == 1) {
-            ((RadioButton) (startChange.getChildAt(1))).setChecked(true);
-        } else {
-            ((RadioButton) (startChange.getChildAt(0))).setChecked(true);
-        }
-
-    }
-
     private void getLoginState() {
         loading.setVisibility(View.VISIBLE);
 
@@ -711,11 +696,6 @@ public class CenterHomeFragment extends BaseFragment<CenterHomePresenter> {
                     CenterIsLoginData.UserBean user = mData.getUser();
                     if (user == null) {
                         return;
-                    }
-                    if (user.getEnterpriseStatus() == 1) {
-                        ((RadioButton) (startChange.getChildAt(1))).setChecked(true);
-                    } else {
-                        ((RadioButton) (startChange.getChildAt(1))).setChecked(false);
                     }
 
                 }

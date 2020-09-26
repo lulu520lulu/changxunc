@@ -100,7 +100,7 @@ public class HangActivityManager {
     public void finishActivity(Activity activity) {
         if (activity != null) {
             activityStack.remove(activity);
-            activity.finish();
+//            activity.finish();
             activity = null;
         }
     }

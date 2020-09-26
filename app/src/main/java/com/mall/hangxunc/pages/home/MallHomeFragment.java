@@ -65,6 +65,8 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
     private static final String TAG = MallHomeFragment.class.getSimpleName();
     @BindView(R.id.search)
     FrameLayout search;
+    @BindView(R.id.start_change)
+    LinearLayout start_change;
     @BindView(R.id.start_person)
     ImageView start_person;
     @BindView(R.id.recycleView)
@@ -87,8 +89,10 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
     RelativeLayout login_person;
     @BindView(R.id.name)
     TextView name;
-    @BindView(R.id.start_change)
-    RadioGroup start_change;
+    @BindView(R.id.person)
+    TextView changeIdentityPerson;
+    @BindView(R.id.company)
+    TextView changeIdentityCompany;
     @BindView(R.id.top_view)
     LinearLayout top_view;
 
@@ -135,11 +139,6 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((RadioButton) (start_change.getChildAt(0))).setChecked(true);
-    }
 
     private void init(View view) {
         Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.tabbar_search_un_select);
@@ -153,19 +152,13 @@ public class MallHomeFragment extends BaseFragment<MallHomePresenter> {
             }
         });
         expandTouchArea(start_person, DimenUtils.dip2px(20));
-        start_change.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        changeIdentityCompany.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.person:
-                        break;
-                    case R.id.company:
-                        JumpUtils.goCenter(getActivity());
-                        break;
-                }
+            public void onClick(View v) {
+                JumpUtils.goCenter(getActivity());
             }
         });
-        expandTouchArea(start_change, DimenUtils.dip2px(20));
+        expandTouchArea(changeIdentityCompany, DimenUtils.dip2px(20));
         login_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
