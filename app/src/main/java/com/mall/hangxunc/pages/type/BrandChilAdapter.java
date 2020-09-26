@@ -12,11 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mall.hangxunc.R;
-import com.bumptech.glide.Glide;
-import com.mall.hangxunc.bean.home.CategoryChildBean;
+import com.mall.hangxunc.bean.home.BrandListBean;
 import com.mall.hangxunc.bean.home.TypeChildrenBean;
 import com.mall.hangxunc.utils.DimenUtils;
 import com.mall.hangxunc.utils.JumpUtils;
@@ -24,12 +24,12 @@ import com.mall.hangxunc.utils.WindowUtils;
 
 import java.util.List;
 
-public class TypeChildAdapter extends RecyclerView.Adapter {
+public class BrandChilAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private List<TypeChildrenBean> mData;
 
-    public TypeChildAdapter(Context mContext, List<TypeChildrenBean> data) {
+    public BrandChilAdapter(Context mContext, List<TypeChildrenBean> data) {
         this.mContext = mContext;
         this.mData = data;
     }
@@ -38,12 +38,12 @@ public class TypeChildAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.mall_adapter_type_type_item, parent, false);
-        return new TypeChildAdapter.VH(view);
+        return new VH(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        TypeChildAdapter.VH vh = (TypeChildAdapter.VH) holder;
+        VH vh = (VH) holder;
         TypeChildrenBean categoryChildBean = mData.get(position);
         if (TextUtils.isEmpty(categoryChildBean.getName())) {
             vh.textView.setVisibility(View.GONE);
@@ -99,4 +99,6 @@ public class TypeChildAdapter extends RecyclerView.Adapter {
             imageView = itemView.findViewById(R.id.image);
         }
     }
+
+
 }

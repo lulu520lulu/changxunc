@@ -13,7 +13,7 @@ public class CategoryChildBean {
     private String name;
     private String thumb;
     private String href;
-    private List<ChildrenBean> children;
+    private List<TypeChildrenBean> children;
     private String category_id;
 
     public String getCategory_id() {
@@ -48,58 +48,13 @@ public class CategoryChildBean {
         this.href = href;
     }
 
-    public List<ChildrenBean> getChildren() {
+    public List<TypeChildrenBean> getChildren() {
         return children;
     }
 
-    public void setChildren(List<ChildrenBean> children) {
+    public void setChildren(List<TypeChildrenBean> children) {
         this.children = children;
     }
 
-    public static class ChildrenBean {
-        /**
-         * thumb : http://b.hangxunc.com/image/cache/catalog/nongji-80x80.png
-         * name : 农业机械
-         * href : http://b.hangxunc.com/index.php?route=product/category&amp;path=59_114
-         * grand_children : []
-         */
-
-        private String thumb;
-        private String name;
-        private String href;
-        private List<?> grand_children;
-
-        public String getThumb() {
-            return thumb;
-        }
-
-        public void setThumb(String thumb) {
-            this.thumb = thumb;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getHref() {
-            return href;
-        }
-
-        public void setHref(String href) {
-            this.href = href;
-        }
-
-        public List<?> getGrand_children() {
-            return grand_children;
-        }
-
-        public void setGrand_children(List<?> grand_children) {
-            this.grand_children = grand_children;
-        }
-    }
 }
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.bean.home.CategoryChildBean;
+import com.mall.hangxunc.bean.home.TypeChildrenBean;
 import com.mall.hangxunc.pages.widget.BottomView;
 import com.mall.hangxunc.utils.JumpUtils;
 
@@ -45,11 +46,11 @@ public class TypeAdapter extends RecyclerView.Adapter {
         TypeAdapter.VH vh = (TypeAdapter.VH) holder;
         CategoryChildBean item = mData.get(position);
         vh.textView.setText(item.getName());
-        List<CategoryChildBean.ChildrenBean> childrenList = item.getChildren();
+        List<TypeChildrenBean> childrenList = item.getChildren();
         if (childrenList == null || childrenList.size() == 0) {
-            CategoryChildBean.ChildrenBean childrenBean = new CategoryChildBean.ChildrenBean();
+            TypeChildrenBean childrenBean = new TypeChildrenBean();
             childrenBean.setThumb(item.getThumb());
-            childrenList = new ArrayList<CategoryChildBean.ChildrenBean>();
+            childrenList = new ArrayList<TypeChildrenBean>();
             childrenList.add(childrenBean);
         }
         TypeChildAdapter childAdapter = new TypeChildAdapter(mContext, childrenList);

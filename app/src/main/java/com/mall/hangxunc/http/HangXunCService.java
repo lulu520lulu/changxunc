@@ -1,6 +1,7 @@
 package com.mall.hangxunc.http;
 
 import com.mall.hangxunc.bean.home.BaseBean;
+import com.mall.hangxunc.bean.home.BrandListModule;
 import com.mall.hangxunc.bean.home.CategoryListData;
 import com.mall.hangxunc.bean.home.CountryListData;
 import com.mall.hangxunc.bean.home.CurrencyListBean;
@@ -111,7 +112,7 @@ public interface HangXunCService {
      * @return
      */
     @GET(ApiConstants.GET_MANUFACTURER_PAGE_PATH)
-    Call<CategoryListData> getManufacturer(@Query("sco") String sco, @Query("language") String language, @Query("currency") String currency);
+    Call<BrandListModule> getManufacturer(@Query("sco") String sco, @Query("language") String language, @Query("currency") String currency);
 
     /**
      * 语言切换

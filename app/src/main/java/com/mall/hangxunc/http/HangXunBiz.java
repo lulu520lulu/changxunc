@@ -2,6 +2,7 @@ package com.mall.hangxunc.http;
 
 
 import com.mall.hangxunc.bean.home.BaseBean;
+import com.mall.hangxunc.bean.home.BrandListModule;
 import com.mall.hangxunc.bean.home.CategoryListData;
 import com.mall.hangxunc.bean.home.CountryListData;
 import com.mall.hangxunc.bean.home.CurrencyListBean;
@@ -180,7 +181,7 @@ public class HangXunBiz {
      */
     public void getManufacturer(ResponseListener listener) {
         HangXunCService service = getRetrofit().create(HangXunCService.class);
-        Call<CategoryListData> call = service.getManufacturer(LoginUtils.getInstance().getScoId(),
+        Call<BrandListModule> call = service.getManufacturer(LoginUtils.getInstance().getScoId(),
                 LanguageSp.getInstance().getCode(), CurrencySp.getInstance().getCode());
         call.enqueue(listener);
     }

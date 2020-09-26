@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mall.hangxunc.R;
+import com.mall.hangxunc.bean.home.BrandListBean;
+import com.mall.hangxunc.bean.home.BrandListModule;
 import com.mall.hangxunc.bean.home.CategoryChildBean;
 import com.mall.hangxunc.bean.home.CategoryListBean;
 import com.mall.hangxunc.bean.home.CategoryListData;
@@ -28,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -176,7 +179,7 @@ public class TypeFragment extends BaseFragment<TypePresenter> {
 
     private void getBrandData() {
         showLoading();
-        HangXunBiz.getInstance().getManufacturer(new ResponseListener<CategoryListData>() {
+        HangXunBiz.getInstance().getManufacturer(new ResponseListener<BrandListModule>() {
             @Override
             public void onFail(int code, String message) {
                 HangLog.d(TAG, "onFail getManufacturer code: " + code + ",message:" + message);
@@ -184,25 +187,37 @@ public class TypeFragment extends BaseFragment<TypePresenter> {
             }
 
             @Override
-            public void onSuccess(CategoryListData data) {
+            public void onSuccess(BrandListModule data) {
                 if (data == null || data.getData() == null) {
                     showEmpty();
                     return;
                 }
-                CategoryListBean bean = data.getData();
-                List<CategoryChildBean> categories = bean.getCategories();
-                if (categories == null || categories.size() == 0) {
+                BrandListBean bean = data.getData();
+                BrandListBean.CategoriesBean categories = bean.getCategories();
+                BrandListBean.CategoriesBean.HBean h = categories.getH();
+                BrandListBean.CategoriesBean.HBean k = categories.getK();
+
+
+                List<BrandListBean.CategoriesBean.HBean> childrenList = new ArrayList<>();
+                if (h != null) {
+                    childrenList.add(h);
+                }
+                if (k != null) {
+                    childrenList.add(k);
+                }
+
+                if (childrenList == null || childrenList.size() == 0) {
                     showEmpty();
                     return;
                 }
                 HangLog.d(TAG, "onSuccess getManufacturer bean: " + bean.toString());
-                showBrandSuccess(categories);
+                showBrandSuccess(childrenList);
             }
         });
 
     }
 
-    private void showBrandSuccess(List<CategoryChildBean> list) {
+    private void showBrandSuccess(List<BrandListBean.CategoriesBean.HBean> list) {
         hideLoading();
         mBrandAdapter.setData(list);
     }
