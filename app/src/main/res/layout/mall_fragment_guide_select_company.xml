@@ -76,7 +76,7 @@
                 android:drawableLeft="@mipmap/company_edit_icon"
                 android:drawablePadding="8dp"
                 android:gravity="center"
-                android:hint="请填写您的公司名称"
+                android:hint="请填写您的公司名称（选填）"
                 android:includeFontPadding="false"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"

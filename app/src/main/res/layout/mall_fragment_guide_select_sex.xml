@@ -43,15 +43,14 @@
                 android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingTop="20dp"
                 app:layout_constraintEnd_toStartOf="@id/selectSex_woman"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/selectSex_textView1">
 
                 <ImageView
                     android:id="@+id/selectSex_man_img"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:scaleType="fitXY"
                     android:src="@mipmap/guide_man_true" />
 
@@ -59,8 +58,9 @@
                     android:id="@+id/selectSex_man_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="男士" />
+                    android:layout_marginTop="12dp"
+                    android:text="男士"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -71,15 +71,14 @@
                 android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/selectSex_man"
                 app:layout_constraintTop_toTopOf="@id/selectSex_man">
 
                 <ImageView
                     android:id="@+id/selectSex_woman_img"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:scaleType="fitXY"
                     android:src="@mipmap/guide_woman_false" />
 
@@ -87,15 +86,16 @@
                     android:id="@+id/selectSex_woman_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="女士" />
+                    android:layout_marginTop="12dp"
+                    android:text="女士"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/selectSex_textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="出生年代"
                 android:textColor="@color/mall_main_text"
@@ -109,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

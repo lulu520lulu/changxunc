@@ -190,11 +190,6 @@ public class SelectCompanyFragment extends BaseFragment<SelectCompanyPresenter> 
         loading.setVisibility(View.VISIBLE);
 
         String companyStr = edit_company.getText().toString();
-        if (TextUtils.isEmpty(companyStr)) {
-            Toast.makeText(getActivity(), "请填写公司名称", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
 
         List<IndustryBean> data = mAdapter.getData();
         StringBuffer buffer = new StringBuffer();
@@ -204,7 +199,6 @@ public class SelectCompanyFragment extends BaseFragment<SelectCompanyPresenter> 
                 buffer.append(bean.getName()).append(",");
             }
         }
-
 
         GuideActivity activity = (GuideActivity) getActivity();
         if (LoginUtils.getInstance().isLogin()) {
