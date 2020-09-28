@@ -1,5 +1,6 @@
 package com.mall.hangxunc.web;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.mall.hangxunc.HangActivityManager;
 import com.mall.hangxunc.message.MessageGoLogin;
 import com.mall.hangxunc.R;
 import com.mall.hangxunc.BaseActivity;
@@ -60,10 +62,15 @@ public class HybridActivity extends BaseActivity {
         if (TextUtils.isEmpty(urlPath)) {
             return;
         }
-        Intent intent = new Intent(HangXunApplication.getInstance(), HybridActivity.class);
+        Activity topActivity = HangActivityManager.getInstance().getTopActivity();
+        if (topActivity == null) {
+            return;
+        }
+        Intent intent = new Intent(topActivity, HybridActivity.class);
         intent.putExtra(Constants.WEB_URL_KEY, urlPath);
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        HangXunApplication.getInstance().startActivity(intent);
+
+        topActivity.startActivity(intent);
+
     }
 
     private void initView() {

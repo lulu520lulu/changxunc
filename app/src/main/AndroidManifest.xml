@@ -34,7 +34,8 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.mall.hangxunc.web.HybridActivity"
-            android:configChanges="orientation|screenSize|locale" />
+            android:configChanges="orientation|screenSize|locale"
+            android:launchMode="standard" />
         <activity
             android:name="com.mall.hangxunc.pages.home.MallAllPostActivity"
             android:configChanges="orientation|screenSize|locale" />

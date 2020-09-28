@@ -12,9 +12,14 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
@@ -78,15 +83,14 @@ public class HangXunWebView extends LinearLayout {
         mWebView.getSettings().setSupportMultipleWindows(true);
         mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setAppCacheEnabled(false);
         mWebView.getSettings().setSupportZoom(false);
         mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setLoadsImagesAutomatically(true);
         addJavascriptInterface();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
             mWebView.setWebContentsDebuggingEnabled(true);
-
         }
 
         LayoutParams lps = new LayoutParams(LayoutParams.MATCH_PARENT, 0, 1);
@@ -97,6 +101,8 @@ public class HangXunWebView extends LinearLayout {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                HangLog.e("lulu", "onProgressChanged : " + newProgress);
+
                 if (newProgress == 100) {
                     mProgressBar.setVisibility(View.GONE);
                 } else {
@@ -126,11 +132,23 @@ public class HangXunWebView extends LinearLayout {
                 }
             }
 
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                HangLog.e("lulu", "onReceivedError : " + error.toString());
+
+            }
+
+            @Override
+            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                super.onReceivedHttpError(view, request, errorResponse);
+                HangLog.e("lulu", "onReceivedHttpError : " + errorResponse.getData());
+
+            }
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 HangLog.e("lulu", "shouldOverrideUrlLoading : " + url);
-
                 if (TextUtils.equals(url, "http://c.hangxunc.com/index.php?route=account/logout")) {
                     LoginUtils.getInstance().loginOut();
                     EventBus.getDefault().post(MessageLogin.getInstance(MessageLogin.LOGIN_OUT));
@@ -159,7 +177,7 @@ public class HangXunWebView extends LinearLayout {
                     }
                 } else if (TextUtils.equals(url, "http://b.hangxunc.com/")) {
                     JumpUtils.goStreet(HangXunApplication.getInstance());
-                    return  true;
+                    return true;
                 } else if (TextUtils.equals(url, "http://d.hangxunc.com:8081/scocenter/#/")) {
                     JumpUtils.goCenter(HangXunApplication.getInstance());
                     return true;
@@ -171,6 +189,7 @@ public class HangXunWebView extends LinearLayout {
                 return false;
             }
 
+            @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 HangLog.e("lulu", "onPageFinished : " + url);
@@ -270,28 +289,36 @@ public class HangXunWebView extends LinearLayout {
     public void clearHistory() {
         if (null != mWebView) {
             needClearHistory = true;
-            mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-            mWebView.clearCache(true);
-            mWebView.clearHistory();
-            mWebView.freeMemory();
-            mWebView.pauseTimers();
+//            mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+//            mWebView.clearCache(true);
+//            mWebView.clearHistory();
+//            mWebView.freeMemory();
+//            mWebView.pauseTimers();
         }
     }
 
     public void destroyView() {
         clearHistory();
-        CookieSyncManager.createInstance(mContext.getApplicationContext());
-        CookieManager cookieManager = CookieManager.getInstance();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            cookieManager.removeSessionCookies(null);
-            cookieManager.removeAllCookie();
-            cookieManager.flush();
-        } else {
-            cookieManager.removeSessionCookies(null);
-            cookieManager.removeAllCookie();
-            CookieSyncManager.getInstance().sync();
+//        CookieSyncManager.createInstance(mContext.getApplicationContext());
+//        CookieManager cookieManager = CookieManager.getInstance();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            cookieManager.removeSessionCookies(null);
+//            cookieManager.removeAllCookie();
+//            cookieManager.flush();
+//        } else {
+//            cookieManager.removeSessionCookies(null);
+//            cookieManager.removeAllCookie();
+//            CookieSyncManager.getInstance().sync();
+//        }
+//        WebStorage.getInstance().deleteAllData();
+        if (mWebView != null) {
+            mWebView.clearFocus();
+            ViewParent parent = mWebView.getParent();
+            if (parent != null && parent instanceof ViewGroup) {
+                ((ViewGroup) parent).removeView(mWebView);
+                mWebView.removeAllViews();
+            }
         }
-        WebStorage.getInstance().deleteAllData(); //清空WebView的localStorage
         mWebView = null;
     }
 

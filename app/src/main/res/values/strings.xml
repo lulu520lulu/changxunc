@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">scomall</string>
+    <string name="app_name">橙果工厂</string>
 
     <string-array name="search_sort">
         <item>默认</item>
