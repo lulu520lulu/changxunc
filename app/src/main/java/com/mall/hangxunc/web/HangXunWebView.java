@@ -299,18 +299,6 @@ public class HangXunWebView extends LinearLayout {
 
     public void destroyView() {
         clearHistory();
-//        CookieSyncManager.createInstance(mContext.getApplicationContext());
-//        CookieManager cookieManager = CookieManager.getInstance();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            cookieManager.removeSessionCookies(null);
-//            cookieManager.removeAllCookie();
-//            cookieManager.flush();
-//        } else {
-//            cookieManager.removeSessionCookies(null);
-//            cookieManager.removeAllCookie();
-//            CookieSyncManager.getInstance().sync();
-//        }
-//        WebStorage.getInstance().deleteAllData();
         if (mWebView != null) {
             mWebView.clearFocus();
             ViewParent parent = mWebView.getParent();
